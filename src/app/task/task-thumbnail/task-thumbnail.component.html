@@ -1,0 +1,6 @@
+<a [routerLink]="['/tasks', task.id]" *ngIf="task" class="list-group-item" draggable="true">
+  <span [ngClass]="getDeadlineBadgeClass()" class="badge">#00{{task.id}}</span>
+  <span class="badge">Nieprzypisany</span>
+  {{task.name}}
+  <span class="glyphicon glyphicon-plus-sign"></span>
+</a>

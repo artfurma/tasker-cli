@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-sm-6 col-lg-6">
+    <div class="list-group indented" *ngFor="let task of tasks">
+      <task-thumbnail [task]="task"></task-thumbnail>
+      <div class="list-group indented" *ngFor="let subtask of task.children">
+        <task-thumbnail [task]="subtask"></task-thumbnail>
+        <div class="list-group indented" *ngFor="let subsubtask of subtask.children">
+          <task-thumbnail [task]="subsubtask"></task-thumbnail>
+          <div class="list-group indented" *ngFor="let subsubsubtask of subsubtask.children">
+            <task-thumbnail [task]="subsubsubtask"></task-thumbnail>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

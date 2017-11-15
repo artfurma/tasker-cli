@@ -17,9 +17,10 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "app",
+      "prefix": "tskr",
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "tasker-theme.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
