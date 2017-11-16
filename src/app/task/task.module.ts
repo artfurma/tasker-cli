@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskThumbnailComponent } from './task-thumbnail/task-thumbnail.component';
 import { TaskTreeComponent } from './task-tree/task-tree.component';
 import { TaskDetailsComponent } from './task-details/task-details.component';
+import { TaskMainComponent } from './task-main/task-main.component';
 
 import { TaskTreeResolverService } from './shared/task-tree-resolver.service';
 import { TaskResolverService } from './shared/task-resolver.service';
@@ -24,7 +25,8 @@ import { taskRouting } from './task.routing';
     declarations: [
         TaskTreeComponent,
         TaskThumbnailComponent,
-        TaskDetailsComponent
+        TaskDetailsComponent,
+        TaskMainComponent
     ],
     providers: [
         TaskTreeResolverService,

@@ -7,17 +7,17 @@ import { Http, Response, Headers, Request, RequestOptions } from '@angular/http'
 @Injectable()
 export class TaskService {
 
-    constructor(private _http: Http, @Inject('BASE_URL') private baseUrl: string) {
+    constructor(private _http: Http) {
     }
 
     getTasks(): Observable<Task[]> {
-        return this._http.get(`${this.baseUrl}api/tasks`).map((response: Response) => {
+        return this._http.get(`http://demo5516762.mockable.io/tasks`).map((response: Response) => {
             return <Task[]>response.json();
         }).catch(this.handleError);
     }
 
     getTask(id: number): Observable<Task> {
-        return this._http.get(`${this.baseUrl}api/tasks/${id}`).map((response: Response) => {
+        return this._http.get(`http://demo5516762.mockable.io/tasks/${id}`).map((response: Response) => {
             return <Task>response.json();
         }).catch(this.handleError);
     }
