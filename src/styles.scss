@@ -4,6 +4,7 @@
 body {  
     margin: 0;  
     font-family: 'Roboto', sans-serif;
+    background-color: lightgray;
   }
 
  * { 
@@ -11,8 +12,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
  }
 
- .app-toolbar { position: fixed; z-index: 2; }
- 
- .app-belowtoolbar { margin-top: 64px; }
+ .app-belowtoolbar { margin-top: 16px; }
  
  .secondary { color: rgba(0,0,0,0.54); }
+ 

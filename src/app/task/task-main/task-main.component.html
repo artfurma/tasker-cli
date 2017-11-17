@@ -1,4 +1,9 @@
-<mat-toolbar>Task Tree!</mat-toolbar>
-<button mat-fab [routerLink]="['/dragons/new']" class="fab" routerLinkActive="active"><mat-icon class="md-24">add</mat-icon></button>
-<router-outlet name="details"></router-outlet>
-<router-outlet></router-outlet>
+<mat-toolbar>Filters placeholder</mat-toolbar>
+<!-- <button mat-fab [routerLink]="['/dragons/new']" class="fab" routerLinkActive="active"><mat-icon class="md-24">add</mat-icon></button> -->
+<div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
+        <div fxFlex><router-outlet></router-outlet></div>
+        <div fxFlex><router-outlet name="details"></router-outlet></div>
+    </div>
+</div>
+<!-- <router-outlet name="details"></router-outlet> -->

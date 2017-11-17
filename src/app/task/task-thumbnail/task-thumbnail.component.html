@@ -1,8 +1,3 @@
-<!-- <a [routerLink]="['/tasks', task.id]" *ngIf="task" class="list-group-item" draggable="true">
-  <span [ngClass]="getDeadlineBadgeClass()" class="badge">#00{{task.id}}</span>
-  <span class="badge">Nieprzypisany</span>
+<a mat-button color="" [routerLink]="['/tasks', task.id]" *ngIf="task" class="list-group-item" draggable="true">
   {{task.name}}
-  <span class="glyphicon glyphicon-plus-sign"></span>
-</a> -->
-
-{{task.name}}
+</a>

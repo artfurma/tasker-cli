@@ -1,16 +1,17 @@
-<div class="row">
-  <div class="col-sm-6 col-lg-6">
-    <div class="list-group indented" *ngFor="let task of tasks">
+<mat-card class="task-tree-container">
+  <mat-nav-list>
+    <div *ngFor="let task of tasks">
       <tskr-task-thumbnail [task]="task"></tskr-task-thumbnail>
-      <div class="list-group indented" *ngFor="let subtask of task.children">
-        <tskr-task-thumbnail [task]="subtask"></tskr-task-thumbnail>
-        <div class="list-group indented" *ngFor="let subsubtask of subtask.children">
-          <tskr-task-thumbnail [task]="subsubtask"></tskr-task-thumbnail>
-          <div class="list-group indented" *ngFor="let subsubsubtask of subsubtask.children">
-            <tskr-task-thumbnail [task]="subsubsubtask"></tskr-task-thumbnail>
-          </div>
+      <mat-nav-list *ngIf="task.children" style="margin-left: 30px">
+        <div *ngFor="let subtask of task.children">
+          <tskr-task-thumbnail [task]="subtask"></tskr-task-thumbnail>
+          <mat-nav-list *ngIf="subtask.children" style="margin-left: 60px">
+            <div *ngFor="let subsubtask of subtask.children">
+              <tskr-task-thumbnail [task]="subsubtask"></tskr-task-thumbnail>
+            </div>
+          </mat-nav-list>
         </div>
-      </div>
+      </mat-nav-list>
     </div>
-  </div>
-</div>
+  </mat-nav-list>
+</mat-card>
