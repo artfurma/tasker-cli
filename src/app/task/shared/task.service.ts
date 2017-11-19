@@ -23,7 +23,7 @@ export class TaskService {
     }
 
     getTask(id: number): Observable<Task> {
-        return this._http.get(`http://demo5516762.mockable.io/tasks/${id}`).map((response: Response) => {
+        return this._http.get(`http://demo0992071.mockable.io/task`).map((response: Response) => {
             return <Task>response.json();
         }).catch(this.handleError);
     }

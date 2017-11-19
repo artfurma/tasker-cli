@@ -1,3 +1,17 @@
-<p>
-  task-details works!
-</p>
+<div class="col-sm-6" style="border: solid 1px #ddd; border-radius:4px; margin: 3px; ">
+    <h2>
+        {{Title}}
+        <p>{{printStatus}}</p>
+        <p *ngFor="let days of DaysRemaining">
+            <span class="badge bg-success">{{days}} days</span>
+        </p>
+        
+    </h2>
+    <p *ngFor="let user of UserNames">
+        <span class="label label-default">{{user}}</span>
+    </p>
+    <p>{{Content}}<p>
+    <button type="button" (click)="editTask()" class="btn">Edit</button>
+    <button type="button" (click)="deleteTask()" class="btn">Delete</button>
+    <div class="well well-lg">{{Comments}}</div>
+</div>
