@@ -1,0 +1,33 @@
+.Aligner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+  }
+
+  .form-container{
+    border: 1px solid rgba(0,0,0,.03);
+    box-shadow: 0 2px 2px rgba(0,0,0,.24), 0 0 2px rgba(0,0,0,.12);
+    margin: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: whitesmoke;
+    max-width: 45%;
+  }
+
+  .login-logo{
+    
+    margin-top:-5px;
+  }
+  
+  .logo {
+    max-width: 60%;
+    padding-bottom: 20px;
+  }
+
+  .button-margin {
+      margin: 10px;
+  }

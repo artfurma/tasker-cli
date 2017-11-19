@@ -9,13 +9,23 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 
 import { routing } from './app.routing';
+import { AlertComponent } from './alert/alert.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { AuthenticationService } from "./auth/authentication/authentication.service";
+import { UserService } from "./users/user/user.service";
+import { AlertService } from "./alert/alert.service";
+import {AuthGuard } from "./auth/guard/auth.guard";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
-  ],
+    HomeComponent,
+    AlertComponent,
+    LoginComponent,
+    RegisterComponent
+],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -24,7 +34,7 @@ import { routing } from './app.routing';
     TaskerMaterialModule,
     routing
   ],
-  providers: [],
+  providers: [AuthenticationService,UserService,AlertService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
