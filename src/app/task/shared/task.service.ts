@@ -16,6 +16,12 @@ export class TaskService {
         }).catch(this.handleError);
     }
 
+    getTasksDb(): Observable<Task[]> {
+        return this._http.get(`http://localhost:4200/api/task/gettasks`).map((response: Response) => {
+            return <Task[]>response.json();
+        }).catch(this.handleError);
+    }
+
     getTask(id: number): Observable<Task> {
         return this._http.get(`http://demo5516762.mockable.io/tasks/${id}`).map((response: Response) => {
             return <Task>response.json();

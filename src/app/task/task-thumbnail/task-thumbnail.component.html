@@ -1,3 +1,8 @@
-<a mat-button color="" [routerLink]="['/tasks', task.id]" *ngIf="task" class="list-group-item" draggable="true">
+<!-- <a mat-button color="" [routerLink]="['/tasks', task.id]" *ngIf="task" class="list-group-item" draggable="true">
   {{task.name}}
+</a> -->
+
+<a *ngIf="task" class="list-group-item" draggable="true">
+    {{task.title}}
+    <span [ngClass]="getDeadlineBadgeClass()" class="badge">8 days</span>
 </a>

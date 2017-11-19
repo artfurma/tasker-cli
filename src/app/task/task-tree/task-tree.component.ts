@@ -1,3 +1,4 @@
+import { TaskService } from './../shared/task.service';
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../shared/task.model';
 import { ActivatedRoute } from '@angular/router';
@@ -12,11 +13,12 @@ import { AuthGuard } from "../../auth/guard/auth.guard";
 
 export class TaskTreeComponent implements OnInit {
 
-  tasks: Task[];
-
-  constructor(private _route: ActivatedRoute) { }
+  list: Task[];
+  constructor(private _route: ActivatedRoute,
+              private _taskService: TaskService) { }
 
   ngOnInit() {
-    this.tasks = this._route.snapshot.data['tasks'];
+    // this.list = this._route.snapshot.data['tasks'];
+    this._taskService.getTasksDb().subscribe(res => this.list = res);
   }
 }
