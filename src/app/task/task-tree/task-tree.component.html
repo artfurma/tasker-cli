@@ -1,22 +1,18 @@
-<!-- <mat-card class="task-tree-container">
+<mat-card class="task-tree-container">
   <mat-nav-list>
-    <div *ngFor="let task of tasks">
-      <tskr-task-thumbnail [task]="task"></tskr-task-thumbnail>
-      <mat-nav-list *ngIf="task.children" style="margin-left: 30px">
-        <div *ngFor="let subtask of task.children">
-          <tskr-task-thumbnail [task]="subtask"></tskr-task-thumbnail>
-          <mat-nav-list *ngIf="subtask.children" style="margin-left: 60px">
-            <div *ngFor="let subsubtask of subtask.children">
-              <tskr-task-thumbnail [task]="subsubtask"></tskr-task-thumbnail>
+      <ng-template #recursiveList let-list>
+          <div class="indented" *ngFor="let item of list">
+            <tskr-task-thumbnail [task]="item"></tskr-task-thumbnail>
+            <div *ngIf="item.children.length > 0">
+              <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
             </div>
-          </mat-nav-list>
-        </div>
-      </mat-nav-list>
-    </div>
+          </div>
+        </ng-template>
+        <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
   </mat-nav-list>
-</mat-card> -->
+</mat-card>
 
-<div class="row">
+<!-- <div class="row">
   <div class="col-sm-4 col-lg-4">
     <div>
       <ng-template #recursiveList let-list>
@@ -30,4 +26,4 @@
       <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
     </div>
   </div>
-</div>
+</div> -->

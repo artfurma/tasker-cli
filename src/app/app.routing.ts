@@ -6,7 +6,7 @@ import {AuthGuard } from "./auth/guard/auth.guard";
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', component: HomeComponent },
-    { path: 'tasks', loadChildren: 'app/task/task.module#TaskModule',canActivate: [AuthGuard] },
+    { path: 'tasks', loadChildren: 'app/task/task.module#TaskModule'},
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
 ];
