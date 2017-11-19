@@ -1,17 +1,15 @@
-<div class="col-sm-6" style="border: solid 1px #ddd; border-radius:4px; margin: 3px; ">
-    <h2>
-        {{Title}}
-        <p>{{printStatus}}</p>
-        <p *ngFor="let days of DaysRemaining">
-            <span class="badge bg-success">{{days}} days</span>
-        </p>
-        
-    </h2>
-    <p *ngFor="let user of UserNames">
-        <span class="label label-default">{{user}}</span>
-    </p>
-    <p>{{Content}}<p>
-    <button type="button" (click)="editTask()" class="btn">Edit</button>
-    <button type="button" (click)="deleteTask()" class="btn">Delete</button>
-    <div class="well well-lg">{{Comments}}</div>
-</div>
+<mat-card>
+    <mat-card-header>
+      <mat-card-title><h2>{{Title}}</h2></mat-card-title>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <p>
+        {{Description}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary"  (click)="editTask()">Edit</button>
+      <button mat-raised-button color="warn" (click)="deleteTask()">Delete</button>
+    </mat-card-actions>
+</mat-card>

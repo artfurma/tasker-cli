@@ -25,30 +25,31 @@ export class TaskDetailsComponent implements OnInit {
       this.ControlPoints= new Array();
       this.DaysRemaining= new Array();
   }
-
   ngOnInit() {
       this._route.data.forEach((data) => {
-          this._route.params.subscribe(params => this.TaskID = params['task']);
-          var details;
-          this._taskService.getTask(1).subscribe(task => { this.Task = task; });
+          this._route.params.subscribe(params => this.TaskID = params['id']);
           
-          
-          if(this.Task!=null){
-            console.log(this.Task);
-              this.Title=details.title;
-              this.Description=details.description;
-              this.Comments=details.comments;
-              let users=details.users;
-              this.TaskStatus=details.status;
-              this.printStatus=TaskStatus[details.status].toString();
-              console.log(this.TaskStatus);
-              let ControlPoints=details.controlPoints;
-              users.forEach(element => {this.UserNames.push(element.name)}); 
-              ControlPoints.forEach(element => {this.ControlPoints.push(element.endDate)}); 
-              this.ControlPoints.forEach(element => {
-                  let minus= new Date().getDate() -  +element.getDate();
-                  this.DaysRemaining.push(minus);
-              });
+          this._taskService.getTask(this.TaskID).subscribe(task => { this.Task = task;  });          
+          //console.log("dupa")
+          console.log(this.Task)
+          if(this.Task!==undefined){
+            //console.log(this.Task);
+              this.Title=this.Task.title;
+              this.Description=this.Task.description;
+              //console.log(this.Title)
+            //   this.Description=details.description;
+            //   this.Comments=details.comments;
+            //   let users=details.users;
+            //   this.TaskStatus=details.status;
+            //   this.printStatus=TaskStatus[details.status].toString();
+            //   console.log(this.TaskStatus);
+            //   let ControlPoints=details.controlPoints;
+            //   users.forEach(element => {this.UserNames.push(element.name)}); 
+            //   ControlPoints.forEach(element => {this.ControlPoints.push(element.endDate)}); 
+            //   this.ControlPoints.forEach(element => {
+            //       let minus= new Date().getDate() -  +element.getDate();
+            //       this.DaysRemaining.push(minus);
+            //   });
           }
       });
   }
@@ -60,6 +61,7 @@ export class TaskDetailsComponent implements OnInit {
   editTask(){
       this._navRoute.navigate(['/tasks/'+this.TaskID+'/edit']);
   }
+
 }
 
 
