@@ -13,6 +13,16 @@ import { TaskResolverService } from './shared/task-resolver.service';
 import { TaskService } from './shared/task.service';
 
 import { taskRouting } from './task.routing';
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+
+const SWIPER_CONFIG: SwiperConfigInterface = {
+    direction: 'horizontal',
+    slidesPerView: 'auto',
+    keyboardControl: true
+  };
+  
+
 
 @NgModule({
     imports: [
@@ -20,7 +30,8 @@ import { taskRouting } from './task.routing';
         TaskerMaterialModule,
         FormsModule,
         ReactiveFormsModule,
-        taskRouting
+        taskRouting,
+        SwiperModule.forRoot(SWIPER_CONFIG)
     ],
     declarations: [
         TaskTreeComponent,

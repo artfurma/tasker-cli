@@ -9,10 +9,10 @@ export class UserService {
     //constructor(private http: Http, private config: AppConfig) { }
     apiUrl:string;
     constructor(private http: Http) { 
-        this.apiUrl= "http://localhost:13806/api";
+        this.apiUrl= "http://localhost:4200/api";
     }
     getAll() {
-        return this.http.get(this.apiUrl + '/users', this.jwt()).map((response: Response) => response.json());
+        return this.http.get(this.apiUrl + '/user/getall', this.jwt()).map((response: Response) => response.json());
     }
  
     getById(_id: string) {

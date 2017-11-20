@@ -3,7 +3,7 @@ import { MatButtonModule, MatCheckboxModule, MatToolbarModule, MatIconModule, Ma
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-    imports: [MatButtonModule, MatCheckboxModule, MatToolbarModule, MatIconModule, MatCardModule, MatListModule, FlexLayoutModule,MatInputModule],
-    exports: [MatButtonModule, MatCheckboxModule, MatToolbarModule, MatIconModule, MatCardModule, MatListModule, FlexLayoutModule,MatInputModule],
+    imports: [MatButtonModule, MatCheckboxModule,MatCardModule, MatToolbarModule, MatIconModule, MatCardModule, MatListModule, FlexLayoutModule,MatInputModule],
+    exports: [MatButtonModule, MatCheckboxModule,MatCardModule, MatToolbarModule, MatIconModule, MatCardModule, MatListModule, FlexLayoutModule,MatInputModule],
 })
 export class TaskerMaterialModule { }
