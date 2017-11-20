@@ -29,7 +29,6 @@ export class TaskMainComponent implements OnInit {
     this.loadAllMilestones();
     this._taskFilterService.SharedList$.subscribe(lst => this.filteredUsers = lst);
     this._taskFilterService.SharedList2$.subscribe(lst => this.filteredMilestones = lst);
-    
     this._taskFilterService.getList();    
   }
 

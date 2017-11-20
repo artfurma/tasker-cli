@@ -16,6 +16,7 @@ import { TaskFiltersService } from './shared/task-filters.service';
 import { taskRouting } from './task.routing';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { TaskNewComponent } from './task-new/task-new.component';
 
 const SWIPER_CONFIG: SwiperConfigInterface = {
     direction: 'horizontal',
@@ -38,8 +39,9 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
         TaskTreeComponent,
         TaskThumbnailComponent,
         TaskDetailsComponent,
-        TaskMainComponent
-    ],
+        TaskMainComponent,
+    TaskNewComponent
+],
     providers: [
         TaskTreeResolverService,
         TaskResolverService,

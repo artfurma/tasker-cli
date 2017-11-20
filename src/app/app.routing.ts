@@ -8,7 +8,7 @@ import { TaskDetailsComponent } from './task/task-details/task-details.component
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', component: HomeComponent },
     { path: 'tasks', loadChildren: 'app/task/task.module#TaskModule'},
-    { path: 'login', component: LoginComponent },
+    { path: 'login', component: LoginComponent},
     { path: 'register', component: RegisterComponent }    
 ];
 
