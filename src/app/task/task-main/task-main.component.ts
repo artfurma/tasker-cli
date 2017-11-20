@@ -5,7 +5,7 @@ import { User } from "../../users/user/user";
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { TaskService } from "../shared/task.service";
 import { IControlPoint } from '../shared/task.model';
-
+import { TaskFiltersService } from "../shared/task-filters.service";
 
 @Component({
   selector: 'tskr-task-main',
@@ -22,14 +22,15 @@ export class TaskMainComponent implements OnInit {
   filteredUsers: User[] = [];
 
 
-  constructor(private userService: UserService, private _swiperModule: SwiperModule, private _taskService: TaskService) { }
-
-
-
+  constructor(private userService: UserService, private _swiperModule: SwiperModule, private _taskService: TaskService, private _taskFilterService:TaskFiltersService) { }
 
   ngOnInit() {
     this.loadAllUsers();
     this.loadAllMilestones();
+    this._taskFilterService.SharedList$.subscribe(lst => this.filteredUsers = lst);
+    this._taskFilterService.SharedList2$.subscribe(lst => this.filteredMilestones = lst);
+    
+    this._taskFilterService.getList();    
   }
 
 
@@ -49,6 +50,7 @@ export class TaskMainComponent implements OnInit {
     } else {
       this.filteredUsers.push(_user);
     }
+    this._taskFilterService.updateUsers(this.filteredUsers);
   }
 
   changeMilestoneFilter(_milestone: IControlPoint) {
@@ -66,6 +68,8 @@ export class TaskMainComponent implements OnInit {
     } else {
       this.filteredMilestones.push(_milestone);
     }
+    this._taskFilterService.updateMilestones(this.filteredMilestones);
+    
   }
 
 
