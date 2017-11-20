@@ -7,9 +7,9 @@ import { TaskDetailsComponent } from './task/task-details/task-details.component
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', component: HomeComponent },
-    { path: 'tasks', loadChildren: 'app/task/task.module#TaskModule'},
+    { path: 'tasks', loadChildren: 'app/task/task.module#TaskModule', canActivate: [AuthGuard]},
     { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent }    
+    { path: 'register', component: RegisterComponent }
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
