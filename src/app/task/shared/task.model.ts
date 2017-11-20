@@ -5,14 +5,22 @@ export interface Task {
     name: string;
     description: string;
     children?: Task[];
-    status: TaskStatus;
+    statusId: TaskStatus;
     title: string;
-    users: User[];
-    controlPoints: IControlPoint[]
+    mainPerformer: number;
+    taskPerformers: User[];
+    controlPointIds: IControlPointIds[];
 }
+export interface IControlPointIds{
+    ID: number;
+    EndDate: Date;
+    Name : string;
+}
+
 export interface IControlPoint{
     id: number;
-    endDate: Date;
+    EndDate: Date;
+    Name : string;
 }
 
 export enum TaskStatus{

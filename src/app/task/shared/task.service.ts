@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { Task } from './task.model';
+import { Task, IControlPoint } from './task.model';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs/Rx';
 import { Http, Response, Headers, Request, RequestOptions } from '@angular/http';
@@ -26,7 +26,11 @@ export class TaskService {
             return <Task>response.json();
         }).catch(this.handleError);
     }
-
+    getAllMilestones(): Observable<IControlPoint[]> {
+        return this._http.get(`http://localhost:4200/api/milestones/getall`).map((response: Response) => {
+            return <IControlPoint[]>response.json();
+        }).catch(this.handleError);
+    }
     saveTask(task: Task): Observable<Task> {
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });

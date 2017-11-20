@@ -1,15 +1,49 @@
-<mat-card>
-    <mat-card-header>
-      <mat-card-title><h2>{{Title}}</h2></mat-card-title>
-    </mat-card-header>
-    
-    <mat-card-content>
-      <p>
-        {{Description}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary"  (click)="editTask()">Edit</button>
-      <button mat-raised-button color="warn" (click)="deleteTask()">Delete</button>
-    </mat-card-actions>
+<mat-card class="Aligner">
+        <mat-card-header class="details-header">
+                <mat-card-title>
+                        <h2>{{Title}}</h2>
+                </mat-card-title>
+        </mat-card-header>
+        <mat-card-header>
+                <mat-chip-list>
+                        <div *ngFor="let mil of ControlPointsInUse">
+                                <mat-chip>{{mil.name}}</mat-chip>
+                        </div>
+                </mat-chip-list>
+        </mat-card-header>
+
+        <mat-card-header>
+                <mat-chip-list>
+                        <mat-chip color="primary" selected="true" *ngIf="mainPerformer!==undefined">{{mainPerformer.username}}</mat-chip>
+                </mat-chip-list>
+
+
+        </mat-card-header>
+        <mat-card-header>
+                <mat-chip-list>
+                        <div *ngFor="let usr of taskPerformers">
+                                <mat-chip>{{usr.username}}</mat-chip>
+                        </div>
+
+                </mat-chip-list>
+
+
+        </mat-card-header>
+        <mat-card-content class="details-content">
+                <p class="details-content">
+                        {{Description}}
+                </p>
+        </mat-card-content>
+
+        <mat-card-header>
+
+                      {{TaskStatus}}
+     
+
+
+        </mat-card-header>
+        <mat-card-actions>
+                <button mat-raised-button color="primary" (click)="editTask()">Edit</button>
+                <button mat-raised-button color="warn" (click)="deleteTask()">Delete</button>
+        </mat-card-actions>
 </mat-card>
