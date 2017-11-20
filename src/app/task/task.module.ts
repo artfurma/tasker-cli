@@ -11,6 +11,7 @@ import { TaskMainComponent } from './task-main/task-main.component';
 import { TaskTreeResolverService } from './shared/task-tree-resolver.service';
 import { TaskResolverService } from './shared/task-resolver.service';
 import { TaskService } from './shared/task.service';
+import { TaskFiltersService } from './shared/task-filters.service';
 
 import { taskRouting } from './task.routing';
 import { SwiperModule } from 'ngx-swiper-wrapper';
@@ -42,7 +43,8 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
     providers: [
         TaskTreeResolverService,
         TaskResolverService,
-        TaskService
+        TaskService,
+        TaskFiltersService
     ],
 })
 export class TaskModule { }
