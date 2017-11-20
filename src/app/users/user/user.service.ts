@@ -16,19 +16,19 @@ export class UserService {
     }
  
     getById(_id: string) {
-        return this.http.get(this.apiUrl + '/users/' + _id, this.jwt()).map((response: Response) => response.json());
+        return this.http.get(this.apiUrl + '/user/' + _id, this.jwt()).map((response: Response) => response.json());
     }
  
     create(user: User) {
-        return this.http.post(this.apiUrl + '/users/', user, this.jwt());
+        return this.http.post(this.apiUrl + '/user/', user, this.jwt());
     }
  
     update(user: User) {
-        return this.http.put(this.apiUrl + '/users/' + user.id, user, this.jwt());
+        return this.http.put(this.apiUrl + '/user/' + user.id, user, this.jwt());
     }
  
     delete(_id: string) {
-        return this.http.delete(this.apiUrl + '/users/' + _id, this.jwt());
+        return this.http.delete(this.apiUrl + '/user/' + _id, this.jwt());
     }
  
     // private helper methods
