@@ -2,10 +2,10 @@
     <a mat-button color="" [routerLink]="['/tasks', task.id]" *ngIf="task" class="list-group-item" draggable="true">
         {{task.title}}
     </a>
-    <mat-chip-list>
+    <!-- <mat-chip-list>
         <mat-chip color="accent" selected="true">Accent fish</mat-chip>
-    </mat-chip-list>
-    <a mat-icon-button class="list-group-item float-right">
+    </mat-chip-list> -->
+    <a mat-icon-button [routerLink]="['/tasks/new/', task.id]" class="list-group-item float-right">
         <mat-icon color="primary">playlist_add</mat-icon>
     </a>
 </div>

@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { SavingTask, IControlPointIds, IControlPoint,TaskStatus } from '../shared/task.model';
+import { SavingTask, IControlPointIds, IControlPoint,TaskStatus, Task } from '../shared/task.model';
 import { User } from '../../users/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../shared/task.service';
 import { UserService } from '../../users/user/user.service';
 
 @Component({
-  selector: 'tskr-task-new',
-  templateUrl: './task-new.component.html',
-  styleUrls: ['./task-new.component.scss']
+  selector: 'tskr-task-edit',
+  templateUrl: './task-edit.component.html',
+  styleUrls: ['./task-edit.component.scss']
 })
-export class TaskNewComponent implements OnInit {
+export class TaskEditComponent implements OnInit {
+  private Task : Task;
   private ParentTaskID: number;
+  private TaskID: number;
   private Title: string;
   private ControlPointsInUse: IControlPointIds[];
   private DaysRemaining: number[];
@@ -53,19 +55,33 @@ export class TaskNewComponent implements OnInit {
     this.ControlPointsInUse.length = 0;
     this._route.data.forEach((data) => {
       this._route.params.subscribe(params => this.ParentTaskID = params['id']);
+      this._taskService.getTask(this.TaskID).subscribe(task => {
+        this.Task = task;
+        this.Title = task.title;
+        this.Description = task.description;
+        this.ControlPointsInUse.length = 0;
+        this.ControlPointsInUse = task.controlPointIds;
+        this.taskPerformers.length = 0;
+        this.taskPerformers = task.taskPerformers;
+        this.TaskStatus=TaskStatus[task.statusId];
+        console.log(task)
+        this.loadAllUsers(task.mainPerformer);
     });
-    this.loadAllUsers();
+    });
     this.loadAllMilestones();
   }
 
 
 
 
-  private loadAllUsers() {
+  private loadAllUsers(mainPerformerID: number) {
     this._userService.getAll().subscribe(users => {
-      this.AllUsers = users;
+        this.AllUsers = users;
+        this.AllUsers.forEach(element => {
+            if (element.id === mainPerformerID) this.mainPerformer = element;
+        });
     });
-  }
+}
 
   private loadAllMilestones() {
     this._taskService.getAllMilestones().subscribe(milestones => { this.AllMilestones = milestones; });
@@ -151,7 +167,7 @@ export class TaskNewComponent implements OnInit {
   }
 
   saveTask() {
-
+    
     let savingTask:SavingTask= {
       parentTaskId:+this.ParentTaskID,
       description: this.Description,
@@ -162,7 +178,6 @@ export class TaskNewComponent implements OnInit {
       controlPointIds: this.ChosedMilestones
     }
     console.log(savingTask)
-    this._taskService.saveTask(savingTask).subscribe();
   }
   cancel() {
     this._navRoute.navigate(['/tasks/']);

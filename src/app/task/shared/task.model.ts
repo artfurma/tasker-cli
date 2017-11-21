@@ -35,7 +35,7 @@ export enum TaskStatus{
 export interface SavingTask {
     parentTaskId:number;
     description: string;
-    statusId: TaskStatus;
+    TaskStatusId: TaskStatus;
     title: string;
     mainPerformer: number;
     taskPerformers: User[];
