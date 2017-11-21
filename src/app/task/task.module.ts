@@ -22,7 +22,6 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
     slidesPerView: 'auto',
     keyboardControl: true
   };
-  
 
 
 @NgModule({

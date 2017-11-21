@@ -1,43 +1,33 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
- 
-//import { AppConfig } from '../app.config';
+import { Headers, RequestOptions, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { User } from './user';
- 
+
 @Injectable()
 export class UserService {
-    //constructor(private http: Http, private config: AppConfig) { }
-    apiUrl:string;
-    constructor(private http: Http) { 
-        this.apiUrl= "http://localhost:4200/api";
+
+    apiUrl: string;
+    constructor(private http: HttpClient) {
+        this.apiUrl = 'http://localhost:4200/api';
     }
     getAll() {
-        return this.http.get(this.apiUrl + '/user/getall', this.jwt()).map((response: Response) => response.json());
+        return this.http.get<User[]>(this.apiUrl + '/user/getall');
     }
- 
+
     getById(_id: string) {
-        return this.http.get(this.apiUrl + '/user/' + _id, this.jwt()).map((response: Response) => response.json());
+        return this.http.get<User>(this.apiUrl + '/user/' + _id);
     }
- 
+
     create(user: User) {
-        return this.http.post(this.apiUrl + '/user/', user, this.jwt());
+        return this.http.post(this.apiUrl + '/user/', user);
     }
- 
+
     update(user: User) {
-        return this.http.put(this.apiUrl + '/user/' + user.id, user, this.jwt());
+        return this.http.put(this.apiUrl + '/user/' + user.id, user);
     }
- 
+
     delete(_id: string) {
-        return this.http.delete(this.apiUrl + '/user/' + _id, this.jwt());
+        return this.http.delete(this.apiUrl + '/user/' + _id);
     }
- 
-    // private helper methods
-    private jwt() {
-        // create authorization header with jwt token
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-            return new RequestOptions({ headers: headers });
-        }
-    }
+
 }
