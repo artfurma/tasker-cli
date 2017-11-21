@@ -31,7 +31,7 @@ export class TaskTreeComponent implements OnInit {
     this._taskService.getTasksDb().subscribe(res => this.list = res);
     this._taskFiltersService.SharedList$.subscribe(lst => this.UsersFilters = lst);
     this._taskFiltersService.SharedList2$.subscribe(lst => this.MilestonesFilters = lst);
-    
+
     this._taskFiltersService.getList();
   }
 }

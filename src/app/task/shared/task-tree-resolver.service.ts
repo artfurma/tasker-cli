@@ -10,6 +10,6 @@ export class TaskTreeResolverService implements Resolve<Task[]> {
     constructor(private _taskService: TaskService) { }
 
     resolve(): Observable<Task[]> {
-        return this._taskService.getTasks();
+        return this._taskService.getTasksDb();
     }
 }
