@@ -1,11 +1,23 @@
 <mat-toolbar>
+    <div class="btn-filter" *ngFor="let user of users">
+        <button (click)="changeUserFilter(user)" [color]="isUserInFilters(user)" mat-raised-button>{{user.username}} </button>
+    </div>
+</mat-toolbar>
 
+<mat-toolbar>
+    <div class="btn-filter" *ngFor="let mil of allMilestones">
+        <button (click)="changeMilestoneFilter(mil)" [color]="isMilestoneInFilters(mil)" mat-raised-button>{{mil.name}} </button>
+    </div>
 </mat-toolbar>
 <!-- <button mat-fab [routerLink]="['/dragons/new']" class="fab" routerLinkActive="active"><mat-icon class="md-24">add</mat-icon></button> -->
 <div>
     <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
-        <div fxFlex><router-outlet></router-outlet></div>
-        <div fxFlex><router-outlet name="details"></router-outlet></div>
+        <div fxFlex>
+            <router-outlet></router-outlet>
+        </div>
+        <div fxFlex>
+            <router-outlet name="details"></router-outlet>
+        </div>
     </div>
 </div>
 <!-- <router-outlet name="details"></router-outlet> -->

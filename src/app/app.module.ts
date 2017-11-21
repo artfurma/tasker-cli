@@ -1,7 +1,10 @@
+import { TokenService } from './auth/authentication/token.service';
+import { JwtInterceptor } from './auth/interceptors/jwt-interceptor';
+import { TokenInterceptor } from './auth/interceptors/token-interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TaskerMaterialModule } from './tasker-material.module';
 
@@ -16,6 +19,7 @@ import { AuthenticationService } from "./auth/authentication/authentication.serv
 import { UserService } from "./users/user/user.service";
 import { AlertService } from "./alert/alert.service";
 import {AuthGuard } from "./auth/guard/auth.guard";
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 @NgModule({
@@ -30,11 +34,27 @@ import {AuthGuard } from "./auth/guard/auth.guard";
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     TaskerMaterialModule,
     routing
   ],
-  providers: [AuthenticationService,UserService,AlertService,AuthGuard],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    TokenService,
+    AuthenticationService,
+    UserService,
+    AlertService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
