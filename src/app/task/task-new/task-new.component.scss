@@ -1,0 +1,41 @@
+.Aligner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin:25px;
+  }
+
+  .details-header{
+      background-color:#ff9800;
+      width:100%;
+      
+  }
+
+  .details-content{
+      width:100%;
+  }
+
+  p{
+      width: 100%;
+  }
+
+  mat-card-header{
+      margin-top:10px;
+      margin-bottom:10px;
+  }
+  mat-chip{
+      margin-right: 5px;
+  }
+  mat-form-field{
+      width:100%;
+  }
+  mat-card-title{
+      width:100%;
+  }
+  .mat-card-header-text{
+      display: flex;
+  }
+button{
+    margin:5px;
+}

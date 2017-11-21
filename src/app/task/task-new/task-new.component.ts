@@ -13,7 +13,7 @@ import { UserService } from '../../users/user/user.service';
 export class TaskNewComponent implements OnInit {
 
   private Task: Task;
-  private TaskID: number;
+  private ParentTaskID: number;
   private Title: String;
   private ControlPointsInUse: IControlPointIds[];
   private DaysRemaining: number[];
@@ -25,6 +25,9 @@ export class TaskNewComponent implements OnInit {
   private printStatus: string;
   private taskPerformers: User[];
   private mainPerformer: User;
+  private AllMilestones: IControlPoint[];
+  private ChosedMilestones: IControlPoint[];
+  private enableDrop:boolean;
 
   constructor(private _route: ActivatedRoute, private _navRoute: Router, private _taskService: TaskService, private _userService: UserService) {
     this.UserNames = new Array();
@@ -32,15 +35,19 @@ export class TaskNewComponent implements OnInit {
     this.ControlPointsInUse = new Array();
     this.AllUsers = new Array();
     this.taskPerformers = new Array();
+    this.AllMilestones = new Array();
+    this.ChosedMilestones = new Array();
+    this.enableDrop=true;
   }
 
   ngOnInit() {
     this.taskPerformers.length = 0;
     this.ControlPointsInUse.length = 0;
     this._route.data.forEach((data) => {
-      this._route.params.subscribe(params => this.TaskID = params['id']);
+      this._route.params.subscribe(params => this.ParentTaskID = params['id']);
     });
     this.loadAllUsers();
+    this.loadAllMilestones();
   }
 
 
@@ -52,10 +59,87 @@ export class TaskNewComponent implements OnInit {
     });
   }
 
-  isMilestoneInUse(selecded: IControlPoint) {
-    this.ControlPointsInUse.forEach(element => {
-      if (selecded.id === element.ID) return "primary";
-    });
+  private loadAllMilestones() {
+    this._taskService.getAllMilestones().subscribe(milestones => { this.AllMilestones = milestones; });
+  }
+
+  userDropped(e: any){
+    this.mainPerformer=e.dragData;
+    this.deleteUserFromPerformers(this.mainPerformer);
+    this.enableDrop=false;
+    if (this.taskPerformers.includes(this.mainPerformer)) {
+      let i: number = 0;
+      for (let usr of this.taskPerformers) {
+        if (usr.id === this.mainPerformer.id) {
+          this.taskPerformers.splice(i, 1);
+          break;
+        }
+        i++;
+      }
+    }
+  }
+
+  toggleUser(selected: User) {
+    if (this.taskPerformers.includes(selected)) {
+      let i: number = 0;
+      for (let usr of this.taskPerformers) {
+        if (usr.id === selected.id) {
+          this.taskPerformers.splice(i, 1);
+          break;
+        }
+        i++;
+      }
+    } else {
+      this.taskPerformers.push(selected);
+    }
+  }
+
+  toggleMilestone(selected: IControlPoint) {
+    if (this.ChosedMilestones.includes(selected)) {
+      let i: number = 0;
+      for (let mil of this.ChosedMilestones) {
+        if (mil.id === selected.id) {
+          this.ChosedMilestones.splice(i, 1);
+          break;
+        }
+        i++;
+      }
+    } else {
+      this.ChosedMilestones.push(selected);
+    }
+  }
+
+  deleteUserFromPerformers(user:User){
+    if (this.AllUsers.includes(user)) {
+      let i: number = 0;
+      for (let usr of this.AllUsers) {
+        if (usr.id === user.id) {
+          this.AllUsers.splice(i, 1);
+          break;
+        }
+        i++;
+      }
+    }
+    console.log(this.AllUsers);
+  }
+
+
+  isMilestoneInChosen(selected: IControlPoint) {
+    if (this.ChosedMilestones.includes(selected)) {
+      return "primary";
+    }
+  }
+
+  isUserInPerformers(selected: User) {
+    if (this.taskPerformers.includes(selected)) {
+      return "primary";
+    }
+  }
+
+  deleteMainPerformer(){
+    this.AllUsers.push(this.mainPerformer);    
+    this.mainPerformer=undefined;
+    this.enableDrop=true;
   }
 
   saveTask() {
