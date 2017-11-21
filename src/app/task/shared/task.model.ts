@@ -2,6 +2,7 @@ import { User } from "../../users/user/user";
 
 export interface Task {
     id: number;
+    parentTaskId:number;
     name: string;
     description: string;
     children?: Task[];
@@ -17,6 +18,8 @@ export interface IControlPointIds{
     Name : string;
 }
 
+export declare var TaskObj: Task;
+
 export interface IControlPoint{
     id: number;
     EndDate: Date;
@@ -27,4 +30,14 @@ export enum TaskStatus{
     "Not started"= 1,
     "In progress"= 2,
     "Done"=3
+}
+
+export interface SavingTask {
+    parentTaskId:number;
+    description: string;
+    statusId: TaskStatus;
+    title: string;
+    mainPerformer: number;
+    taskPerformers: User[];
+    controlPointIds: IControlPoint[];
 }
