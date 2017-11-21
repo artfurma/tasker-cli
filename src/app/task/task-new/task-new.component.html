@@ -28,7 +28,10 @@
 
   <mat-card-header>
 
-      <mat-card droppable [dropEnabled]="enableDrop" (onDrop)="userDropped($event)" >Drop here main performer  <button mat-raised-button color="accent" (click)="deleteMainPerformer()" *ngIf="mainPerformer"> {{mainPerformer.username}}</button> </mat-card>
+    <mat-card droppable [dropEnabled]="enableDrop" (onDrop)="userDropped($event)">Drop here main performer
+      <button mat-raised-button color="accent" (click)="deleteMainPerformer()" *ngIf="mainPerformer">
+      {{mainPerformer.username}}</button>
+    </mat-card>
 
   </mat-card-header>
 
