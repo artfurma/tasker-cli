@@ -1,31 +1,33 @@
-
-
-<div  class="Aligner">
-    <div class="form-container">
-  <img class="logo" src="assets/images/tasker-logo.png"/>
-  <form class="Aligner-item login-logo" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" >
+<div class="Aligner">
+  <div class="form-container">
+    <img class="logo" src="assets/images/tasker-logo.png" />
+    <form class="Aligner-item login-logo" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm">
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
         <i class="material-icons">assignment_ind</i>
-                 <mat-form-field>
-            <input matInput type="text" placeholder="Login" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-            <mat-error *ngIf="formControl.hasError('required')">
-                Login is <strong>required</strong>
-              </mat-error>
+        <mat-form-field>
+          <input matInput type="text" placeholder="Login" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel"
+            required />
+          <mat-error *ngIf="formControl.hasError('required')">
+            Login is
+            <strong>required</strong>
+          </mat-error>
         </mat-form-field>
       </div>
       <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
         <i class="material-icons">vpn_key</i>
-                <mat-form-field>
-          <input matInput type="password" placeholder="Password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" class="form-control" name="password" [(ngModel)]="model.password"
+            #password="ngModel" required />
           <mat-error *ngIf="formControl.hasError('required')">
-            Password is <strong>required</strong>
+            Password is
+            <strong>required</strong>
           </mat-error>
         </mat-form-field>
       </div>
       <div class="form-group">
-          <button mat-raised-button color="primary" [disabled]="loading" class="button-margin">Login</button>
-          <button mat-raised-button [routerLink]="['/register']" color="warn" [disabled]="loading" class="button-margin">Register</button>
+        <button mat-raised-button color="primary" [disabled]="loading" class="button-margin">Login</button>
+        <button mat-raised-button [routerLink]="['/register']" color="warn" [disabled]="loading" class="button-margin">Register</button>
       </div>
-  </form>
-</div>
+    </form>
+  </div>
 </div>
