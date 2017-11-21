@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SavingTask, IControlPointIds, IControlPoint,TaskStatus } from '../shared/task.model';
+import { SavingTask, IControlPoint,TaskStatus } from '../shared/task.model';
 import { User } from '../../users/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../shared/task.service';
@@ -13,7 +13,7 @@ import { UserService } from '../../users/user/user.service';
 export class TaskNewComponent implements OnInit {
   private ParentTaskID: number;
   private Title: string;
-  private ControlPointsInUse: IControlPointIds[];
+  private ControlPointsInUse: IControlPoint[];
   private DaysRemaining: number[];
   private UserNames: String[];
   private AllUsers: User[];
@@ -151,7 +151,7 @@ export class TaskNewComponent implements OnInit {
   }
 
   saveTask() {
-
+    
     let savingTask:SavingTask= {
       parentTaskId:+this.ParentTaskID,
       description: this.Description,
@@ -161,8 +161,8 @@ export class TaskNewComponent implements OnInit {
       taskPerformers: this.taskPerformers,
       controlPointIds: this.ChosedMilestones
     }
-    console.log(savingTask)
-    this._taskService.saveTask(savingTask).subscribe();
+    this._taskService.saveNewTask(savingTask).subscribe();
+    this._navRoute.navigate(['/tasks/']);
   }
   cancel() {
     this._navRoute.navigate(['/tasks/']);

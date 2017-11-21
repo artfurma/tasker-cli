@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SavingTask, IControlPointIds, IControlPoint,TaskStatus, Task } from '../shared/task.model';
+import { SavingTask, IControlPoint,TaskStatus, Task } from '../shared/task.model';
 import { User } from '../../users/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../shared/task.service';
@@ -15,7 +15,7 @@ export class TaskEditComponent implements OnInit {
   private ParentTaskID: number;
   private TaskID: number;
   private Title: string;
-  private ControlPointsInUse: IControlPointIds[];
+  private ControlPointsInUse: IControlPoint[];
   private DaysRemaining: number[];
   private UserNames: String[];
   private AllUsers: User[];
@@ -44,31 +44,30 @@ export class TaskEditComponent implements OnInit {
     this.ChosedMilestones = new Array();
     this.enableDrop=true;
     this.enumStatus = TaskStatus;
-    this.taskStatus = 1;
     
     this.keys=Object.keys(this.enumStatus).filter(Number);
   }
 
   ngOnInit() {
-    console.log(this.keys)
-    this.taskPerformers.length = 0;
-    this.ControlPointsInUse.length = 0;
+
     this._route.data.forEach((data) => {
-      this._route.params.subscribe(params => this.ParentTaskID = params['id']);
+      this._route.params.subscribe(params => this.TaskID = params['id']);
       this._taskService.getTask(this.TaskID).subscribe(task => {
         this.Task = task;
         this.Title = task.title;
         this.Description = task.description;
-        this.ControlPointsInUse.length = 0;
-        this.ControlPointsInUse = task.controlPointIds;
-        this.taskPerformers.length = 0;
+        this.loadAllMilestones();
+        this.ChosedMilestones = task.controlPointIds;
         this.taskPerformers = task.taskPerformers;
-        this.TaskStatus=TaskStatus[task.statusId];
-        console.log(task)
+        this.taskStatus=this.enumStatus[task.statusId];
         this.loadAllUsers(task.mainPerformer);
+        console.log(task.statusId)
     });
     });
-    this.loadAllMilestones();
+        
+    
+    console.log(this.taskStatus)
+    
   }
 
 
@@ -80,6 +79,7 @@ export class TaskEditComponent implements OnInit {
         this.AllUsers.forEach(element => {
             if (element.id === mainPerformerID) this.mainPerformer = element;
         });
+        this.deleteUserFromPerformers(this.mainPerformer);
     });
 }
 
@@ -104,7 +104,11 @@ export class TaskEditComponent implements OnInit {
   }
 
   toggleUser(selected: User) {
-    if (this.taskPerformers.includes(selected)) {
+    let flag:boolean=false;
+    this.taskPerformers.forEach(element => {
+      if(element.id===selected.id) flag=true;
+    });
+    if (flag) {
       let i: number = 0;
       for (let usr of this.taskPerformers) {
         if (usr.id === selected.id) {
@@ -119,7 +123,11 @@ export class TaskEditComponent implements OnInit {
   }
 
   toggleMilestone(selected: IControlPoint) {
-    if (this.ChosedMilestones.includes(selected)) {
+    let flag:boolean=false;
+    this.ChosedMilestones.forEach(element => {
+      if(element.id===selected.id) flag=true;
+    });
+    if (flag) {
       let i: number = 0;
       for (let mil of this.ChosedMilestones) {
         if (mil.id === selected.id) {
@@ -144,18 +152,25 @@ export class TaskEditComponent implements OnInit {
         i++;
       }
     }
-    console.log(this.AllUsers);
   }
 
 
   isMilestoneInChosen(selected: IControlPoint) {
-    if (this.ChosedMilestones.includes(selected)) {
+    let flag:boolean=false;
+    this.ChosedMilestones.forEach(element => {
+      if(element.id===selected.id) flag=true;
+    });
+    if (flag) {
       return "primary";
     }
   }
 
   isUserInPerformers(selected: User) {
-    if (this.taskPerformers.includes(selected)) {
+    let flag:boolean=false;
+    this.taskPerformers.forEach(element => {
+      if(element.id===selected.id) flag=true;
+    });
+    if (flag) {
       return "primary";
     }
   }
@@ -177,7 +192,8 @@ export class TaskEditComponent implements OnInit {
       taskPerformers: this.taskPerformers,
       controlPointIds: this.ChosedMilestones
     }
-    console.log(savingTask)
+    //this._taskService.saveTask(savingTask).subscribe();
+    this._navRoute.navigate(['/tasks/']);
   }
   cancel() {
     this._navRoute.navigate(['/tasks/']);

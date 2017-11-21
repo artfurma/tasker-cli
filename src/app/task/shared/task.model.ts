@@ -10,16 +10,8 @@ export interface Task {
     title: string;
     mainPerformer: number;
     taskPerformers: User[];
-    controlPointIds: IControlPointIds[];
+    controlPointIds: IControlPoint[];
 }
-export interface IControlPointIds{
-    ID: number;
-    EndDate: Date;
-    Name : string;
-}
-
-export declare var TaskObj: Task;
-
 export interface IControlPoint{
     id: number;
     EndDate: Date;
@@ -29,7 +21,7 @@ export interface IControlPoint{
 export enum TaskStatus{
     "Not started"= 1,
     "In progress"= 2,
-    "Done"=3
+    "Done"= 3
 }
 
 export interface SavingTask {

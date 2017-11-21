@@ -25,10 +25,12 @@ export class TaskService {
     getAllMilestones(): Observable<IControlPoint[]> {
         return this._http.get<IControlPoint[]>(`http://localhost:4200/api/milestones/getall`).catch(this.handleError);
     }
-    saveTask(task: SavingTask){
+    saveNewTask(task: SavingTask){
         return this._http.post('http://localhost:4200/api/task', task).catch(this.handleError);
     }
-
+    saveTask(task: Task){
+        return this._http.post('http://localhost:4200/api/task', task).catch(this.handleError);
+    }
 
 
     private handleError(error: Response) {
