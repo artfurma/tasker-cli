@@ -17,7 +17,7 @@ import { taskRouting } from './task.routing';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { TaskNewComponent } from './task-new/task-new.component';
-import { Ng2DragDropModule } from 'ng2-drag-drop';
+import { NgDragDropModule } from 'ng-drag-drop';
 import { TaskEditComponent } from './task-edit/task-edit.component';
 import { StatusChooserComponent } from './status-chooser/status-chooser.component';
 
@@ -25,7 +25,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
     direction: 'horizontal',
     slidesPerView: 'auto',
     keyboardControl: true
-  };
+};
 
 
 @NgModule({
@@ -36,16 +36,16 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
         ReactiveFormsModule,
         taskRouting,
         SwiperModule.forRoot(SWIPER_CONFIG),
-        Ng2DragDropModule.forRoot()
+        NgDragDropModule.forRoot()
     ],
     declarations: [
         TaskTreeComponent,
         TaskThumbnailComponent,
         TaskDetailsComponent,
         TaskMainComponent,
-    TaskNewComponent,
-    TaskEditComponent,
-    StatusChooserComponent
+        TaskNewComponent,
+        TaskEditComponent,
+        StatusChooserComponent
 ],
     providers: [
         TaskTreeResolverService,

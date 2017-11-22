@@ -1,0 +1,33 @@
+$toolbar-icon-container-size: 48px;
+$toolbar-icon-size: 32px;
+
+.mat-icon-button.medium {
+    width: $toolbar-icon-container-size;
+    height: $toolbar-icon-container-size;
+    line-height: $toolbar-icon-container-size;
+    margin-right: 20px; 
+
+    .mat-icon, .mat-icon-button i {
+        line-height: $toolbar-icon-size;
+    }
+
+    .mat-icon {
+        width: $toolbar-icon-size;
+        height: $toolbar-icon-size;
+    }
+
+    .material-icons {
+        font-size: $toolbar-icon-size;
+    }
+}
+
+.toolbar-buttons {
+    // This fills the remaining space, by using flexbox. 
+    // Every toolbar row uses a flexbox row layout.
+    flex: 1 1 auto;
+    margin-left: 20px;
+  }
+
+.toolbar-brand {
+    height: 50px;
+}
