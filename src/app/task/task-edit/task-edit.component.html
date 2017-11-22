@@ -1,0 +1,60 @@
+<mat-card class="Aligner">
+    <mat-card-header class="details-header">
+      <mat-card-title class="details-content">
+        <mat-form-field class="details-content">
+          <input class="details-content" id="taskName" [(ngModel)]="Title" value={{Title}} [ngModelOptions]="{standalone: true}" matInput
+            placeholder="Task title">
+          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-header>
+  
+      <div *ngFor="let mil of AllMilestones">
+        <button draggable mat-raised-button [color]="isMilestoneInChosen(mil)" (click)="toggleMilestone(mil)">{{mil.name}}</button>
+      </div>
+  
+    </mat-card-header>
+  
+    <mat-card-header>
+  
+      <div *ngFor="let usr of AllUsers">
+        <button draggable mat-raised-button [dragData]="usr" [color]="isUserInPerformers(usr)" (click)="toggleUser(usr)">{{usr.username}}</button>
+      </div>
+  
+    </mat-card-header>
+  
+    <mat-card-header>
+  
+      <mat-card droppable [dropEnabled]="enableDrop" (onDrop)="userDropped($event)">Drop here main performer
+        <button mat-raised-button color="accent" (click)="deleteMainPerformer()" *ngIf="mainPerformer">
+        {{mainPerformer.username}}</button>
+      </mat-card>
+  
+  
+    </mat-card-header>
+    <mat-card-content class="details-content">
+  
+        <mat-form-field>
+            <textarea [(ngModel)]="Description" value={{Description}} [ngModelOptions]="{standalone: true}" matInput placeholder="Please enter task description">{{Description}}</textarea>
+          </mat-form-field>
+    </mat-card-content>
+  
+    <mat-card-header>
+  
+        <mat-form-field>
+            <mat-select [(ngModel)]="taskStatus"  [ngModelOptions]="{standalone: true}" placeholder="Please chose status">
+              <mat-option  *ngFor="let key of keys "  [value]="key">
+                {{ enumStatus[key]}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="saveTask()">Save</button>
+      <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+  </mat-card>

@@ -2,9 +2,15 @@
     <a mat-button color="" [routerLink]="['/tasks', task.id]" *ngIf="task" class="list-group-item" draggable="true">
         {{task.title}}
     </a>
-    <a mat-icon-button class="list-group-item float-right">
-        <mat-icon color="primary">playlist_add</mat-icon>
-    </a>
+
+    <span class="float-test">
+        <span *ngIf="task.statusId===1" (click)="openDialog()" class="status">Not started</span>
+        <i *ngIf="task.statusId===2" (click)="openDialog()" class="material-icons float-left">cached</i>
+        <i *ngIf="task.statusId===3" (click)="openDialog()" class="material-icons done-status">done</i>
+        <a mat-icon-button [routerLink]="['/tasks/new/', task.id]" class="list-group-item float-right">
+            <mat-icon color="primary">playlist_add</mat-icon>
+        </a>
+    </span>
 </div>
 
 

@@ -1,0 +1,39 @@
+.new-status{
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 2px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.progress-status{
+    padding: 2px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.done-status{
+    margin-top: 10px;
+    cursor: pointer;
+}
+.center-align{
+    text-align: center;
+}
+.overflow{
+    overflow: visible;
+}
+
+.standard-color{
+    color: grey;
+}
+
+.green{
+    color: green;
+    font-weight: bold;
+}
+.red{
+    color: red;
+}
+.blue{
+    color: blue;
+}

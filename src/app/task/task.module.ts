@@ -18,6 +18,8 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { TaskNewComponent } from './task-new/task-new.component';
 import { Ng2DragDropModule } from 'ng2-drag-drop';
+import { TaskEditComponent } from './task-edit/task-edit.component';
+import { StatusChooserComponent } from './status-chooser/status-chooser.component';
 
 const SWIPER_CONFIG: SwiperConfigInterface = {
     direction: 'horizontal',
@@ -41,7 +43,9 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
         TaskThumbnailComponent,
         TaskDetailsComponent,
         TaskMainComponent,
-    TaskNewComponent
+    TaskNewComponent,
+    TaskEditComponent,
+    StatusChooserComponent
 ],
     providers: [
         TaskTreeResolverService,
@@ -49,5 +53,8 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
         TaskService,
         TaskFiltersService
     ],
+    entryComponents: [
+        StatusChooserComponent
+    ]
 })
 export class TaskModule { }
