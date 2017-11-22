@@ -1,3 +1,4 @@
+import { ChangeStatusModel } from './change-status-model';
 import { Injectable, Inject } from '@angular/core';
 import { Task, IControlPoint, SavingTask } from './task.model';
 // tslint:disable-next-line:import-blacklist
@@ -29,7 +30,9 @@ export class TaskService {
         return this._http.post('http://localhost:4200/api/task', task).catch(this.handleError);
     }
 
-
+    changeTaskStatus(statusModel: ChangeStatusModel) {
+        return this._http.post('http://localhost:4200/api/task/status', statusModel).catch(this.handleError);
+    }
 
     private handleError(error: Response) {
         return Observable.throw(error.statusText);
