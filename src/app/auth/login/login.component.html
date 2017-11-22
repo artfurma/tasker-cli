@@ -1,48 +1,48 @@
 <div flex class="login-container">
-  <mat-card>
-    <mat-card-content>
-      <form role="form" (ngSubmit)="f.form.valid && login()" #f="ngForm">
-        <div class="login-box-header">
-          <img src="assets/images/tasker-logo.png">
-        </div>
-        <hr/>
-        <!-- Username -->
-        <mat-grid-list cols="9" rowHeight="75px">
-          <mat-grid-tile class="login-icon">
-            <mat-icon color="primary">lock</mat-icon>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="7">
-            <mat-input-container class="justifier">
-              <input matInput required placeholder="Nazwa użytkownika" type="text" name="username" [(ngModel)]="model.username" #username="ngModel">
-              <mat-error *ngIf="formControl.hasError('required')">
-                Nazwa użytkownika jest
-                <strong>wymagana</strong>
-              </mat-error>
-            </mat-input-container>
-          </mat-grid-tile>
-        </mat-grid-list>
-        <!-- Password -->
-        <mat-grid-list cols="9" rowHeight="75px">
-          <mat-grid-tile class="login-icon">
-            <mat-icon color="primary">remove_red_eye</mat-icon>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="7">
-            <mat-input-container class="justifier">
-              <input matInput required placeholder="Haslo" type="password" name="password" [(ngModel)]="model.password" #password="ngModel">
-              <mat-error *ngIf="formControl.hasError('required')">
-                Haslo jest
-                <strong>wymagane</strong>
-              </mat-error>
-            </mat-input-container>
-          </mat-grid-tile>
-        </mat-grid-list>
-        <button mat-raised-button color="primary" type="submit" name="action" class="login-button" [disabled]="loading">
-          Zaloguj się
-        </button>
-      </form>
-      <p mat-accent>Nie masz konta?
-        <a routerLink="/register"> Zarejestruj się</a>
-      </p>
-    </mat-card-content>
-  </mat-card>
+    <mat-card>
+        <mat-card-content>
+            <form role="form" (ngSubmit)="f.form.valid && login()" #f="ngForm">
+                <div class="login-box-header">
+                    <img src="assets/images/tasker-logo.png">
+                </div>
+                <hr/>
+                <!-- Username -->
+                <mat-grid-list cols="9" rowHeight="75px">
+                    <mat-grid-tile class="login-icon">
+                        <mat-icon color="primary">lock</mat-icon>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="7">
+                        <mat-input-container class="justifier">
+                            <input matInput required placeholder="Nazwa użytkownika" type="text" name="username" [(ngModel)]="model.username" #username="ngModel">
+                            <mat-error *ngIf="formControl.hasError('required')">
+                                Nazwa użytkownika jest
+                                <strong>wymagana</strong>
+                            </mat-error>
+                        </mat-input-container>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <!-- Password -->
+                <mat-grid-list cols="9" rowHeight="75px">
+                    <mat-grid-tile class="login-icon">
+                        <mat-icon color="primary">remove_red_eye</mat-icon>
+                    </mat-grid-tile>
+                    <mat-grid-tile colspan="7">
+                        <mat-input-container class="justifier">
+                            <input matInput required placeholder="Haslo" type="password" name="password" [(ngModel)]="model.password" #password="ngModel">
+                            <mat-error *ngIf="formControl.hasError('required')">
+                                Haslo jest
+                                <strong>wymagane</strong>
+                            </mat-error>
+                        </mat-input-container>
+                    </mat-grid-tile>
+                </mat-grid-list>
+                <button mat-raised-button color="primary" type="submit" name="action" class="login-button" [disabled]="loading">
+                    Zaloguj się
+                </button>
+            </form>
+            <p mat-accent>Nie masz konta?
+                <a routerLink="/register"> Zarejestruj się</a>
+            </p>
+        </mat-card-content>
+    </mat-card>
 </div>
