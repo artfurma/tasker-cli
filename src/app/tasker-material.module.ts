@@ -1,3 +1,4 @@
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgModule } from '@angular/core';
 import {
     MatButtonModule,
@@ -8,9 +9,11 @@ import {
     MatIconModule,
     MatCardModule,
     MatListModule,
-    MatInputModule
+    MatInputModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatGridListModule
 } from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
     imports: [
@@ -24,7 +27,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatCardModule,
         MatListModule,
         FlexLayoutModule,
-        MatInputModule
+        MatFormFieldModule,
+        MatInputModule,
+        MatSlideToggleModule,
+        MatGridListModule
     ],
     exports: [
         MatButtonModule,
@@ -37,6 +43,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         MatCardModule,
         MatListModule,
         FlexLayoutModule,
-        MatInputModule],
+        MatFormFieldModule,
+        MatInputModule,
+        MatSlideToggleModule,
+        MatGridListModule
+    ]
 })
 export class TaskerMaterialModule { }

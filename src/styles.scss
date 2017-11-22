@@ -1,18 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-body {  
-    margin: 0;  
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+body {
+    margin: 0;
     font-family: 'Roboto', sans-serif;
     background-color: lightgray;
-  }
+}
 
- * { 
+* {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
- }
+}
 
- .app-belowtoolbar { margin-top: 16px; }
- 
- .secondary { color: rgba(0,0,0,0.54); }
- 
+// .app-belowtoolbar {
+//     margin-top: 16px;
+// }
+
+.secondary {
+    color: rgba(0, 0, 0, 0.54);
+}
