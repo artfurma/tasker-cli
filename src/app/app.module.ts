@@ -1,3 +1,4 @@
+import { ProjectModule } from './project/project.module';
 import { TokenService } from './auth/authentication/token.service';
 import { JwtInterceptor } from './auth/interceptors/jwt-interceptor';
 import { TokenInterceptor } from './auth/interceptors/token-interceptor';
@@ -36,6 +37,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     FormsModule,
     HttpClientModule,
     TaskerMaterialModule,
+    ProjectModule,
     routing
   ],
   providers: [
