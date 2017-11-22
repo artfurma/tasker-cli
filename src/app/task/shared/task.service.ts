@@ -1,5 +1,6 @@
+import { ChangeStatusModel } from './change-status-model';
 import { Injectable, Inject } from '@angular/core';
-import { Task, IControlPoint } from './task.model';
+import { Task, IControlPoint, SavingTask } from './task.model';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs/Rx';
 import { Response, Headers, Request, RequestOptions } from '@angular/http';
@@ -25,13 +26,12 @@ export class TaskService {
     getAllMilestones(): Observable<IControlPoint[]> {
         return this._http.get<IControlPoint[]>(`http://localhost:4200/api/milestones/getall`).catch(this.handleError);
     }
-    saveTask(task: Task): Observable<Task> {
-        const headers = new Headers({ 'Content-Type': 'application/json' });
-        const options = new RequestOptions({ headers: headers });
+    saveTask(task: SavingTask){
+        return this._http.post('http://localhost:4200/api/task', task).catch(this.handleError);
+    }
 
-        return this._http.post('/api/tasks', JSON.stringify(task)).map((response: Response) => {
-            return response.json();
-        }).catch(this.handleError);
+    changeTaskStatus(statusModel: ChangeStatusModel) {
+        return this._http.post('http://localhost:4200/api/task/status', statusModel).catch(this.handleError);
     }
 
     private handleError(error: Response) {

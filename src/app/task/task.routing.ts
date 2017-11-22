@@ -7,6 +7,8 @@ import { TaskTreeResolverService } from './shared/task-tree-resolver.service';
 import { TaskResolverService } from './shared/task-resolver.service';
 import { TaskMainComponent } from './task-main/task-main.component';
 import { TaskNewComponent } from './task-new/task-new.component';
+import { TaskEditComponent } from './task-edit/task-edit.component';
+
 
 export const taskRoutes: Routes = [
   // { path: 'tasks/new', component: CreateTaskComponent }, // TODO: Dodać , canDeactivate: ['canDeactivateCreateEvent']
@@ -64,6 +66,23 @@ export const taskRoutes: Routes = [
         path: '',
         component: TaskNewComponent,
         outlet: 'new',
+        resolve: { details: TaskResolverService }
+        // canDeactivate: [ CanDeactivateFormGuardService ]
+      }
+    ]
+  },
+  {
+    path: 'edit/:id', component: TaskEditComponent,
+    children: [
+      {
+        path: '',
+        component: TaskTreeComponent,
+        resolve: { tasks: TaskTreeResolverService }
+      },
+      {
+        path: '',
+        component: TaskEditComponent,
+        outlet: 'edit',
         resolve: { details: TaskResolverService }
         // canDeactivate: [ CanDeactivateFormGuardService ]
       }

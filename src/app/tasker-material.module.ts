@@ -48,5 +48,6 @@ import {
         MatSlideToggleModule,
         MatGridListModule
     ]
+
 })
 export class TaskerMaterialModule { }

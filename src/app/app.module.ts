@@ -8,6 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterComponent } from './auth/register/register.component';
 
 // Modules
+import { ProjectModule } from './project/project.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -44,6 +45,7 @@ import { routing } from './app.routing';
     FormsModule,
     HttpClientModule,
     TaskerMaterialModule,
+    ProjectModule,
     routing
   ],
   providers: [
