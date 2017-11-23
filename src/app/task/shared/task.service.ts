@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class TaskService {
 
+    public chosenTask: Task;
     private deleteTaskURL= '/api/Task/';
     constructor(private _http: HttpClient) {
     }

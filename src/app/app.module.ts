@@ -61,7 +61,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
   ],
   entryComponents: [
     YesNoModalComponent
-  ]
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

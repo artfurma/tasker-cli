@@ -1,5 +1,5 @@
 import { TaskService } from './../shared/task.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Task, IControlPoint } from '../shared/task.model';
 import { ActivatedRoute } from '@angular/router';
 import { AuthGuard } from "../../auth/guard/auth.guard";

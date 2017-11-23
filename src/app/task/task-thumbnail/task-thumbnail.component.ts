@@ -46,4 +46,8 @@ export class TaskThumbnailComponent implements OnInit {
       }
     });
   }
+
+  setChosenTask(task: Task) {
+    this.taskService.chosenTask = task;
+  }
 }
