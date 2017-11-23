@@ -47,7 +47,7 @@ export class TaskDetailsComponent implements OnInit {
                 this.ControlPointsInUse = task.controlPointIds;
                 this.taskPerformers.length = 0;
                 this.taskPerformers = task.taskPerformers;
-                this.TaskStatus=TaskStatus[task.statusId];
+                this.TaskStatus=TaskStatus[task.taskStatusId];
                 console.log(task)
                 this.loadAllUsers(task.mainPerformer);
             });

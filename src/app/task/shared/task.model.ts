@@ -3,10 +3,9 @@ import { User } from "../../users/user/user";
 export interface Task {
     id: number;
     parentTaskId:number;
-    name: string;
     description: string;
     children?: Task[];
-    statusId: TaskStatus;
+    taskStatusId: TaskStatus;
     title: string;
     mainPerformer: number;
     taskPerformers: User[];

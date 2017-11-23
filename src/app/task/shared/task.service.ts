@@ -29,7 +29,7 @@ export class TaskService {
         return this._http.post('http://localhost:4200/api/task', task).catch(this.handleError);
     }
     saveTask(task: Task){
-        return this._http.post('http://localhost:4200/api/task', task).catch(this.handleError);
+        return this._http.put('http://localhost:4200/api/task', task).catch(this.handleError);
     }
 
 

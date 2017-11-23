@@ -43,7 +43,7 @@
 
         </mat-card-header>
         <mat-card-actions>
-                <button mat-raised-button color="primary" (click)="editTask()">Edit</button>
+                <button mat-raised-button color="primary" [routerLink]="['/tasks/edit/', TaskID]" >Edit</button>
                 <button mat-raised-button color="warn" (click)="deleteTask()">Delete</button>
         </mat-card-actions>
 </mat-card>

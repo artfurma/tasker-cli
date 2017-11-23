@@ -59,9 +59,9 @@ export class TaskEditComponent implements OnInit {
         this.loadAllMilestones();
         this.ChosedMilestones = task.controlPointIds;
         this.taskPerformers = task.taskPerformers;
-        this.taskStatus=this.enumStatus[task.statusId];
+        this.taskStatus=this.enumStatus[task.taskStatusId];
         this.loadAllUsers(task.mainPerformer);
-        console.log(task.statusId)
+        console.log(task.taskStatusId)
     });
     });
         
@@ -183,16 +183,18 @@ export class TaskEditComponent implements OnInit {
 
   saveTask() {
     
-    let savingTask:SavingTask= {
-      parentTaskId:+this.ParentTaskID,
-      description: this.Description,
-      TaskStatusId: +this.taskStatus,
+    let savingTask:Task= {
+      id: this.TaskID,
       title: this.Title,
+      description: this.Description,
+      parentTaskId:+this.ParentTaskID,
+      controlPointIds: this.ChosedMilestones,
       mainPerformer: +this.mainPerformer.id,
-      taskPerformers: this.taskPerformers,
-      controlPointIds: this.ChosedMilestones
+      taskStatusId: this.taskStatus,
+      taskPerformers: this.taskPerformers
+      
     }
-    //this._taskService.saveTask(savingTask).subscribe();
+    this._taskService.saveTask(savingTask).subscribe();
     this._navRoute.navigate(['/tasks/']);
   }
   cancel() {
