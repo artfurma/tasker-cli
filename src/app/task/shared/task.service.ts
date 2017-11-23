@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class TaskService {
 
+    private deleteTaskURL= '/api/Task/';
     constructor(private _http: HttpClient) {
     }
 
@@ -36,5 +37,9 @@ export class TaskService {
 
     private handleError(error: Response) {
         return Observable.throw(error.statusText);
+    }
+
+    deleteTask(id: number) {
+        return this._http.delete(this.deleteTaskURL + id ).catch(this.handleError);
     }
 }

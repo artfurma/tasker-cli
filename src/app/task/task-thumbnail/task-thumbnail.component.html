@@ -10,6 +10,9 @@
         <a mat-icon-button [routerLink]="['/tasks/new/', task.id]" class="list-group-item float-right">
             <mat-icon color="primary">playlist_add</mat-icon>
         </a>
+        <button mat-icon-button (click)="deleteTask(task.id)" class="list-group-item float-right">
+            <i class="material-icons remove">clear</i>
+        </button>
     </span>
 </div>
 

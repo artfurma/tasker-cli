@@ -1,3 +1,5 @@
+import { TaskService } from './../shared/task.service';
+import { YesNoModalComponent } from './../../modals/yes-no-modal/yes-no-modal.component';
 import { StatusChooserComponent } from './../status-chooser/status-chooser.component';
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Task } from '../shared/task.model';
@@ -10,9 +12,12 @@ import { MatDialog } from '@angular/material';
 })
 export class TaskThumbnailComponent implements OnInit {
 
+  deleteConfirm: boolean;
   @Input() task: Task;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog,
+              public deleteDialog: MatDialog,
+              private taskService: TaskService) { }
 
   ngOnInit() { }
 
@@ -27,5 +32,18 @@ export class TaskThumbnailComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe();
+  }
+
+  deleteTask(): void {
+    const dialogRef = this.deleteDialog.open(YesNoModalComponent, {
+      width: '480px',
+      data: { message: 'Czy aby na pewno chcesz usunać tego taska ?'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.taskService.deleteTask(this.task.id).subscribe();
+      }
+    });
   }
 }

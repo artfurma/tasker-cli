@@ -40,6 +40,7 @@ div {
     border-radius: 8px;
     padding: 2px;
     float: left;
+    margin-right: 8px;    
     margin-top: 6px;
     cursor: pointer;    
 }
@@ -47,13 +48,18 @@ div {
 .float-left{
     float: left;
     margin-top: 6px;
+    margin-right: 8px;
     color: blue;
     cursor: pointer; 
 }
 .done-status{
     float: left;
+    margin-right: 8px;    
     margin-top: 6px;
     color: green;
     cursor: pointer;
 }
 
+.remove{
+    color: red;
+}

@@ -1,3 +1,4 @@
+import { YesNoModalComponent } from './modals/yes-no-modal/yes-no-modal.component';
 import { ProjectModule } from './project/project.module';
 import { TokenService } from './auth/authentication/token.service';
 import { JwtInterceptor } from './auth/interceptors/jwt-interceptor';
@@ -29,6 +30,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     HomeComponent,
     AlertComponent,
     LoginComponent,
+    YesNoModalComponent,
     RegisterComponent
 ],
   imports: [
@@ -57,6 +59,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     AlertService,
     AuthGuard
   ],
+  entryComponents: [
+    YesNoModalComponent
+  ]
   bootstrap: [AppComponent]
 })
 export class AppModule { }
