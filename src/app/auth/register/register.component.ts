@@ -30,9 +30,9 @@ export class RegisterComponent {
 
     register() {
         this.loading = true;
-        this.userService.create(this.model)
-            .subscribe(
+        this.userService.create(this.model).subscribe(
             data => {
+                this.loading = false;
                 this.alertService.success('Registration successful', true);
                 this.router.navigate(['/login']);
             },

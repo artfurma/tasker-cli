@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Headers, RequestOptions, Response } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './user';
 
 @Injectable()
@@ -19,7 +19,10 @@ export class UserService {
     }
 
     create(user: User) {
-        return this.http.post(this.apiUrl + '/user/', user);
+        return this.http.post(this.apiUrl + '/user', user, {
+            headers: new HttpHeaders().set('Content-Type', 'application/json'),
+            responseType: 'text'
+        });
     }
 
     update(user: User) {
