@@ -12,6 +12,10 @@ export interface Task {
     taskPerformers: User[];
     controlPointIds: IControlPoint[];
 }
+
+export interface FilteredTask extends Task{
+    shouldBeVisible: boolean;
+}
 export interface IControlPoint{
     id: number;
     EndDate: Date;

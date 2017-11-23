@@ -85,7 +85,7 @@ export class TaskDetailsComponent implements OnInit {
     }
     isMilestoneInUse(selecded: IControlPoint) {
         this.ControlPointsInUse.forEach(element => {
-            if (selecded.ID === element.ID) return "primary";
+            if (selecded.id === element.id) return "primary";
         });
     }
 

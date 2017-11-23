@@ -11,16 +11,6 @@
         <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
   </mat-nav-list>
 </mat-card>
-<mat-toolbar>
-  <div  *ngFor="let user of UsersFilters">
-      <button  mat-raised-button>{{user.username}} </button>
-  </div>
-</mat-toolbar>
-<mat-toolbar>
-  <div  *ngFor="let user of MilestonesFilters">
-      <button  mat-raised-button>{{user.name}} </button>
-  </div>
-</mat-toolbar>
 <!-- <div class="row">
   <div class="col-sm-4 col-lg-4">
     <div>
