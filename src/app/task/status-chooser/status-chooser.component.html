@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Change task status</h1>
+<div mat-dialog-content class="overflow">
+  <div class="center-align">
+    <div [ngClass]="{'standard-color': status!==1, 'red': status===1}" (click)="status=1">
+        <span class="new-status">Not started</span>        
+    </div>
+    <div [ngClass]="{'standard-color': status!==2, 'blue': status===2}" (click)="status=2">
+        <i class="material-icons progress-status">cached</i>        
+    </div>
+    <div [ngClass]="{'standard-color': status!==3, 'green': status===3}" (click)="status=3">
+        <i class="material-icons done-status">done</i>        
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="saveStatus()">Ok</button>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+</div>

@@ -1,33 +1,48 @@
-.Aligner {
+.login-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    
-  }
+    position: absolute;
+    background-image: url("../../../assets/images/bg.png");
+    background-size: cover;
+    min-height: 100% !important;
+    min-width: 100% !important;
+}
 
-  .form-container{
-    border: 1px solid rgba(0,0,0,.03);
-    box-shadow: 0 2px 2px rgba(0,0,0,.24), 0 0 2px rgba(0,0,0,.12);
-    margin: 4px;
+mat-card {
+    margin: 2em auto;
+    text-align: center;
+    background-color: rgba(255, 255, 255, .9) !important;        
+}
+
+.login-box-header {
+    img {
+        max-width: 60%;
+    }
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    background-color: whitesmoke;
-    max-width: 45%;
-  }
+}
 
-  .login-logo{
-    
-    margin-top:-5px;
-  }
-  
-  .logo {
-    max-width: 60%;
-    padding-bottom: 20px;
-  }
+.justifier {
+    width: 100%;
+    padding-bottom: 2%;
+}
 
-  .button-margin {
-      margin: 10px;
-  }
+.login-icon {
+    margin-top: -2px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 1.5% !important;
+    font-size: 1.5em;
+    color: #fff !important;
+}
+
+hr {
+    display: block;
+    margin: 10px 0 10px 0;
+    border-top: 1px solid rgba(0, 0, 0, .12);
+    width: 100%
+}
