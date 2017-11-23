@@ -9,10 +9,10 @@
     min-width: 100% !important;
 }
 
-md-card {
-    max-width: 400px;
+mat-card {
     margin: 2em auto;
     text-align: center;
+    background-color: rgba(255, 255, 255, .9) !important;        
 }
 
 .login-box-header {

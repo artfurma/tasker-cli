@@ -9,22 +9,24 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 @Injectable()
 export class AuthenticationService {
 
-    private loggedIn = new BehaviorSubject<boolean>(false);
+    private _loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    loggedIn: Observable<boolean> = this._loggedIn.asObservable();
 
     constructor(private http: HttpClient) { }
 
-    get isLoggedIn() {
-        return this.loggedIn.asObservable();
+    changeLoggedIn(loggedIn: boolean) {
+        this._loggedIn.next(loggedIn);
     }
 
     login(username: string, password: string) {
-        this.loggedIn.next(true);
-        return this.http.post('http://localhost:4200/api/user/authenticate', { username: username, password: password });
+        return this.http.post('/api/user/authenticate', { username: username, password: password });
     }
 
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
-        this.loggedIn.next(false);
+
+        // ustaw usera jako wylogowanego
+        this.changeLoggedIn(false);
     }
 }

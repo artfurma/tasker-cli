@@ -25,28 +25,33 @@ export class LoginComponent implements OnInit {
     formControl = new FormControl('', [
         Validators.required
     ]);
+
     ngOnInit() {
         // reset login status
         this.authenticationService.logout();
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+        // domyślnie użytkownik jest wylogowany
+        this.authenticationService.changeLoggedIn(false);
     }
 
     login() {
         this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
-            .subscribe(
+        this.authenticationService.login(this.model.username, this.model.password).subscribe(
             data => {
                 const user = JSON.parse(JSON.stringify(data));
                 if (user && user.token) {
                     localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.authenticationService.changeLoggedIn(true);
                 }
                 this.router.navigate([this.returnUrl]);
             },
             error => {
                 this.alertService.error(error._body);
                 this.loading = false;
+                this.authenticationService.changeLoggedIn(false);
             });
     }
 }
