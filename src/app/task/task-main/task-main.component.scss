@@ -5,10 +5,26 @@
 //     z-index: 1;
 //   }
 //   [mat-fab].active { display: none; }
-  .btn-filter{
+.btn-filter {
     padding: 10px;
-  }
+}
 
-  .task-main-container {
-    margin-top: 16px;
-  }
+.task-main-container {
+    margin: 16px;
+}
+
+.filters-container {
+    mat-card.users-filters {
+        // display: block;
+        padding-left: 50px; // tymczasowo
+        .user-container {
+            min-width: 32px;
+            display: inline-block;
+            margin-right: 20px;
+            text-align: center;
+            button {
+                margin-bottom: 5px;
+            }
+        }
+    }
+}

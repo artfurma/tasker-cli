@@ -1,17 +1,27 @@
 <mat-card class="task-tree-container">
-  <mat-nav-list>
-    <ng-template #recursiveList let-list>
-      <div class="indented" *ngFor="let item of list">
-        <tskr-task-thumbnail [task]="item"></tskr-task-thumbnail>
-        <div *ngIf="item.children.length > 0">
-          <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+  <mat-card-title>
+    Drzewo zadań
+  </mat-card-title>
+  <mat-card-subtitle>
+    Zaaplikowane filtry (Użytkownicy): <p *ngFor="let user of UserFilters">{{user.username}}</p>
+  Zaaplikowane filtry (Punkty kontrolne): <p *ngFor="let milestone of MilestonesFilters">{{user.name}}</p>
+  </mat-card-subtitle>
+  <mat-card-content>
+    <mat-nav-list>
+      <ng-template #recursiveList let-list>
+        <div class="indented" *ngFor="let item of list">
+          <tskr-task-thumbnail [task]="item"></tskr-task-thumbnail>
+          <div *ngIf="item.children.length > 0">
+            <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+          </div>
         </div>
-      </div>
-    </ng-template>
-    <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
-  </mat-nav-list>
+      </ng-template>
+      <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
+    </mat-nav-list>
+  </mat-card-content>
+
 </mat-card>
-<mat-toolbar>
+<!-- <mat-toolbar>
   <div *ngFor="let user of UsersFilters">
     <button mat-raised-button>{{user.username}} </button>
   </div>
@@ -20,7 +30,7 @@
   <div *ngFor="let user of MilestonesFilters">
     <button mat-raised-button>{{user.name}} </button>
   </div>
-</mat-toolbar>
+</mat-toolbar> -->
 <!-- <div class="row">
   <div class="col-sm-4 col-lg-4">
     <div>
