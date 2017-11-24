@@ -192,7 +192,6 @@ export class TaskEditComponent implements OnInit {
       mainPerformer: +this.mainPerformer.id,
       taskStatusId: this.taskStatus,
       taskPerformers: this.taskPerformers
-      
     }
     this._taskService.saveTask(savingTask).subscribe();
     this._navRoute.navigate(['/tasks/']);

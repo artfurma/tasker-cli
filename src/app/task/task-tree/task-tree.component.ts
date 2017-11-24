@@ -23,6 +23,7 @@ export class TaskTreeComponent implements OnInit {
   UsersFilters: User[];
   MilestonesFilters: IControlPoint[];
 
+
   constructor(private _route: ActivatedRoute,
     private _taskService: TaskService,
     private _taskFiltersService: TaskFiltersService) {
@@ -35,7 +36,7 @@ export class TaskTreeComponent implements OnInit {
     // this.list = this._route.snapshot.data['tasks'];
     this._taskService.getTasksDb().subscribe(res => {
     this.list = res;
-      console.log(this.list);
+    this.buildVisibilityTree();
     });
     this._taskFiltersService.SharedList$.subscribe(lst => {
       this.UsersFilters = lst;
@@ -49,7 +50,7 @@ export class TaskTreeComponent implements OnInit {
       this.MilestonesFilters = lst;
       if (this.list != undefined) {
         this.buildVisibilityTree();
-        console.log(this.filters);
+        console.log(JSON.stringify(this.filters));
       }
 
     });
@@ -110,9 +111,11 @@ export class TaskTreeComponent implements OnInit {
     }
     let flag: boolean = true;
     this.UsersFilters.forEach(user => {
+    //  if(!task.taskPerformers.some((el)=>{ return el.id ===user.id}))return false;
       for (let i = 0; i < task.taskPerformers.length; i++) {
-        if (task.taskPerformers[i].id !== user.id && i === task.taskPerformers.length - 1) flag = false;
+        if (task.taskPerformers[i].id === user.id) return;
       }
+      flag= false;
     });
     return flag;
   }
@@ -131,8 +134,12 @@ export class TaskTreeComponent implements OnInit {
     let flag: boolean = true;
     this.MilestonesFilters.forEach(milestone => {
       for (let i = 0; i < task.controlPointIds.length; i++) {
-        if (task.controlPointIds[i].id !== milestone.id && i === task.controlPointIds.length - 1) flag = false;
+        if (task.controlPointIds[i].id === milestone.id) return;
       }
+      flag= false;
+      // for (let i = 0; i < task.controlPointIds.length; i++) {
+      //   if (task.controlPointIds[i].id !== milestone.id && i === task.controlPointIds.length - 1) flag = false;
+      // }
     });
     return flag;
   }
@@ -142,9 +149,8 @@ export class TaskTreeComponent implements OnInit {
 
 
 class TreeVisible {
-  visible: boolean;
   childrens: TreeVisible[] = [];
+  visible: boolean;
   constructor() {
-
   }
 }
