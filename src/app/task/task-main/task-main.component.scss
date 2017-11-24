@@ -13,18 +13,35 @@
     margin: 16px;
 }
 
-.filters-container {
+.users-filters-container {
     mat-card.users-filters {
         // display: block;
         padding-left: 50px; // tymczasowo
         .user-container {
             min-width: 32px;
             display: inline-block;
-            margin-right: 20px;
+            margin-right: 30px;
             text-align: center;
             button {
                 margin-bottom: 5px;
             }
         }
     }
+}
+
+.milestones-filters-container {
+  margin-top: 16px;
+  mat-card.milestones-filters {
+      // display: block;
+      padding-left: 50px; // tymczasowo
+      .milestone-container {
+          min-width: 32px;
+          display: inline-block;
+          margin-right: 30px;
+          text-align: center;
+          button {
+              margin-bottom: 5px;
+          }
+      }
+  }
 }

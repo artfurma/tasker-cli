@@ -10,23 +10,46 @@
             <button (click)="changeMilestoneFilter(mil)" [color]="isMilestoneInFilters(mil)" mat-raised-button>{{mil.name}} </button>
         </div>
     </mat-toolbar> -->
-    <div class="filters-container">
+    <div class="users-filters-container">
         <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
             <div fxFlex>
                 <mat-card class="users-filters">
                     <!-- <div class="btn-filter" > -->
                     <div class="user-container" *ngFor="let user of users">
-                        <button mat-fab (click)="changeUserFilter(user)" [color]="isUserInFilters(user)" mat-raised-button><mat-icon>person</mat-icon></button><br>
-                        {{user.username}}
+                        <button mat-fab (click)="changeUserFilter(user)" [color]="isUserInFilters(user)">
+                            <mat-icon>person</mat-icon>
+                        </button>
+                        <br> {{user.username}}
                     </div>
                     <!-- </div> -->
                 </mat-card>
             </div>
             <div fxFlex>
-
+                <!-- Druga kolumna - domyslnie pusta -->
             </div>
         </div>
     </div>
+
+    <div class="milestones-filters-container">
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
+            <div fxFlex>
+                <mat-card class="milestones-filters">
+                    <!-- <div class="btn-filter" > -->
+                    <div class="milestone-container" *ngFor="let milestone of allMilestones">
+                        <button mat-fab (click)="changeMilestoneFilter(milestone)" [color]="isMilestoneInFilters(milestone)">
+                            <mat-icon>timeline</mat-icon>
+                        </button>
+                        <br> {{milestone?.name}}
+                    </div>
+                    <!-- </div> -->
+                </mat-card>
+            </div>
+            <div fxFlex>
+                <!-- Druga kolumna - domyslnie pusta -->
+            </div>
+        </div>
+    </div>
+
     <div class="container-middle">
         <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
             <div fxFlex>
