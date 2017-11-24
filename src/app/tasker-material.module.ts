@@ -7,12 +7,13 @@ import {    MatButtonModule,
             MatChipsModule,
             MatIconModule,
             MatCardModule,
+            MatGridListModule,
             MatListModule,
             MatInputModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-    imports: [MatButtonModule, MatDialogModule, MatCheckboxModule,MatSelectModule, MatChipsModule, MatCardModule, MatToolbarModule, MatIconModule, MatCardModule, MatListModule, FlexLayoutModule,MatInputModule],
-    exports: [MatButtonModule, MatDialogModule, MatCheckboxModule,MatSelectModule, MatChipsModule, MatCardModule, MatToolbarModule, MatIconModule, MatCardModule, MatListModule, FlexLayoutModule,MatInputModule],
+    imports: [MatButtonModule,MatGridListModule, MatDialogModule, MatCheckboxModule,MatSelectModule, MatChipsModule, MatCardModule, MatToolbarModule, MatIconModule, MatCardModule, MatListModule, FlexLayoutModule,MatInputModule],
+    exports: [MatButtonModule,MatGridListModule, MatDialogModule, MatCheckboxModule,MatSelectModule, MatChipsModule, MatCardModule, MatToolbarModule, MatIconModule, MatCardModule, MatListModule, FlexLayoutModule,MatInputModule],
 })
 export class TaskerMaterialModule { }
