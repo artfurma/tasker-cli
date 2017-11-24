@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SavingTask, IControlPoint,TaskStatus, Task } from '../shared/task.model';
+import { SavingTask, IControlPoint,TaskStatus, Task, EditingTask } from '../shared/task.model';
 import { User } from '../../users/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../shared/task.service';
@@ -183,15 +183,15 @@ export class TaskEditComponent implements OnInit {
 
   saveTask() {
     
-    let savingTask:Task= {
-      id: this.TaskID,
-      title: this.Title,
-      description: this.Description,
-      parentTaskId:+this.ParentTaskID,
-      controlPointIds: this.ChosedMilestones,
-      mainPerformer: +this.mainPerformer.id,
-      taskStatusId: this.taskStatus,
-      taskPerformers: this.taskPerformers
+    let savingTask:EditingTask= {
+      Id: this.TaskID,
+      Title: this.Title,
+      Description: this.Description,
+      ParentTaskId:+this.ParentTaskID,
+      ControlPointIds: this.ChosedMilestones,
+      MainPerformer: +this.mainPerformer.id,
+      TaskStatusId: this.taskStatus,
+      TaskPerformers: this.taskPerformers
     }
     this._taskService.saveTask(savingTask).subscribe();
     this._navRoute.navigate(['/tasks/']);

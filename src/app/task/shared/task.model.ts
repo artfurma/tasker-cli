@@ -36,3 +36,14 @@ export interface SavingTask {
     taskPerformers: User[];
     controlPointIds: IControlPoint[];
 }
+
+export interface EditingTask {
+    Id: number;
+    ParentTaskId:number;
+    Description: string;
+    TaskStatusId: TaskStatus;
+    Title: string;
+    MainPerformer: number;
+    TaskPerformers: User[];
+    ControlPointIds: IControlPoint[];
+}

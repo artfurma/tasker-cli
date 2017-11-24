@@ -1,6 +1,6 @@
 import { ChangeStatusModel } from './change-status-model';
 import { Injectable, Inject } from '@angular/core';
-import { Task, IControlPoint, SavingTask } from './task.model';
+import { Task, IControlPoint, SavingTask, EditingTask } from './task.model';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs/Rx';
 import { Response, Headers, Request, RequestOptions } from '@angular/http';
@@ -30,7 +30,7 @@ export class TaskService {
         return this._http.post('http://localhost:4200/api/task', task).catch(this.handleError);
     }
 
-    saveTask(task: Task){
+    saveTask(task: EditingTask){
         return this._http.put('http://localhost:4200/api/task', task).catch(this.handleError);
     }
 
