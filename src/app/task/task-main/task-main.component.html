@@ -14,14 +14,12 @@
         <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
             <div fxFlex>
                 <mat-card class="users-filters">
-                    <!-- <div class="btn-filter" > -->
                     <div class="user-container" *ngFor="let user of users">
                         <button mat-fab (click)="changeUserFilter(user)" [color]="isUserInFilters(user)">
                             <mat-icon>person</mat-icon>
                         </button>
                         <br> {{user.username}}
                     </div>
-                    <!-- </div> -->
                 </mat-card>
             </div>
             <div fxFlex>
@@ -34,14 +32,12 @@
         <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
             <div fxFlex>
                 <mat-card class="milestones-filters">
-                    <!-- <div class="btn-filter" > -->
                     <div class="milestone-container" *ngFor="let milestone of allMilestones">
                         <button mat-fab (click)="changeMilestoneFilter(milestone)" [color]="isMilestoneInFilters(milestone)">
                             <mat-icon>timeline</mat-icon>
                         </button>
                         <br> {{milestone?.name}}
                     </div>
-                    <!-- </div> -->
                 </mat-card>
             </div>
             <div fxFlex>
@@ -50,12 +46,12 @@
         </div>
     </div>
 
-    <div class="container-middle">
+    <div class="tasks-master-details-container">
         <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
-            <div fxFlex>
+            <div fxFlex class="tasks-master-container">
                 <router-outlet></router-outlet>
             </div>
-            <div fxFlex>
+            <div fxFlex class="tasks-details-container">
                 <router-outlet name="details"></router-outlet>
                 <router-outlet name="new"></router-outlet>
             </div>

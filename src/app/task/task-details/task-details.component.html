@@ -1,49 +1,38 @@
-<mat-card class="Aligner">
-        <mat-card-header class="details-header">
-                <mat-card-title>
-                        <h2>{{Title}}</h2>
-                </mat-card-title>
-        </mat-card-header>
-        <mat-card-header>
-                <mat-chip-list>
-                        <div *ngFor="let mil of ControlPointsInUse">
-                                <mat-chip>{{mil.name}}</mat-chip>
-                        </div>
-                </mat-chip-list>
-        </mat-card-header>
+<mat-card class="task-details-container">
+        <mat-card-title>
+                {{Title}}
+        </mat-card-title>
+        <hr/>
+        <mat-chip-list>
+                <p>Punkty kontrolne zadania: </p>
+                <mat-chip class="milestone-chip" *ngFor="let mil of ControlPointsInUse">{{mil.name}}</mat-chip>
+        </mat-chip-list>
 
-        <mat-card-header>
-                <mat-chip-list>
-                        <mat-chip color="primary" selected="true" *ngIf="mainPerformer!==undefined">{{mainPerformer.username}}</mat-chip>
-                </mat-chip-list>
+        <mat-chip-list>
+                <p>Osoba odpowiedzialna: </p>
+                <mat-chip class="main-performer-chip" color="primary" selected="true" *ngIf="mainPerformer">{{mainPerformer.username}}</mat-chip>
+        </mat-chip-list>
 
+        <mat-chip-list>
+                <p>Wykonawcy zadania: </p>
+                <mat-chip class="task-performer-chip" *ngFor="let usr of taskPerformers">{{usr.username}}</mat-chip>
+        </mat-chip-list>
+        <hr>
+        <!-- <mat-card-content class="details-content"> -->
+        <p>Opis zadania: </p>
 
-        </mat-card-header>
-        <mat-card-header>
-                <mat-chip-list>
-                        <div *ngFor="let usr of taskPerformers">
-                                <mat-chip>{{usr.username}}</mat-chip>
-                        </div>
+        <p class="details-content">
+                {{Description}}
+        </p>
+        <!-- </mat-card-content> -->
 
-                </mat-chip-list>
-
-
-        </mat-card-header>
-        <mat-card-content class="details-content">
-                <p class="details-content">
-                        {{Description}}
-                </p>
-        </mat-card-content>
-
-        <mat-card-header>
-
-                      {{TaskStatus}}
-     
-
-
-        </mat-card-header>
-        <mat-card-actions>
-                <button mat-raised-button color="primary" (click)="editTask()">Edit</button>
-                <button mat-raised-button color="warn" (click)="deleteTask()">Delete</button>
+        <!-- <mat-card-header> -->
+        {{TaskStatus}}
+        <!-- </mat-card-header> -->
+        <hr>
+        <mat-card-actions class="task-details-actions">
+                <button mat-raised-button color="primary" (click)="editTask()">Edytuj</button>
+                <button mat-raised-button color="warn" (click)="deleteTask()">Usuń</button>
+                <button mat-raised-button (click)="deleteTask()">Anuluj</button>
         </mat-card-actions>
 </mat-card>
