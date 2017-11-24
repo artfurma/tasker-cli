@@ -3,27 +3,16 @@
         {{task.title}}
     </a>
 
-    <span class="float-test">
-        <span *ngIf="task.statusId===1" (click)="openDialog()" class="status">Not started</span>
-        <i *ngIf="task.statusId===2" (click)="openDialog()" class="material-icons float-left">cached</i>
-        <i *ngIf="task.statusId===3" (click)="openDialog()" class="material-icons done-status">done</i>
-        <a mat-icon-button [routerLink]="['/tasks/new/', task.id]" (click)="setChosenTask(task)" class="list-group-item float-right">
-            <mat-icon color="primary">playlist_add</mat-icon>
-        </a>
-        <button mat-icon-button (click)="deleteTask(task.id)" class="list-group-item float-right">
-            <i class="material-icons remove">clear</i>
-        </button>
+
+    <span class="status-icon" [ngSwitch]="task.statusId">
+        <mat-icon *ngSwitchCase="1" (click)="openDialog()" class="status-not-started">highlight_off</mat-icon>
+        <mat-icon *ngSwitchCase="2" (click)="openDialog()" class="status-in-progress">cached</mat-icon>
+        <mat-icon *ngSwitchCase="3" (click)="openDialog()" class="status-done">done</mat-icon>
     </span>
+    <button mat-icon-button (click)="deleteTask(task.id)" class="remove">
+        <i class="material-icons remove">clear</i>
+    </button>
+    <a mat-mini-fab color="primary" [routerLink]="['/tasks/new/', task.id]" class="add-button">
+        <mat-icon>add</mat-icon>
+    </a>
 </div>
-
-
-
-<!-- <a mat-icon-button class="medium">
-    <mat-icon color="primary">clear</mat-icon>
-</a> -->
-
-
-<!-- <a *ngIf="task" class="list-group-item" draggable="true">
-    {{task.title}}
-    <span [ngClass]="getDeadlineBadgeClass()" class="badge">8 days</span>
-</a> -->

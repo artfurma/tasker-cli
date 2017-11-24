@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from "../../users/user/user.service";
 import { User } from "../../users/user/user";
-import { SwiperModule } from 'ngx-swiper-wrapper';
 import { TaskService } from "../shared/task.service";
 import { IControlPoint } from '../shared/task.model';
 import { TaskFiltersService } from "../shared/task-filters.service";
@@ -22,7 +21,7 @@ export class TaskMainComponent implements OnInit {
   filteredUsers: User[] = [];
 
 
-  constructor(private userService: UserService, private _swiperModule: SwiperModule, private _taskService: TaskService, private _taskFilterService:TaskFiltersService) { }
+  constructor(private userService: UserService, private _taskService: TaskService, private _taskFilterService:TaskFiltersService) { }
 
   ngOnInit() {
     this.loadAllUsers();
