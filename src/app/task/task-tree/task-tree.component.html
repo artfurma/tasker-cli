@@ -4,9 +4,15 @@
   </mat-card-title>
   <mat-card-subtitle>
     Zaaplikowane filtry (Użytkownicy):
-    <p *ngFor="let user of UserFilters">{{user.username}}</p>
+    <div style="display: inline-block">
+      <p *ngFor="let user of UsersFilters">{{user.username}}</p>
+    </div>
+
     <br> Zaaplikowane filtry (Punkty kontrolne):
-    <p *ngFor="let milestone of MilestonesFilters">{{milestone.name}}</p>
+    <div style="display: inline-block">
+      <p *ngFor="let milestone of MilestonesFilters">{{milestone.name}}</p>
+    </div>
+
   </mat-card-subtitle>
   <mat-card-content>
     <mat-nav-list>
