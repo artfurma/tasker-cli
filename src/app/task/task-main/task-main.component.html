@@ -1,24 +1,60 @@
-<mat-toolbar>
-    <div class="btn-filter" *ngFor="let user of users">
-        <button (click)="changeUserFilter(user)" [color]="isUserInFilters(user)" mat-raised-button>{{user.username}} </button>
-    </div>
-</mat-toolbar>
-
-<mat-toolbar>
-    <div class="btn-filter" *ngFor="let mil of allMilestones">
-        <button (click)="changeMilestoneFilter(mil)" [color]="isMilestoneInFilters(mil)" mat-raised-button>{{mil.name}} </button>
-    </div>
-</mat-toolbar>
-<!-- <button mat-fab [routerLink]="['/dragons/new']" class="fab" routerLinkActive="active"><mat-icon class="md-24">add</mat-icon></button> -->
-<div>
-    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
-        <div fxFlex>
-            <router-outlet></router-outlet>
+<div class="task-main-container">
+    <!-- <mat-toolbar>
+        <div class="btn-filter" *ngFor="let user of users">
+            <button (click)="changeUserFilter(user)" [color]="isUserInFilters(user)" mat-raised-button>{{user.username}} </button>
         </div>
-        <div fxFlex>
-            <router-outlet name="details"></router-outlet>
-            <router-outlet name="new"></router-outlet>
+    </mat-toolbar>
+
+    <mat-toolbar>
+        <div class="btn-filter" *ngFor="let mil of allMilestones">
+            <button (click)="changeMilestoneFilter(mil)" [color]="isMilestoneInFilters(mil)" mat-raised-button>{{mil.name}} </button>
+        </div>
+    </mat-toolbar> -->
+    <div class="users-filters-container">
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
+            <div fxFlex>
+                <mat-card class="users-filters">
+                    <div class="user-container" *ngFor="let user of users">
+                        <button mat-fab (click)="changeUserFilter(user)" [color]="isUserInFilters(user)">
+                            <mat-icon>person</mat-icon>
+                        </button>
+                        <br> {{user.username}}
+                    </div>
+                </mat-card>
+            </div>
+            <div fxFlex>
+                <!-- Druga kolumna - domyslnie pusta -->
+            </div>
+        </div>
+    </div>
+
+    <div class="milestones-filters-container">
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
+            <div fxFlex>
+                <mat-card class="milestones-filters">
+                    <div class="milestone-container" *ngFor="let milestone of allMilestones">
+                        <button mat-fab (click)="changeMilestoneFilter(milestone)" [color]="isMilestoneInFilters(milestone)">
+                            <mat-icon>timeline</mat-icon>
+                        </button>
+                        <br> {{milestone?.name}}
+                    </div>
+                </mat-card>
+            </div>
+            <div fxFlex>
+                <!-- Druga kolumna - domyslnie pusta -->
+            </div>
+        </div>
+    </div>
+
+    <div class="tasks-master-details-container">
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
+            <div fxFlex class="tasks-master-container">
+                <router-outlet></router-outlet>
+            </div>
+            <div fxFlex class="tasks-details-container">
+                <router-outlet name="details"></router-outlet>
+                <router-outlet name="new"></router-outlet>
+            </div>
         </div>
     </div>
 </div>
-<!-- <router-outlet name="details"></router-outlet> -->

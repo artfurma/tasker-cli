@@ -1,12 +1,12 @@
 <div class="col-md-6 col-md-offset-3">
-    <p>You're logged in with the MEAN Stack & Angular 2!!</p>
+    <!-- <p>You're logged in with the MEAN Stack & Angular 2!!</p>
     <h3>All registered users:</h3>
     <ul>
         <li *ngFor="let user of users">
             {{user.username}} ({{user.firstName}} {{user.lastName}})
             - <a (click)="deleteUser(user._id)">Delete</a>
         </li>
-    </ul>
+    </ul> -->
 
     <mat-nav-list>
             <mat-list-item *ngFor="let project of userProjects">
@@ -20,5 +20,5 @@
             </mat-list-item>
     </mat-nav-list>
 
-  <p><a [routerLink]="['/login']">Logout</a></p>
+  <!-- <p><a [routerLink]="['/login']">Logout</a></p> -->
 </div>
