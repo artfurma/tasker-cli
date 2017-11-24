@@ -1,10 +1,14 @@
-[mat-fab] {
-    position: absolute;
-    right: 3%;
-    top: 96px;
-    z-index: 1;
-  }
-  [mat-fab].active { display: none; }
+// [mat-fab] {
+//     position: absolute;
+//     right: 3%;
+//     top: 96px;
+//     z-index: 1;
+//   }
+//   [mat-fab].active { display: none; }
   .btn-filter{
     padding: 10px;
+  }
+
+  .task-main-container {
+    margin-top: 16px;
   }

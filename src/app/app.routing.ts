@@ -7,7 +7,7 @@ import { AuthGuard } from './auth/guard/auth.guard';
 import { TaskDetailsComponent } from './task/task-details/task-details.component';
 
 const appRoutes: Routes = [
-    { path: '', pathMatch: 'full', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: '', pathMatch: 'full', component: HomeComponent },
     { path: 'tasks', loadChildren: 'app/task/task.module#TaskModule', canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'project/:id', component: ProjectComponent },

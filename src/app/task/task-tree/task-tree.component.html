@@ -1,24 +1,24 @@
 <mat-card class="task-tree-container">
   <mat-nav-list>
-      <ng-template #recursiveList let-list>
-          <div class="indented" *ngFor="let item of list">
-            <tskr-task-thumbnail [task]="item"></tskr-task-thumbnail>
-            <div *ngIf="item.children.length > 0">
-              <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
-            </div>
-          </div>
-        </ng-template>
-        <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
+    <ng-template #recursiveList let-list>
+      <div class="indented" *ngFor="let item of list">
+        <tskr-task-thumbnail [task]="item"></tskr-task-thumbnail>
+        <div *ngIf="item.children.length > 0">
+          <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.children }"></ng-container>
+        </div>
+      </div>
+    </ng-template>
+    <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: list }"></ng-container>
   </mat-nav-list>
 </mat-card>
 <mat-toolbar>
-  <div  *ngFor="let user of UsersFilters">
-      <button  mat-raised-button>{{user.username}} </button>
+  <div *ngFor="let user of UsersFilters">
+    <button mat-raised-button>{{user.username}} </button>
   </div>
 </mat-toolbar>
 <mat-toolbar>
-  <div  *ngFor="let user of MilestonesFilters">
-      <button  mat-raised-button>{{user.name}} </button>
+  <div *ngFor="let user of MilestonesFilters">
+    <button mat-raised-button>{{user.name}} </button>
   </div>
 </mat-toolbar>
 <!-- <div class="row">
