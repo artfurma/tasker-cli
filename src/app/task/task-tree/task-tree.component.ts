@@ -35,8 +35,8 @@ export class TaskTreeComponent implements OnInit {
   ngOnInit() {
     // this.list = this._route.snapshot.data['tasks'];
     this._taskService.getTasksDb().subscribe(res => {
-    this.list = res;
-    this.buildVisibilityTree();
+      this.list = res;
+      this.buildVisibilityTree();
     });
     this._taskFiltersService.SharedList$.subscribe(lst => {
       this.UsersFilters = lst;
@@ -58,15 +58,13 @@ export class TaskTreeComponent implements OnInit {
 
   buildVisibilityTree() {
     this.filters = new Array<TreeVisible>(this.list.length);
-    let flag: boolean = false;
     this.list.forEach((task, index) => {
       if (task.children.length > 0) {
         let vis: boolean;
         this.filters[index] = new TreeVisible();
         this.filters[index].childrens = new Array<TreeVisible>(task.children.length);
         this.filters[index].visible = vis = this.makeVisibilityTree(task.children, this.filters[index].childrens);
-        flag = vis || flag;
-        if (!flag && index === task.children.length - 1)
+        if (!vis)
           this.filters[index].visible = this.checkUsersFilters(task) && this.checkMilestonesFilters(task);
       } else {
         this.filters[index] = new TreeVisible();
@@ -76,18 +74,18 @@ export class TaskTreeComponent implements OnInit {
   }
 
   makeVisibilityTree(list: Task[], filters: TreeVisible[]): boolean {
-
     let flag: boolean = false;
     let vis: boolean;
     list.forEach((task, index) => {
       if (task.children.length > 0) {
         filters[index] = new TreeVisible();
         filters[index].childrens = new Array<TreeVisible>(task.children.length);
-        
-        filters[index].visible = vis = this.makeVisibilityTree(task.children, filters[index].childrens);
+        vis = this.makeVisibilityTree(task.children, filters[index].childrens);
+        filters[index].visible = vis;
         flag = vis || flag;
-        if (!flag && index === task.children.length - 1) {
+        if (!flag) {
           flag = this.checkUsersFilters(task) && this.checkMilestonesFilters(task);
+          filters[index].visible = flag;
         }
       } else {
         filters[index] = new TreeVisible();
@@ -111,11 +109,11 @@ export class TaskTreeComponent implements OnInit {
     }
     let flag: boolean = true;
     this.UsersFilters.forEach(user => {
-    //  if(!task.taskPerformers.some((el)=>{ return el.id ===user.id}))return false;
+      //  if(!task.taskPerformers.some((el)=>{ return el.id ===user.id}))return false;
       for (let i = 0; i < task.taskPerformers.length; i++) {
         if (task.taskPerformers[i].id === user.id) return;
       }
-      flag= false;
+      flag = false;
     });
     return flag;
   }
@@ -136,7 +134,7 @@ export class TaskTreeComponent implements OnInit {
       for (let i = 0; i < task.controlPointIds.length; i++) {
         if (task.controlPointIds[i].id === milestone.id) return;
       }
-      flag= false;
+      flag = false;
       // for (let i = 0; i < task.controlPointIds.length; i++) {
       //   if (task.controlPointIds[i].id !== milestone.id && i === task.controlPointIds.length - 1) flag = false;
       // }

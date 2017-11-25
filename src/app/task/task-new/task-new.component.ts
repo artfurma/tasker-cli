@@ -157,7 +157,7 @@ export class TaskNewComponent implements OnInit {
       description: this.Description,
       TaskStatusId: +this.taskStatus,
       title: this.Title,
-      mainPerformer: +this.mainPerformer.id,
+      mainPerformer: this.mainPerformer?+this.mainPerformer.id:null,
       taskPerformers: this.taskPerformers,
       controlPointIds: this.ChosedMilestones
     }
