@@ -31,6 +31,6 @@ export class ProjectService {
     }
 
     addMember(memberEmail: string, projectId: number) {
-        return this.http.post(this.addMemberURL, {UserEmail : memberEmail, ProjectId: projectId });
+        return this.http.post<ProjectMember>(this.addMemberURL, {UserEmail : memberEmail, ProjectId: projectId });
     }
 }

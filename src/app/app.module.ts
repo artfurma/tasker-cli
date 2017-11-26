@@ -6,6 +6,7 @@ import { AlertComponent } from './alert/alert.component';
 import { LoginComponent } from './auth/login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { YesNoModalComponent } from './modals/yes-no-modal/yes-no-modal.component';
 
 // Modules
 import { ProjectModule } from './project/project.module';
@@ -36,6 +37,7 @@ import { routing } from './app.routing';
     HomeComponent,
     AlertComponent,
     LoginComponent,
+    YesNoModalComponent,
     RegisterComponent,
     NavbarComponent
   ],
@@ -64,6 +66,9 @@ import { routing } from './app.routing';
     UserService,
     AlertService,
     AuthGuard
+  ],
+  entryComponents: [
+    YesNoModalComponent
   ],
   bootstrap: [AppComponent]
 })

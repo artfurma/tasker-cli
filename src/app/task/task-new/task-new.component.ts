@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Task } from './../shared/task.model';
+import { Component, OnInit, Input } from '@angular/core';
 import { SavingTask, IControlPointIds, IControlPoint,TaskStatus } from '../shared/task.model';
 import { User } from '../../users/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -25,14 +26,15 @@ export class TaskNewComponent implements OnInit {
   private mainPerformer: User;
   private AllMilestones: IControlPoint[];
   private ChosedMilestones: IControlPoint[];
-  private enableDrop:boolean;
-  private taskStatus:TaskStatus;
+  private enableDrop: boolean;
+  private taskStatus: TaskStatus;
   private enumStatus: any;
   private keys: any;
-  
-  
 
-  constructor(private _route: ActivatedRoute, private _navRoute: Router, private _taskService: TaskService, private _userService: UserService) {
+  constructor(private _route: ActivatedRoute,
+              private _navRoute: Router,
+              private _taskService: TaskService,
+              private _userService: UserService) {
     this.UserNames = new Array();
     this.DaysRemaining = new Array();
     this.ControlPointsInUse = new Array();
@@ -161,8 +163,24 @@ export class TaskNewComponent implements OnInit {
       taskPerformers: this.taskPerformers,
       controlPointIds: this.ChosedMilestones
     }
-    console.log(savingTask)
-    this._taskService.saveTask(savingTask).subscribe();
+
+    console.log(savingTask);
+    this._taskService.saveTask(savingTask).subscribe(res => {
+      let taskToPush: Task = {
+        id: Number(res),
+        parentTaskId: this.ParentTaskID,
+        name: this.Title,
+        description: this.Description,
+        children: new Array<Task>(),
+        statusId: Number(this.taskStatus),
+        title: this.Title,
+        mainPerformer: this.mainPerformer.id,
+        taskPerformers: this.taskPerformers,
+        // tutaj jakies zjebane sa typy controlpointow -> trzeba to ogarnac, poki co lista pusta
+        controlPointIds:  new Array<IControlPointIds>(),
+      };
+      this._taskService.chosenTask.children.push(taskToPush);
+    });
   }
   cancel() {
     this._navRoute.navigate(['/tasks/']);

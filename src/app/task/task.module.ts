@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskerMaterialModule } from '../tasker-material.module';
@@ -13,8 +14,7 @@ import { TaskResolverService } from './shared/task-resolver.service';
 import { TaskService } from './shared/task.service';
 import { TaskFiltersService } from './shared/task-filters.service';
 
-import { taskRouting } from './task.routing';
-import { SwiperModule } from 'ngx-swiper-wrapper';
+import { taskRouting, taskRoutes } from './task.routing';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { TaskNewComponent } from './task-new/task-new.component';
 import { NgDragDropModule } from 'ng-drag-drop';
@@ -35,7 +35,6 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
         FormsModule,
         ReactiveFormsModule,
         taskRouting,
-        SwiperModule.forRoot(SWIPER_CONFIG),
         NgDragDropModule.forRoot()
     ],
     declarations: [
@@ -55,6 +54,10 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
     ],
     entryComponents: [
         StatusChooserComponent
+    ],
+    exports: [
+        RouterModule,
     ]
+
 })
 export class TaskModule { }

@@ -1,14 +1,17 @@
 <div class="task">
-    <a mat-button color="" [routerLink]="['/tasks', task.id]" *ngIf="task" class="list-group-item" draggable="true">
+    <a mat-button (click)="setChosenTask(task)" color="" [routerLink]="['/tasks', task.id]" *ngIf="task" class="list-group-item" draggable="true">
         {{task.title}}
     </a>
+
 
     <span class="status-icon" [ngSwitch]="task.statusId">
         <mat-icon *ngSwitchCase="1" (click)="openDialog()" class="status-not-started">highlight_off</mat-icon>
         <mat-icon *ngSwitchCase="2" (click)="openDialog()" class="status-in-progress">cached</mat-icon>
         <mat-icon *ngSwitchCase="3" (click)="openDialog()" class="status-done">done</mat-icon>
     </span>
-
+    <button mat-icon-button (click)="deleteTask(task.id)" class="remove">
+        <i class="material-icons remove">clear</i>
+    </button>
     <a mat-mini-fab color="primary" [routerLink]="['/tasks/new/', task.id]" class="add-button">
         <mat-icon>add</mat-icon>
     </a>

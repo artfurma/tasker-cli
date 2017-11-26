@@ -51,6 +51,5 @@ import {
         MatGridListModule,
         MatDialogModule
     ]
-
 })
 export class TaskerMaterialModule { }

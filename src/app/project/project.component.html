@@ -1,37 +1,51 @@
-<div>
-    <p>
-        Project settings
-      </p>
-      
-      <p>Nazwa : {{project.name}}</p>
-      <p>
-          Opis : {{project.description}}
-      </p>
-      
-      <h1>Team members</h1>
-      <p *ngIf="members.length===0">Nie ma czlonkoow zespolu zandych</p>
-      <mat-list>
-          <mat-list-item class="member" *ngFor="let member of members">{{member.firstName}} {{member.lastName}}
-              <button mat-icon-button (click)="removeMember(member.id)">
-                  <i class="material-icons">clear</i>    
-                </button>        
-          </mat-list-item>
-      </mat-list>
-       
-      
-      <div class="addMember">
-        <h1>Add new member !</h1>
-      
-          <mat-form-field class="example-full-width">
-              <input matInput placeholder="Email" [formControl]="emailFormControl" [(ngModel)]="newUserEmail">
-              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid email address
-              </mat-error>
-              <mat-error *ngIf="emailFormControl.hasError('required')">
-                Email is <strong>required</strong>
-              </mat-error>
-            </mat-form-field>
-            
-            <button mat-raised-button color="primary" (click)="addMember()">Send invitation</button>
-      </div>      
+<div flex>
+  <mat-card class="main-container">
+
+    <mat-card-title>
+      <mat-grid-list cols="8">
+          <mat-grid-tile class="project-name" colspan="6">
+              <strong>{{project.name}}</strong>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="2">
+              <button mat-raised-button color="primary"><mat-icon class="white-icon">edit</mat-icon></button>
+          </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-title>
+    <mat-card-content>{{project.description}}</mat-card-content>
+    <hr/>
+
+    <h3 style="margin-bottom: -15px">Team members</h3>
+  <p *ngIf="members.length===0">This project has no members.</p>
+  
+  <mat-grid-list cols="8" rowHeight="80px" class="margin-top">
+    <mat-grid-tile colspan="1">
+      <mat-icon color="primary">mail</mat-icon>
+    </mat-grid-tile>   
+    <br/>
+    <br/>
+    <mat-grid-tile colspan="5">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Email" [formControl]="emailFormControl" [(ngModel)]="newUserEmail">
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">Please enter a valid email address</mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">Email is <strong>required</strong></mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+      <button mat-raised-button color="primary" class="white-icon" (click)="addMember()">Invite</button>
+    </mat-grid-tile>
+  </mat-grid-list>
+ 
+  <mat-grid-list *ngFor="let member of members" cols="8" rowHeight="40px" class="margin-top">
+      <mat-grid-tile colspan="1">
+          <mat-icon color="primary">account_circle</mat-icon>
+        </mat-grid-tile>   
+        <mat-grid-tile colspan="5" class="user-box">
+            {{member.firstName}} {{member.lastName}}
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2" >
+          <button mat-raised-button color="primary" class="white-icon" (click)="removeMember(member)"> <i class="material-icons">clear</i> </button>
+        </mat-grid-tile>
+
+  </mat-grid-list>
+  </mat-card>
 </div>
