@@ -1,0 +1,31 @@
+<div class="center">
+  <div class="divek">
+    <p>Dodawanie</p>
+      <input type="text" [(ngModel)]="milestoneToAdd.Name" placeholder="name"/>
+      <mat-form-field>
+          <input matInput [(ngModel)]="milestoneToAdd.EndDate" [matDatepicker]="picker" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <button (click)="addMilestone(milestoneToAdd)">Add milestone</button>  
+  </div>
+    <p>Lista: </p>
+      <div *ngFor="let milestone of milestones">
+          <div class="divek">
+            Nazwa: <p>{{milestone.name}}</p>
+            Data: <p>{{milestone.endDate}}</p>
+          </div>
+          <button (click)="deleteMilestone(milestone)">Delete</button>
+          <button (click)="turnEditMode(milestone)">Edit</button>         
+      </div>
+</div>
+<div class="divek" *ngIf="editMode">
+    <p>Edytowanie</p>
+      <input type="text" [(ngModel)]="milestoneToEdit.name" placeholder="name"/>
+      <mat-form-field>
+          <input matInput [(ngModel)]="milestoneToEdit.endDate" [matDatepicker]="picker" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <button (click)="editMilestone()">Save</button>  
+</div>

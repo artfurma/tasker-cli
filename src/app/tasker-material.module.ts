@@ -13,7 +13,9 @@ import {
     MatSlideToggleModule,
     MatFormFieldModule,
     MatGridListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
 } from '@angular/material';
 
 @NgModule({
@@ -33,6 +35,7 @@ import {
         MatSlideToggleModule,
         MatGridListModule,
         MatDialogModule,
+        MatDatepickerModule
     ],
     exports: [
         MatButtonModule,
@@ -49,7 +52,9 @@ import {
         MatInputModule,
         MatSlideToggleModule,
         MatGridListModule,
-        MatDialogModule
+        MatDialogModule,
+        MatNativeDateModule,
+        MatDatepickerModule
     ]
 })
 export class TaskerMaterialModule { }

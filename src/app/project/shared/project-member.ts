@@ -1,5 +1,5 @@
 export class ProjectMember {
-    id: number;
-    firstName: string;
-    lastName: string;
+    Id: number;
+    FirstName: string;
+    LastName: string;
 }
