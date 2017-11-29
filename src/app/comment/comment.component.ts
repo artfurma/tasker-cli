@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { CommentService } from './shared/comment.service';
+import { CommentModel } from './shared/comment-model';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'tskr-comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent implements OnInit {
+export class CommentComponent {
 
-  constructor() { }
+  commentList: CommentModel[] = [];
 
-  ngOnInit() {
-  }
+  constructor(private commentService: CommentService) { }
 
 }

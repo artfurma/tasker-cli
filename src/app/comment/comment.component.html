@@ -1,3 +1,8 @@
-<p>
-  comment works!
-</p>
+<div *ngIf="commentList.length !== 0">
+    <p>Comments:</p>
+    <div class="border comment" *ngFor="let comment of commentList">
+            <p>tresc: {{comment.content}}</p>
+            <p>data: {{comment.date}}</p>
+            <p>user: {{comment.user}}</p>
+    </div>
+</div>

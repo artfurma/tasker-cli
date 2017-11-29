@@ -16,7 +16,7 @@ export class CommentService {
     }
 
     public addTaskComment(commentAdd: CommentAdd) {
-        return this.http.post(this.addCommentUrl, commentAdd);
+        return this.http.post<CommentModel>(this.addCommentUrl, commentAdd);
     }
 
 }
