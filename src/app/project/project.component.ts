@@ -34,13 +34,13 @@ export class ProjectComponent implements OnInit {
 
 
   removeMember(member: ProjectMember) {
-    this.projectService.removeMember(member.Id, this.project.Id).subscribe();
+    this.projectService.removeMember(member.Id, this.project.id).subscribe();
     const index = this.members.indexOf(member, 0);
     this.members.splice(index, 1);
   }
 
   addMember() {
-    this.projectService.addMember(this.newUserEmail, this.project.Id).subscribe(res => {
+    this.projectService.addMember(this.newUserEmail, this.project.id).subscribe(res => {
       let newMembers = new ProjectMember();
       newMembers = res;
       this.members.push(newMembers);

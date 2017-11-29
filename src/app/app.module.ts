@@ -1,3 +1,4 @@
+import { ProjectAddComponent } from './project/project-add/project-add.component';
 import { MilestoneComponent } from './milestone/milestone.component';
 // Trzymajcie prosze porządek
 // Components
@@ -72,6 +73,7 @@ import { routing } from './app.routing';
   ],
   entryComponents: [
     YesNoModalComponent,
+    ProjectAddComponent,
     MilestoneComponent
   ],
   bootstrap: [AppComponent]

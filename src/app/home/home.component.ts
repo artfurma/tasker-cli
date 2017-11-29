@@ -1,3 +1,5 @@
+import { ProjectAddComponent } from './../project/project-add/project-add.component';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { ProjectService } from './../project/shared/project.service';
 import { ProjectModel } from './../project/shared/project.model';
@@ -20,7 +22,8 @@ export class HomeComponent implements OnInit {
     
     constructor(private userService: UserService,
                 private projectService: ProjectService,
-                private router: Router) {
+                private router: Router,
+                public dialog: MatDialog) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
@@ -44,5 +47,18 @@ export class HomeComponent implements OnInit {
 
     goToSettings(projectId) {
         this.router.navigate(['/project', projectId]);
+    }
+
+    addProject() {
+        const dialogRef = this.dialog.open(ProjectAddComponent, {
+            width: '480px',
+            // data: { taskId: this.TaskID}
+          });
+  
+          dialogRef.afterClosed().subscribe(result => {
+              if (result) {
+                  this.userProjects.push(result);
+              }
+          });
     }
 }

@@ -1,3 +1,4 @@
+import { ProjectAdd } from './project-add';
 import { ProjectMember } from './project-member';
 import { ProjectModel } from './project.model';
 import { HttpClient } from '@angular/common/http';
@@ -11,6 +12,7 @@ export class ProjectService {
     private getMembersURL = '/api/Project/members?';
     private deleteMemberURL = 'api/Project/unassign/';
     private addMemberURL = 'api/Project/assign';
+    private addProjectUrl = '/api/Project';
 
     constructor(private http: HttpClient) { }
 
@@ -22,6 +24,9 @@ export class ProjectService {
         return this.http.get<ProjectModel>(this.getProjectURL + projectId);
     }
 
+    addProject(projectToAdd: ProjectAdd) {
+        return this.http.post<ProjectModel>(this.addProjectUrl, projectToAdd);
+    }
     getAllMembers(projectId: number) {
         return this.http.get<ProjectMember[]>(this.getMembersURL + 'projectId=' + projectId);
     }
