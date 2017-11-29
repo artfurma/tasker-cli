@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { CommentService } from './../../comment/shared/comment.service';
+import { CommentComponent } from './../../comment/comment.component';
+import { MatDialog } from '@angular/material';
+import { AddCommentComponent } from './../../comment/add-comment/add-comment.component';
+import { CommentModel } from './../../comment/shared/comment-model';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Router } from "@angular/router";
 import { UserService } from "../../users/user/user.service";
@@ -25,7 +30,15 @@ export class TaskDetailsComponent implements OnInit {
     private taskPerformers: User[];
     private mainPerformer: User;
 
-    constructor(private _route: ActivatedRoute, private _navRoute: Router, private _taskService: TaskService, private _userService: UserService) {
+    @ViewChild('Comments') commentComponent: CommentComponent;
+
+    constructor(private _route: ActivatedRoute,
+                private commentService: CommentService,
+                private _navRoute: Router,
+                private _taskService: TaskService,
+                private _userService: UserService,
+                public dialog: MatDialog) {
+
         this.UserNames = new Array();
         this.DaysRemaining = new Array();
         this.ControlPointsInUse = new Array();
@@ -38,7 +51,8 @@ export class TaskDetailsComponent implements OnInit {
         this.ControlPointsInUse.length = 0;
         this._route.data.forEach((data) => {
             this._route.params.subscribe(params => this.TaskID = params['id']);
-
+            this.commentService.getTaskComments(this.TaskID).subscribe(res => this.commentComponent.commentList = res);
+            
             this._taskService.getTask(this.TaskID).subscribe(task => {
                 this.Task = task;
                 this.Title = task.title;
@@ -47,8 +61,8 @@ export class TaskDetailsComponent implements OnInit {
                 this.ControlPointsInUse = task.controlPointIds;
                 this.taskPerformers.length = 0;
                 this.taskPerformers = task.taskPerformers;
-                this.TaskStatus=TaskStatus[task.statusId];
-                console.log(task)
+                this.TaskStatus = TaskStatus[task.statusId];
+                console.log(task);
                 this.loadAllUsers(task.mainPerformer);
             });
             //     this._taskService.getAllMilestones().subscribe(milestones => { 
@@ -96,6 +110,19 @@ export class TaskDetailsComponent implements OnInit {
     editTask() {
         this._navRoute.navigate(['/tasks/' + this.TaskID + '/edit']);
     }
+
+    addComment(): void {
+        const dialogRef = this.dialog.open(AddCommentComponent, {
+          width: '480px',
+          data: { taskId: this.TaskID}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.commentComponent.commentList.push(result);
+            }
+        });
+      }
 
 }
 

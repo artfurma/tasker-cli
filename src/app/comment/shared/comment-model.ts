@@ -1,6 +1,6 @@
 export class CommentModel {
-    Id: number;
-    Date: Date;
-    Content: string;
-    User: string;
+    id: number;
+    date: Date;
+    content: string;
+    user: string;
 }

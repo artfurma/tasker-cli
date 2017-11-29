@@ -1,3 +1,4 @@
+import { MilestoneComponent } from './milestone/milestone.component';
 // Trzymajcie prosze porządek
 // Components
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TaskerMaterialModule } from './tasker-material.module';
+import { MilestoneModule } from './milestone/milestone.module';
 
 // Services
 import { TokenService } from './auth/authentication/token.service';
@@ -47,6 +49,7 @@ import { routing } from './app.routing';
     FormsModule,
     HttpClientModule,
     TaskerMaterialModule,
+    MilestoneModule,
     ProjectModule,
     routing
   ],
@@ -68,7 +71,8 @@ import { routing } from './app.routing';
     AuthGuard
   ],
   entryComponents: [
-    YesNoModalComponent
+    YesNoModalComponent,
+    MilestoneComponent
   ],
   bootstrap: [AppComponent]
 })

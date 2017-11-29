@@ -15,7 +15,7 @@ export interface Task {
 export interface IControlPointIds{
     ID: number;
     EndDate: Date;
-    Name : string;
+    Name: string;
 }
 
 export declare var TaskObj: Task;

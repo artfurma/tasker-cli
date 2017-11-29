@@ -1,4 +1,5 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { MilestoneModule } from './../milestone/milestone.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TaskerMaterialModule } from './../tasker-material.module';
 import { ProjectService } from './shared/project.service';
 import { NgModule } from '@angular/core';
@@ -8,7 +9,9 @@ import { ProjectComponent } from './project.component';
 @NgModule({
   imports: [
     CommonModule,
+    MilestoneModule,
     TaskerMaterialModule,
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [

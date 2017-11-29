@@ -1,3 +1,5 @@
+import { CommentModule } from './../comment/comment.module';
+import { AddCommentComponent } from './../comment/add-comment/add-comment.component';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -33,6 +35,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
         CommonModule,
         TaskerMaterialModule,
         FormsModule,
+        CommentModule,
         ReactiveFormsModule,
         taskRouting,
         NgDragDropModule.forRoot()
@@ -53,7 +56,8 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
         TaskFiltersService
     ],
     entryComponents: [
-        StatusChooserComponent
+        StatusChooserComponent,
+        AddCommentComponent
     ],
     exports: [
         RouterModule,

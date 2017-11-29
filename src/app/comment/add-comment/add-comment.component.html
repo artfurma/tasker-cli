@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>Dodaj komentarz</h1>
+<div mat-dialog-actions>
+
+    <div>
+        <mat-form-field>
+            <textarea matInput [(ngModel)]="commentToAdd.Content" placeholder="Pozostaw komenta"></textarea>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <button mat-button (click)="addComment()" >Dodaj</button>
+        <button mat-button (click)="no()">Anuluj</button>
+    </div>
+</div>
