@@ -31,6 +31,16 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from './auth/guard/auth.guard';
 import { routing } from './app.routing';
 
+//Swiper
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+
+const SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto',
+  keyboardControl: true
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +58,8 @@ import { routing } from './app.routing';
     HttpClientModule,
     TaskerMaterialModule,
     ProjectModule,
-    routing
+    routing,
+    SwiperModule.forRoot(SWIPER_CONFIG)
   ],
   providers: [
     {
