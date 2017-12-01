@@ -7,7 +7,7 @@
             - <a (click)="deleteUser(user._id)">Delete</a>
         </li>
     </ul> -->
-
+    <button class="addProject" mat-button (click)="addProject()">Dodaj projekt</button>
     <mat-nav-list>
             <mat-list-item *ngFor="let project of userProjects">
                <a matLine (click)="goToTasks(project.id)" >{{ project.name }}</a>
