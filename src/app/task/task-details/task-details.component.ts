@@ -8,7 +8,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Router } from "@angular/router";
 import { UserService } from "../../users/user/user.service";
 import { TaskService } from "../shared/task.service";
-import { TaskStatus, Task, IControlPointIds, IControlPoint } from '../shared/task.model';
+import { TaskStatus, Task, IControlPoint } from '../shared/task.model';
 import { User } from '../../users/user/user';
 @Component({
     selector: 'tskr-task-details',
@@ -19,7 +19,7 @@ export class TaskDetailsComponent implements OnInit {
     private Task: Task;
     private TaskID: number;
     private Title: String;
-    private ControlPointsInUse: IControlPointIds[];
+    private ControlPointsInUse: IControlPoint[];
     private DaysRemaining: number[];
     private UserNames: String[];
     private AllUsers: User[];
@@ -99,7 +99,7 @@ export class TaskDetailsComponent implements OnInit {
     }
     isMilestoneInUse(selecded: IControlPoint) {
         this.ControlPointsInUse.forEach(element => {
-            if (selecded.id === element.ID) return "primary";
+            if (selecded.id === element.id) return "primary";
         });
     }
 
@@ -108,7 +108,7 @@ export class TaskDetailsComponent implements OnInit {
         this._navRoute.navigate(['/tasks']);
     }
     editTask() {
-        this._navRoute.navigate(['/tasks/' + this.TaskID + '/edit']);
+        this._navRoute.navigate(['/tasks/edit/' + this.TaskID]);
     }
 
     addComment(): void {

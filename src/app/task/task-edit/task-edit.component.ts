@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SavingTask, IControlPointIds, IControlPoint,TaskStatus, Task } from '../shared/task.model';
+import { SavingTask, IControlPoint,TaskStatus, Task, EditingTask } from '../shared/task.model';
 import { User } from '../../users/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../shared/task.service';
@@ -15,7 +15,7 @@ export class TaskEditComponent implements OnInit {
   private ParentTaskID: number;
   private TaskID: number;
   private Title: string;
-  private ControlPointsInUse: IControlPointIds[];
+  private ControlPointsInUse: IControlPoint[];
   private DaysRemaining: number[];
   private UserNames: String[];
   private AllUsers: User[];
@@ -166,19 +166,28 @@ export class TaskEditComponent implements OnInit {
     this.enableDrop=true;
   }
 
+
   saveTask() {
     
-    let savingTask:SavingTask= {
-      parentTaskId:+this.ParentTaskID,
-      description: this.Description,
-      TaskStatusId: +this.taskStatus,
-      title: this.Title,
-      mainPerformer: +this.mainPerformer.id,
-      taskPerformers: this.taskPerformers,
-      controlPointIds: this.ChosedMilestones
-    }
-    console.log(savingTask)
-  }
+        let savingTask: EditingTask = {
+          Id: this.TaskID,
+          Title: this.Title,
+          Description: this.Description,
+          ParentTaskId: +this.ParentTaskID,
+          ControlPointIds: this.ChosedMilestones,
+          MainPerformer: +this.mainPerformer.id,
+          TaskStatusId: this.taskStatus,
+          TaskPerformers: this.taskPerformers
+        }
+    
+        this._taskService.saveTask(savingTask).subscribe(res => {
+          let newTask: Task;
+          newTask = res;
+          this._taskService.editTask(newTask);
+        });
+    
+        this._navRoute.navigate(['/tasks/']);
+      }
   cancel() {
     this._navRoute.navigate(['/tasks/']);
   }
