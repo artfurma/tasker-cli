@@ -11,27 +11,27 @@
         </div>
     </mat-toolbar> -->
     <div class="users-filters-container">
-            <mat-card class="users-filters">
-                <swiper [config]="config">
-                    <div class="user-container" *ngFor="let user of users">
-                        <button mat-fab (click)="changeUserFilter(user)" [color]="isUserInFilters(user)">
-                            <mat-icon>person</mat-icon>
-                        </button>
-                        <br> {{user.username}}
-                    </div>
-                </swiper>
-                </mat-card>
+        <mat-card class="users-filters">
+            <swiper [config]="config">
+                <div class="user-container" *ngFor="let user of users">
+                    <button mat-fab (click)="changeUserFilter(user)" [color]="isUserInFilters(user)">
+                        <mat-icon>person</mat-icon>
+                    </button>
+                    <br> {{user.username}}
+                </div>
+            </swiper>
+        </mat-card>
     </div>
     <div class="milestones-filters-container">
         <mat-card class="milestones-filters">
-                <swiper [config]="config" class="milestones-filters">
-                    <div class="milestone-container" *ngFor="let milestone of allMilestones">
-                        <button mat-fab (click)="changeMilestoneFilter(milestone)" [color]="isMilestoneInFilters(milestone)">
-                            <mat-icon>timeline</mat-icon>
-                        </button>
-                        <br> {{milestone?.name}}
-                    </div>
-                </swiper>
+            <swiper [config]="config" class="milestones-filters">
+                <div class="milestone-container" *ngFor="let milestone of allMilestones">
+                    <button mat-fab (click)="changeMilestoneFilter(milestone)" [color]="isMilestoneInFilters(milestone)">
+                        <mat-icon>timeline</mat-icon>
+                    </button>
+                    <br> {{milestone?.name}}
+                </div>
+            </swiper>
         </mat-card>
     </div>
 
