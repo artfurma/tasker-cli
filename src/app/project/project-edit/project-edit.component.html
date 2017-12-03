@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Dodaj projekt</h1>
+<div mat-dialog-actions>
+
+    <div>
+        <mat-form-field>
+            <textarea matInput [(ngModel)]="projectToEdit.Name" placeholder="Nazwa projektu"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput [(ngModel)]="projectToEdit.Description" placeholder="Opis projektu"></textarea>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <button mat-button (click)="editProject()" >Edytuj</button>
+        <button mat-button (click)="no()">Anuluj</button>
+    </div>
+</div>

@@ -61,4 +61,11 @@ export class HomeComponent implements OnInit {
               }
           });
     }
+
+    deleteProject(project: ProjectModel) {
+        const index = this.userProjects.indexOf(project, 0);
+        this.userProjects.splice(index, 1);
+        this.projectService.deleteProject(project.id).subscribe();
+
+    }
 }
