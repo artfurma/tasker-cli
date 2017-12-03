@@ -33,11 +33,11 @@ export class TaskDetailsComponent implements OnInit {
     @ViewChild('Comments') commentComponent: CommentComponent;
 
     constructor(private _route: ActivatedRoute,
-                private commentService: CommentService,
-                private _navRoute: Router,
-                private _taskService: TaskService,
-                private _userService: UserService,
-                public dialog: MatDialog) {
+        private commentService: CommentService,
+        private _navRoute: Router,
+        private _taskService: TaskService,
+        private _userService: UserService,
+        public dialog: MatDialog) {
 
         this.UserNames = new Array();
         this.DaysRemaining = new Array();
@@ -52,19 +52,20 @@ export class TaskDetailsComponent implements OnInit {
         this._route.data.forEach((data) => {
             this._route.params.subscribe(params => this.TaskID = params['id']);
             this.commentService.getTaskComments(this.TaskID).subscribe(res => this.commentComponent.commentList = res);
-            
-            this._taskService.getTask(this.TaskID).subscribe(task => {
-                this.Task = task;
-                this.Title = task.title;
-                this.Description = task.description;
-                this.ControlPointsInUse.length = 0;
-                this.ControlPointsInUse = task.controlPointIds;
-                this.taskPerformers.length = 0;
-                this.taskPerformers = task.taskPerformers;
-                this.TaskStatus = TaskStatus[task.statusId];
-                console.log(task);
-                this.loadAllUsers(task.mainPerformer);
-            });
+            let task: Task;
+            task = this._taskService.getChosenTask(this.TaskID);
+
+            this.Task = task;
+            this.Title = task.title;
+            this.Description = task.description;
+            this.ControlPointsInUse.length = 0;
+            this.ControlPointsInUse = task.controlPointIds;
+            this.taskPerformers.length = 0;
+            this.taskPerformers = task.taskPerformers;
+            this.TaskStatus = TaskStatus[task.statusId];
+            console.log(task);
+            this.loadAllUsers(task.mainPerformer);
+
             //     this._taskService.getAllMilestones().subscribe(milestones => { 
             //         this.AllControlPoints = milestones;
             //   });        
@@ -113,8 +114,8 @@ export class TaskDetailsComponent implements OnInit {
 
     addComment(): void {
         const dialogRef = this.dialog.open(AddCommentComponent, {
-          width: '480px',
-          data: { taskId: this.TaskID}
+            width: '480px',
+            data: { taskId: this.TaskID }
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -122,7 +123,7 @@ export class TaskDetailsComponent implements OnInit {
                 this.commentComponent.commentList.push(result);
             }
         });
-      }
+    }
 
 }
 

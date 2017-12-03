@@ -29,22 +29,28 @@ export class TaskTreeComponent implements OnInit {
     private _taskFiltersService: TaskFiltersService) {
     this.UsersFilters = new Array();
     this.MilestonesFilters = new Array();
-
+      
   }
 
   ngOnInit() {
     // this.list = this._route.snapshot.data['tasks']; 
+    this.list = this._taskService.getList();
+    if(this.list===undefined){
+      this._taskService.updateList();
+      this.list = this._taskService.getList();
+    }
+    this.buildVisibilityTree();
+    console.log(this.list)
     this._taskService.SharedTasksList$.subscribe(lst => {
-      this.list = lst;
-
+      if(lst===undefined)this._taskService.updateList();
       if (this.list != undefined) {
         this.buildVisibilityTree();
       }
     });
-    this._taskService.getTasksDb().subscribe(res => {
-      this.list = res;
-      this.buildVisibilityTree();
-    });
+    // this._taskService.getTasksDb().subscribe(res => {
+    //   this.list = res;
+    //   this.buildVisibilityTree();
+    // });
     this._taskFiltersService.SharedList$.subscribe(lst => {
       this.UsersFilters = lst;
 
