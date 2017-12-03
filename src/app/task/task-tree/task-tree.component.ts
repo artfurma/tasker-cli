@@ -1,7 +1,7 @@
 import { TaskService } from './../shared/task.service';
 import { Task, IControlPoint, FilteredTask } from '../shared/task.model';
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AuthGuard } from "../../auth/guard/auth.guard";
 import { TaskFiltersService } from "../shared/task-filters.service";
 import { User } from '../../users/user/user';
@@ -26,27 +26,50 @@ export class TaskTreeComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute,
     private _taskService: TaskService,
+    private _navRoute: Router,
     private _taskFiltersService: TaskFiltersService) {
     this.UsersFilters = new Array();
     this.MilestonesFilters = new Array();
-      
+
+    // this._navRoute.routeReuseStrategy.shouldReuseRoute = function () {
+    //   return false;
+    // }
+    // this._navRoute.events.subscribe((evt) => {
+    //   if (evt instanceof NavigationEnd) {
+    //     // trick the Router into believing it's last link wasn't previously loaded
+    //     this._navRoute.navigated = false;
+    //     // if you need to scroll back to top, here is the right place
+    //     window.scrollTo(0, 0);
+    //   }
+    // });
   }
 
   ngOnInit() {
-    // this.list = this._route.snapshot.data['tasks']; 
-    this.list = this._taskService.getList();
-    if(this.list===undefined){
-      this._taskService.updateList();
-      this.list = this._taskService.getList();
+    if(this._taskService.isGut()){
+      this.list=this._taskService.getList();
+      this.buildVisibilityTree();
     }
-    this.buildVisibilityTree();
-    console.log(this.list)
+    // this.list = this._route.snapshot.data['tasks']; 
     this._taskService.SharedTasksList$.subscribe(lst => {
-      if(lst===undefined)this._taskService.updateList();
-      if (this.list != undefined) {
-        this.buildVisibilityTree();
-      }
+      this.list = lst;
+      //if (lst === undefined) this._taskService.updateList();
+      this.buildVisibilityTree();
     });
+    //this.list= this._taskService.getList();
+    // this._taskService.getTasksDb().subscribe(res => {
+    //   this.list = res;
+
+    //   this.list = this._taskService.getList();
+    //   if (this.list.length === 0) {
+    //     console.log("update");
+    //     this._taskService.updateList();
+    //     //this.list = this._taskService.getList();
+    //   }
+    //   this.buildVisibilityTree();
+    //   console.log(this.list);
+    // });
+
+
     // this._taskService.getTasksDb().subscribe(res => {
     //   this.list = res;
     //   this.buildVisibilityTree();
@@ -54,13 +77,13 @@ export class TaskTreeComponent implements OnInit {
     this._taskFiltersService.SharedList$.subscribe(lst => {
       this.UsersFilters = lst;
 
-      if (this.list != undefined) {
+      if (this.list !== undefined) {
         this.buildVisibilityTree();
       }
     });
     this._taskFiltersService.SharedList2$.subscribe(lst => {
       this.MilestonesFilters = lst;
-      if (this.list != undefined) {
+      if (this.list !== undefined) {        
         this.buildVisibilityTree();
       }
 

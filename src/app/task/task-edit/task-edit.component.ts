@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SavingTask, IControlPoint, TaskStatus, Task, EditingTask } from '../shared/task.model';
 import { User } from '../../users/user/user';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { TaskService } from '../shared/task.service';
 import { UserService } from '../../users/user/user.service';
 
@@ -45,6 +45,19 @@ export class TaskEditComponent implements OnInit {
     this.taskStatus = 1;
 
     this.keys = Object.keys(this.enumStatus).filter(Number);
+
+    this._navRoute.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    }
+
+    this._navRoute.events.subscribe((evt) => {
+      if (evt instanceof NavigationEnd) {
+        // trick the Router into believing it's last link wasn't previously loaded
+        this._navRoute.navigated = false;
+        // if you need to scroll back to top, here is the right place
+        window.scrollTo(0, 0);
+      }
+    });
   }
 
   ngOnInit() {
@@ -54,7 +67,7 @@ export class TaskEditComponent implements OnInit {
       this._route.params.subscribe(params => this.TaskID = params['id']);
       let task: Task;
       task = this._taskService.getChosenTask(this.TaskID);
-      this.ParentTaskID= task.parentTaskId;
+      this.ParentTaskID = task.parentTaskId;
       this.Task = task;
       this.Title = task.title;
       this.Description = task.description;
@@ -62,10 +75,7 @@ export class TaskEditComponent implements OnInit {
       this.taskPerformers = task.taskPerformers;
       this.TaskStatus = TaskStatus[task.statusId];
       this.loadAllUsers(task.mainPerformer);
-      this.loadAllMilestones();     
-      console.log(task.parentTaskId) 
-      console.log(task) 
-      console.log(this.ParentTaskID) 
+      this.loadAllMilestones();
     });
   }
 
@@ -76,11 +86,9 @@ export class TaskEditComponent implements OnInit {
     this._userService.getAll().subscribe(users => {
       this.AllUsers = users;
       this.AllUsers.forEach(element => {
-        console.log(element.id +" : "+mainPerformerID);
-        
-        if (element.id === mainPerformerID){
+        if (element.id === mainPerformerID) {
           this.mainPerformer = element;
-        } 
+        }
       });
     });
   }
@@ -185,11 +193,11 @@ export class TaskEditComponent implements OnInit {
       Description: this.Description,
       ParentTaskId: +this.ParentTaskID,
       ControlPointIds: this.ChosedMilestones,
-      MainPerformer:this.mainPerformer? +this.mainPerformer.id:null,
-      TaskStatusId: this.taskStatus,
+      MainPerformer: this.mainPerformer ? +this.mainPerformer.id : null,
+      TaskStatusId: this.enumStatus[this.TaskStatus],
       TaskPerformers: this.taskPerformers
     }
-      console.log(savingTask);
+    console.log(savingTask);
     this._taskService.saveTask(savingTask).subscribe(res => {
       console.log(res);
       let newTask: Task;

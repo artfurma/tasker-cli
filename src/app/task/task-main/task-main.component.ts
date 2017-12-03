@@ -47,14 +47,11 @@ export class TaskMainComponent implements OnInit {
   }
 
   changeUserFilter(_user: User) {
-    console.log(_user)
     if (this.filteredUsers.includes(_user)) {
       let i: number = 0;
-
       for (let usr of this.filteredUsers) {
         if (usr.username === _user.username) {
           this.filteredUsers.splice(i, 1);
-          console.log(usr);
           break;
         }
         i++;
@@ -66,10 +63,8 @@ export class TaskMainComponent implements OnInit {
   }
 
   changeMilestoneFilter(_milestone: IControlPoint) {
-    console.log(_milestone.id)
     if (this.filteredMilestones.includes(_milestone)) {
       let i: number = 0;
-
       for (let mil of this.filteredMilestones) {
         if (mil.id === _milestone.id) {
           this.filteredMilestones.splice(i, 1);

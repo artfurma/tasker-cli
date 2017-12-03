@@ -16,13 +16,14 @@ export class TaskService {
     private listObserver: Observer<Task[]>;
 
     constructor(private _http: HttpClient) {
-        console.log(
-            "konstruktor"
-        )
+        this.SharedTasksList$ = new Observable<Task[]>(x => this.listObserver = x).share();                
         this.getTasksDb().subscribe(res => {
             this.list = res;
+            this.listObserver.next(this.list);
         });
-        this.SharedTasksList$ = new Observable<Task[]>(x => this.listObserver = x).share();        
+    }
+    isGut():boolean{
+        return this.list.length>0;
     }
 
     getList():Task[]{
@@ -30,11 +31,11 @@ export class TaskService {
     }
 
     updateList(){
-        console.log("updateList")
         this.getTasksDb().subscribe(res => {
             this.list = res;
+            this.listObserver.next(this.list);
+            
         });
-        this.listObserver.next(this.list);
     }
 
     addTask(task: Task) {

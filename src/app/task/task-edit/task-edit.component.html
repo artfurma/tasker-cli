@@ -45,7 +45,7 @@
     <mat-card-header>
   
         <mat-form-field>
-            <mat-select [(ngModel)]="taskStatus"  [ngModelOptions]="{standalone: true}" placeholder="Please chose status">
+            <mat-select [(ngModel)]="taskStatus"  [ngModelOptions]="{standalone: true}" [placeholder]="TaskStatus">
               <mat-option  *ngFor="let key of keys "  [value]="key">
                 {{ enumStatus[key]}}
               </mat-option>
