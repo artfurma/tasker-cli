@@ -1,6 +1,6 @@
 import { Task } from './../shared/task.model';
 import { Component, OnInit, Input } from '@angular/core';
-import { SavingTask, IControlPointIds, IControlPoint,TaskStatus } from '../shared/task.model';
+import { SavingTask, IControlPoint,TaskStatus } from '../shared/task.model';
 import { User } from '../../users/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../shared/task.service';
@@ -14,7 +14,7 @@ import { UserService } from '../../users/user/user.service';
 export class TaskNewComponent implements OnInit {
   private ParentTaskID: number;
   private Title: string;
-  private ControlPointsInUse: IControlPointIds[];
+  private ControlPointsInUse: IControlPoint[];
   private DaysRemaining: number[];
   private UserNames: String[];
   private AllUsers: User[];
@@ -154,33 +154,22 @@ export class TaskNewComponent implements OnInit {
 
   saveTask() {
 
-    let savingTask:SavingTask= {
-      parentTaskId:+this.ParentTaskID,
-      description: this.Description,
+    let savingTask: SavingTask = {
+      Title: this.Title,
+      Description: this.Description,
+      ControlPointIds: this.ChosedMilestones,
+      MainPerformer: this.mainPerformer ? +this.mainPerformer.id : null,
       TaskStatusId: +this.taskStatus,
-      title: this.Title,
-      mainPerformer: +this.mainPerformer.id,
-      taskPerformers: this.taskPerformers,
-      controlPointIds: this.ChosedMilestones
+      TaskPerformers: this.taskPerformers,
+      ParentTaskId: +this.ParentTaskID
     }
 
-    console.log(savingTask);
-    this._taskService.saveTask(savingTask).subscribe(res => {
-      let taskToPush: Task = {
-        id: Number(res),
-        parentTaskId: this.ParentTaskID,
-        name: this.Title,
-        description: this.Description,
-        children: new Array<Task>(),
-        statusId: Number(this.taskStatus),
-        title: this.Title,
-        mainPerformer: this.mainPerformer.id,
-        taskPerformers: this.taskPerformers,
-        // tutaj jakies zjebane sa typy controlpointow -> trzeba to ogarnac, poki co lista pusta
-        controlPointIds:  new Array<IControlPointIds>(),
-      };
-      this._taskService.chosenTask.children.push(taskToPush);
+    this._taskService.saveNewTask(savingTask).subscribe(res => {
+      let newTask: Task;
+      newTask = res;
+      this._taskService.addTask(newTask);
     });
+
   }
   cancel() {
     this._navRoute.navigate(['/tasks/']);

@@ -74,7 +74,7 @@ export const taskRoutes: Routes = [
     ]
   },
   {
-    path: 'edit/:id', component: TaskEditComponent,
+    path: 'edit/:id', component: TaskMainComponent,
     children: [
       {
         path: '',

@@ -8,7 +8,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Router } from "@angular/router";
 import { UserService } from "../../users/user/user.service";
 import { TaskService } from "../shared/task.service";
-import { TaskStatus, Task, IControlPointIds, IControlPoint } from '../shared/task.model';
+import { TaskStatus, Task, IControlPoint } from '../shared/task.model';
 import { User } from '../../users/user/user';
 @Component({
     selector: 'tskr-task-details',
@@ -19,7 +19,7 @@ export class TaskDetailsComponent implements OnInit {
     private Task: Task;
     private TaskID: number;
     private Title: String;
-    private ControlPointsInUse: IControlPointIds[];
+    private ControlPointsInUse: IControlPoint[];
     private DaysRemaining: number[];
     private UserNames: String[];
     private AllUsers: User[];
@@ -33,11 +33,11 @@ export class TaskDetailsComponent implements OnInit {
     @ViewChild('Comments') commentComponent: CommentComponent;
 
     constructor(private _route: ActivatedRoute,
-                private commentService: CommentService,
-                private _navRoute: Router,
-                private _taskService: TaskService,
-                private _userService: UserService,
-                public dialog: MatDialog) {
+        private commentService: CommentService,
+        private _navRoute: Router,
+        private _taskService: TaskService,
+        private _userService: UserService,
+        public dialog: MatDialog) {
 
         this.UserNames = new Array();
         this.DaysRemaining = new Array();
@@ -52,19 +52,20 @@ export class TaskDetailsComponent implements OnInit {
         this._route.data.forEach((data) => {
             this._route.params.subscribe(params => this.TaskID = params['id']);
             this.commentService.getTaskComments(this.TaskID).subscribe(res => this.commentComponent.commentList = res);
-            
-            this._taskService.getTask(this.TaskID).subscribe(task => {
-                this.Task = task;
-                this.Title = task.title;
-                this.Description = task.description;
-                this.ControlPointsInUse.length = 0;
-                this.ControlPointsInUse = task.controlPointIds;
-                this.taskPerformers.length = 0;
-                this.taskPerformers = task.taskPerformers;
-                this.TaskStatus = TaskStatus[task.statusId];
-                console.log(task);
-                this.loadAllUsers(task.mainPerformer);
-            });
+            let task: Task;
+            task = this._taskService.getChosenTask(this.TaskID);
+
+            this.Task = task;
+            this.Title = task.title;
+            this.Description = task.description;
+            this.ControlPointsInUse.length = 0;
+            this.ControlPointsInUse = task.controlPointIds;
+            this.taskPerformers.length = 0;
+            this.taskPerformers = task.taskPerformers;
+            this.TaskStatus = TaskStatus[task.statusId];
+            console.log(task);
+            this.loadAllUsers(task.mainPerformer);
+
             //     this._taskService.getAllMilestones().subscribe(milestones => { 
             //         this.AllControlPoints = milestones;
             //   });        
@@ -99,7 +100,7 @@ export class TaskDetailsComponent implements OnInit {
     }
     isMilestoneInUse(selecded: IControlPoint) {
         this.ControlPointsInUse.forEach(element => {
-            if (selecded.id === element.ID) return "primary";
+            if (selecded.id === element.id) return "primary";
         });
     }
 
@@ -108,13 +109,13 @@ export class TaskDetailsComponent implements OnInit {
         this._navRoute.navigate(['/tasks']);
     }
     editTask() {
-        this._navRoute.navigate(['/tasks/' + this.TaskID + '/edit']);
+        this._navRoute.navigate(['/tasks/edit/' + this.TaskID]);
     }
 
     addComment(): void {
         const dialogRef = this.dialog.open(AddCommentComponent, {
-          width: '480px',
-          data: { taskId: this.TaskID}
+            width: '480px',
+            data: { taskId: this.TaskID }
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -122,7 +123,7 @@ export class TaskDetailsComponent implements OnInit {
                 this.commentComponent.commentList.push(result);
             }
         });
-      }
+    }
 
 }
 
