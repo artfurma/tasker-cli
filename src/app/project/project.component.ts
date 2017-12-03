@@ -1,3 +1,4 @@
+import { ProjectEditComponent } from './project-edit/project-edit.component';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ProjectMember } from './shared/project-member';
 import { User } from './../users/user/user';
@@ -5,7 +6,7 @@ import { ProjectModel } from './shared/project.model';
 import { ProjectService } from './shared/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher, MatDialog } from '@angular/material';
 
 @Component({
   selector: 'tskr-project',
@@ -22,6 +23,7 @@ export class ProjectComponent implements OnInit {
     Validators.email,
   ]);
   constructor(private route: ActivatedRoute,
+              public dialog: MatDialog,
               private projectService: ProjectService) { }
 
   ngOnInit() {
@@ -48,5 +50,18 @@ export class ProjectComponent implements OnInit {
     });
   }
 
+  editProject() {
+    const dialogRef = this.dialog.open(ProjectEditComponent, {
+      width: '480px',
+      data: { description: this.project.description, name: this.project.name, id: this.project.id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+            this.project.name = result.name;
+            this.project.description = result.description;
+        }
+    });
+  }
 }
 
