@@ -11,6 +11,7 @@ export interface Task {
     mainPerformer: number;
     taskPerformers: User[];
     controlPointIds: IControlPoint[];
+    showChildren: boolean;
 }
 
 export declare var TaskObj: Task;
