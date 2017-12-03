@@ -20,7 +20,7 @@ export const taskRoutes: Routes = [
     path: '', component: TaskMainComponent,
     children: [
       { path: '', component: TaskTreeComponent,
-      // resolve: { tasks: TaskTreeResolverService } 
+      resolve: { tasks: TaskTreeResolverService } 
       }
     ]
   },
@@ -45,13 +45,13 @@ export const taskRoutes: Routes = [
       {
         path: '',
         component: TaskTreeComponent,
-        // resolve: { tasks: TaskTreeResolverService }
+        resolve: { tasks: TaskTreeResolverService }
       },
       {
         path: '',
         component: TaskDetailsComponent,
         outlet: 'details',
-        // resolve: { details: TaskResolverService }
+        resolve: { details: TaskResolverService }
         // canDeactivate: [ CanDeactivateFormGuardService ]
       }
     ]
@@ -62,13 +62,13 @@ export const taskRoutes: Routes = [
       {
         path: '',
         component: TaskTreeComponent,
-        // resolve: { tasks: TaskTreeResolverService }
+        resolve: { tasks: TaskTreeResolverService }
       },
       {
         path: '',
         component: TaskNewComponent,
         outlet: 'new',
-        // resolve: { details: TaskResolverService }
+        resolve: { details: TaskResolverService }
         // canDeactivate: [ CanDeactivateFormGuardService ]
       }
     ]
@@ -79,13 +79,13 @@ export const taskRoutes: Routes = [
       {
         path: '',
         component: TaskTreeComponent,
-        // resolve: { tasks: TaskTreeResolverService }
+        resolve: { tasks: TaskTreeResolverService }
       },
       {
         path: '',
         component: TaskEditComponent,
         outlet: 'edit',
-        // resolve: { details: TaskResolverService }
+        resolve: { details: TaskResolverService }
         // canDeactivate: [ CanDeactivateFormGuardService ]
       }
     ]
