@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SavingTask, IControlPointIds, IControlPoint,TaskStatus, Task } from '../shared/task.model';
+import { SavingTask, IControlPoint, TaskStatus, Task, EditingTask } from '../shared/task.model';
 import { User } from '../../users/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../shared/task.service';
@@ -11,11 +11,10 @@ import { UserService } from '../../users/user/user.service';
   styleUrls: ['./task-edit.component.scss']
 })
 export class TaskEditComponent implements OnInit {
-  private Task : Task;
+  private Task: Task;
   private ParentTaskID: number;
   private TaskID: number;
   private Title: string;
-  private ControlPointsInUse: IControlPointIds[];
   private DaysRemaining: number[];
   private UserNames: String[];
   private AllUsers: User[];
@@ -27,48 +26,47 @@ export class TaskEditComponent implements OnInit {
   private mainPerformer: User;
   private AllMilestones: IControlPoint[];
   private ChosedMilestones: IControlPoint[];
-  private enableDrop:boolean;
-  private taskStatus:TaskStatus;
+  private enableDrop: boolean;
+  private taskStatus: TaskStatus;
   private enumStatus: any;
   private keys: any;
-  
-  
+
+
 
   constructor(private _route: ActivatedRoute, private _navRoute: Router, private _taskService: TaskService, private _userService: UserService) {
     this.UserNames = new Array();
     this.DaysRemaining = new Array();
-    this.ControlPointsInUse = new Array();
     this.AllUsers = new Array();
     this.taskPerformers = new Array();
     this.AllMilestones = new Array();
     this.ChosedMilestones = new Array();
-    this.enableDrop=true;
+    this.enableDrop = true;
     this.enumStatus = TaskStatus;
     this.taskStatus = 1;
-    
-    this.keys=Object.keys(this.enumStatus).filter(Number);
+
+    this.keys = Object.keys(this.enumStatus).filter(Number);
   }
 
   ngOnInit() {
-    console.log(this.keys)
     this.taskPerformers.length = 0;
-    this.ControlPointsInUse.length = 0;
+    this.ChosedMilestones.length = 0;
     this._route.data.forEach((data) => {
-      this._route.params.subscribe(params => this.ParentTaskID = params['id']);
-      this._taskService.getTask(this.TaskID).subscribe(task => {
-        this.Task = task;
-        this.Title = task.title;
-        this.Description = task.description;
-        this.ControlPointsInUse.length = 0;
-        this.ControlPointsInUse = task.controlPointIds;
-        this.taskPerformers.length = 0;
-        this.taskPerformers = task.taskPerformers;
-        this.TaskStatus=TaskStatus[task.statusId];
-        console.log(task)
-        this.loadAllUsers(task.mainPerformer);
+      this._route.params.subscribe(params => this.TaskID = params['id']);
+      let task: Task;
+      task = this._taskService.getChosenTask(this.TaskID);
+      this.ParentTaskID= task.parentTaskId;
+      this.Task = task;
+      this.Title = task.title;
+      this.Description = task.description;
+      this.ChosedMilestones = task.controlPointIds;
+      this.taskPerformers = task.taskPerformers;
+      this.TaskStatus = TaskStatus[task.statusId];
+      this.loadAllUsers(task.mainPerformer);
+      this.loadAllMilestones();     
+      console.log(task.parentTaskId) 
+      console.log(task) 
+      console.log(this.ParentTaskID) 
     });
-    });
-    this.loadAllMilestones();
   }
 
 
@@ -76,21 +74,25 @@ export class TaskEditComponent implements OnInit {
 
   private loadAllUsers(mainPerformerID: number) {
     this._userService.getAll().subscribe(users => {
-        this.AllUsers = users;
-        this.AllUsers.forEach(element => {
-            if (element.id === mainPerformerID) this.mainPerformer = element;
-        });
+      this.AllUsers = users;
+      this.AllUsers.forEach(element => {
+        console.log(element.id +" : "+mainPerformerID);
+        
+        if (element.id === mainPerformerID){
+          this.mainPerformer = element;
+        } 
+      });
     });
-}
+  }
 
   private loadAllMilestones() {
     this._taskService.getAllMilestones().subscribe(milestones => { this.AllMilestones = milestones; });
   }
 
-  userDropped(e: any){
-    this.mainPerformer=e.dragData;
+  userDropped(e: any) {
+    this.mainPerformer = e.dragData;
     this.deleteUserFromPerformers(this.mainPerformer);
-    this.enableDrop=false;
+    this.enableDrop = false;
     if (this.taskPerformers.includes(this.mainPerformer)) {
       let i: number = 0;
       for (let usr of this.taskPerformers) {
@@ -133,7 +135,7 @@ export class TaskEditComponent implements OnInit {
     }
   }
 
-  deleteUserFromPerformers(user:User){
+  deleteUserFromPerformers(user: User) {
     if (this.AllUsers.includes(user)) {
       let i: number = 0;
       for (let usr of this.AllUsers) {
@@ -149,35 +151,53 @@ export class TaskEditComponent implements OnInit {
 
 
   isMilestoneInChosen(selected: IControlPoint) {
-    if (this.ChosedMilestones.includes(selected)) {
+    let flag: boolean = false;
+    this.ChosedMilestones.forEach(element => {
+      if (element.id === selected.id) flag = true;
+    });
+    if (flag) {
       return "primary";
     }
   }
 
   isUserInPerformers(selected: User) {
-    if (this.taskPerformers.includes(selected)) {
+    let flag: boolean = false;
+    this.taskPerformers.forEach(element => {
+      if (element.id === selected.id) flag = true;
+    });
+    if (flag) {
       return "primary";
     }
   }
 
-  deleteMainPerformer(){
-    this.AllUsers.push(this.mainPerformer);    
-    this.mainPerformer=undefined;
-    this.enableDrop=true;
+  deleteMainPerformer() {
+    this.AllUsers.push(this.mainPerformer);
+    this.mainPerformer = undefined;
+    this.enableDrop = true;
   }
 
+
   saveTask() {
-    
-    let savingTask:SavingTask= {
-      parentTaskId:+this.ParentTaskID,
-      description: this.Description,
-      TaskStatusId: +this.taskStatus,
-      title: this.Title,
-      mainPerformer: +this.mainPerformer.id,
-      taskPerformers: this.taskPerformers,
-      controlPointIds: this.ChosedMilestones
+
+    let savingTask: EditingTask = {
+      Id: this.TaskID,
+      Title: this.Title,
+      Description: this.Description,
+      ParentTaskId: +this.ParentTaskID,
+      ControlPointIds: this.ChosedMilestones,
+      MainPerformer:this.mainPerformer? +this.mainPerformer.id:null,
+      TaskStatusId: this.taskStatus,
+      TaskPerformers: this.taskPerformers
     }
-    console.log(savingTask)
+      console.log(savingTask);
+    this._taskService.saveTask(savingTask).subscribe(res => {
+      console.log(res);
+      let newTask: Task;
+      newTask = res;
+      this._taskService.editTask(savingTask);
+    });
+
+    this._navRoute.navigate(['/tasks/']);
   }
   cancel() {
     this._navRoute.navigate(['/tasks/']);

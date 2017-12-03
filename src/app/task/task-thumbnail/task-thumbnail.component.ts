@@ -50,4 +50,13 @@ export class TaskThumbnailComponent implements OnInit {
   setChosenTask(task: Task) {
     this.taskService.chosenTask = task;
   }
+
+  showChildernChange(task: Task) {
+    if (task.showChildren === false && task.children.length !== 0) {
+      task.showChildren = true;
+    }else {
+      task.showChildren = false;
+    }
+
+  }
 }

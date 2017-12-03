@@ -10,11 +10,13 @@ import { AuthenticationService } from '../auth/authentication/authentication.ser
 export class NavbarComponent implements OnInit {
 
   isLoggedIn: Observable<boolean>;
-
+  loggedUser = '';
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
     this.isLoggedIn = this.authService.loggedIn;
+    this.loggedUser = JSON.parse(localStorage.getItem('currentUser')).firstName
+                    + ' ' + JSON.parse(localStorage.getItem('currentUser')).lastName;
   }
 
   onLogout() {

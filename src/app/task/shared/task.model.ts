@@ -10,15 +10,15 @@ export interface Task {
     title: string;
     mainPerformer: number;
     taskPerformers: User[];
-    controlPointIds: IControlPointIds[];
-}
-export interface IControlPointIds{
-    ID: number;
-    EndDate: Date;
-    Name: string;
+    controlPointIds: IControlPoint[];
+    showChildren: boolean;
 }
 
 export declare var TaskObj: Task;
+
+export interface FilteredTask extends Task{
+    shouldBeVisible: boolean;
+}
 
 export interface IControlPoint{
     id: number;
@@ -33,11 +33,22 @@ export enum TaskStatus{
 }
 
 export interface SavingTask {
-    parentTaskId:number;
-    description: string;
-    TaskStatusId: TaskStatus;
-    title: string;
-    mainPerformer: number;
-    taskPerformers: User[];
-    controlPointIds: IControlPoint[];
+    Title: string;
+    Description: string;
+    ControlPointIds: IControlPoint[];
+    MainPerformer: number;
+    TaskStatusId: number;
+    TaskPerformers: User[];
+    ParentTaskId:number;
+}
+
+export interface EditingTask {
+    Id: number;
+    Title: string;
+    Description: string;
+    ControlPointIds: IControlPoint[];
+    MainPerformer: number;
+    TaskStatusId: number;
+    TaskPerformers: User[];
+    ParentTaskId:number;
 }
