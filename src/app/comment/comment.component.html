@@ -5,12 +5,11 @@
     <mat-card-content>
         <div style="margin-top: 4px;" *ngFor="let comment of commentList">
             <div fxLayout="row">
-                <div fxFlex="5%">
+                <div fxFlex="10%">
                     <img style="margin-top: 8px;" mat-card-avatar src="assets/images/avatar_tmp.png" />
                 </div>
-                <div fxFlex="95%">
+                <div fxFlex="90%">
                     <div fxLayout="column" fxFlexFill>
-                        <!-- <div fxFlex="30%" -->
                         <p>{{comment.user}}</p>
                         <p>{{comment.content}}</p>
                         <p>{{comment.date | amTimeAgo}}</p>
