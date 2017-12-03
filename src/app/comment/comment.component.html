@@ -1,8 +1,23 @@
-<div *ngIf="commentList.length !== 0">
-    <p>Comments:</p>
-    <div class="border comment" *ngFor="let comment of commentList">
-            <p>tresc: {{comment.content}}</p>
-            <p>data: {{comment.date}}</p>
-            <p>user: {{comment.user}}</p>
-    </div>
-</div>
+<mat-card class="comment-section" *ngIf="commentList.length !== 0">
+    <mat-card-title>
+        <p>{{commentList.length}} comments</p>
+    </mat-card-title>
+    <mat-card-content>
+        <div style="margin-top: 4px;" *ngFor="let comment of commentList">
+            <div fxLayout="row">
+                <div fxFlex="10%">
+                    <img style="margin-top: 8px;" mat-card-avatar src="assets/images/avatar_tmp.png" />
+                </div>
+                <div fxFlex="90%">
+                    <div fxLayout="column" fxFlexFill>
+                        <p>{{comment.user}}</p>
+                        <p>{{comment.content}}</p>
+                        <p>{{comment.date | amTimeAgo}}</p>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+        </div>
+    </mat-card-content>
+
+</mat-card>
