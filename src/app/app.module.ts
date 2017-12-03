@@ -34,9 +34,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from './auth/guard/auth.guard';
 import { routing } from './app.routing';
 
-//Swiper
+// Swiper
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+
+import { MomentModule } from 'angular2-moment';
 
 const SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -62,6 +64,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
     TaskerMaterialModule,
     MilestoneModule,
     ProjectModule,
+    MomentModule,
     routing,
     SwiperModule.forRoot(SWIPER_CONFIG)
   ],
