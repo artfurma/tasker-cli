@@ -17,18 +17,20 @@ import { TaskService } from './shared/task.service';
 import { TaskFiltersService } from './shared/task-filters.service';
 
 import { taskRouting, taskRoutes } from './task.routing';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+
 import { TaskNewComponent } from './task-new/task-new.component';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { TaskEditComponent } from './task-edit/task-edit.component';
 import { StatusChooserComponent } from './status-chooser/status-chooser.component';
 
+import { SwiperModule } from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+
 const SWIPER_CONFIG: SwiperConfigInterface = {
     direction: 'horizontal',
     slidesPerView: 'auto',
     keyboardControl: true
-};
-
+  };
 
 @NgModule({
     imports: [
@@ -38,7 +40,8 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
         CommentModule,
         ReactiveFormsModule,
         taskRouting,
-        NgDragDropModule.forRoot()
+        NgDragDropModule.forRoot(),
+        SwiperModule.forChild()
     ],
     declarations: [
         TaskTreeComponent,
