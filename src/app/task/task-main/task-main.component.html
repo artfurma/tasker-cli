@@ -11,39 +11,28 @@
         </div>
     </mat-toolbar> -->
     <div class="users-filters-container">
-        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
-            <div fxFlex>
-                <mat-card class="users-filters">
+            <mat-card class="users-filters">
+                <swiper [config]="config">
                     <div class="user-container" *ngFor="let user of users">
                         <button mat-fab (click)="changeUserFilter(user)" [color]="isUserInFilters(user)">
                             <mat-icon>person</mat-icon>
                         </button>
                         <br> {{user.username}}
                     </div>
+                </swiper>
                 </mat-card>
-            </div>
-            <div fxFlex>
-                <!-- Druga kolumna - domyslnie pusta -->
-            </div>
-        </div>
     </div>
-
     <div class="milestones-filters-container">
-        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
-            <div fxFlex>
-                <mat-card class="milestones-filters">
+        <mat-card class="milestones-filters">
+                <swiper [config]="config" class="milestones-filters">
                     <div class="milestone-container" *ngFor="let milestone of allMilestones">
                         <button mat-fab (click)="changeMilestoneFilter(milestone)" [color]="isMilestoneInFilters(milestone)">
                             <mat-icon>timeline</mat-icon>
                         </button>
                         <br> {{milestone?.name}}
                     </div>
-                </mat-card>
-            </div>
-            <div fxFlex>
-                <!-- Druga kolumna - domyslnie pusta -->
-            </div>
-        </div>
+                </swiper>
+        </mat-card>
     </div>
 
     <div class="tasks-master-details-container">
