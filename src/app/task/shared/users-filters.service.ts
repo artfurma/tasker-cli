@@ -24,10 +24,10 @@ export class UsersFiltersService {
 
 
     private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.Users = users; });
+        this.userService.getAll().subscribe(users => { this.Users = users; this.listUsersObserver.next(this.Users);});
     }
     private loadAllMilestones() {
-        this.taskService.getAllMilestones().subscribe(milestones => { this.Milestones = milestones; });
+        this.taskService.getAllMilestones().subscribe(milestones => { this.Milestones = milestones; this.listMilestonesObserver.next(this.Milestones);});
     }
 
     getList() {

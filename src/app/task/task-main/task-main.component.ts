@@ -6,6 +6,7 @@ import { TaskService } from "../shared/task.service";
 import { IControlPoint } from '../shared/task.model';
 import { TaskFiltersService } from "../shared/task-filters.service";
 import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
+import { UsersFiltersService } from '../shared/users-filters.service';
 
 @Component({
   selector: 'tskr-task-main',
@@ -36,14 +37,14 @@ export class TaskMainComponent implements OnInit {
     prevButton: '.swiper-button-prev'
   };
 
-  constructor(private userService: UserService, private _taskService: TaskService, private _taskFilterService:TaskFiltersService) { }
+  constructor(private userService: UserService, private _taskService: TaskService,private usermilestoneService:UsersFiltersService, private _taskFilterService:TaskFiltersService) { }
 
   ngOnInit() {
     this.loadAllUsers();
     this.loadAllMilestones();
     this._taskFilterService.SharedList$.subscribe(lst => this.filteredUsers = lst);
     this._taskFilterService.SharedList2$.subscribe(lst => this.filteredMilestones = lst);
-    this._taskFilterService.getList();    
+    this._taskFilterService.getList();
   }
 
   changeUserFilter(_user: User) {
@@ -93,9 +94,14 @@ export class TaskMainComponent implements OnInit {
   }
 
   private loadAllUsers() {
-    this.userService.getAll().subscribe(users => { this.users = users; });
+    this.usermilestoneService.UsersList$.subscribe(lst => {
+      this.users = lst;
+    });
   }
   private loadAllMilestones() {
-    this._taskService.getAllMilestones().subscribe(milestones => { this.allMilestones = milestones; });
+    this.usermilestoneService.MilestonesList$.subscribe(lst => {
+      this.allMilestones = lst;
+    });
+    this.usermilestoneService.getList();
   }
 }

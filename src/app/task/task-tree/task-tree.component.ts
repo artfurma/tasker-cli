@@ -88,6 +88,7 @@ export class TaskTreeComponent implements OnInit {
       }
 
     });
+    this._taskFiltersService.getList();
   }
 
   buildVisibilityTree() {
