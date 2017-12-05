@@ -25,17 +25,19 @@
             // border: 1px solid blue;
             height: 100px;
             margin: 0 auto;
-            overflow: hidden;
+            position: relative;
             svg {
+                // border: 1px solid green;
                 width: 100%;
-                float: left;
+                height: 100%;
+                position: absolute;
                 g {
                     line.left {
-                        stroke: #FF9700;
+                        stroke: gray;
                         stroke-width: 0.5px;
                     }
                     line.right {
-                        stroke: #FF9700;
+                        stroke: gray;
                         stroke-width: 0.5px;
                     }
                     circle {
@@ -45,22 +47,16 @@
                     }
                 }
             }
-            // .milestone-marker {
-            //     width: 10px;
-            //     height: 10px;
-            //     border-radius: 50%;
-            //     border: 1px solid white;
-            //     background: #FF9700;
-            //     margin: 0 auto;
-            //     margin-top: 40px;
-            // }
-            // .milestone-line-right {
-            //     height: 1px;
-            //     width: 50px;
-            //     background: black;
-            //     margin: 0 auto;
-            //     overflow: hidden;
-            // }
+            .milestone-left {
+                z-index: 10;
+                position: absolute;
+            }
+            .milestone-right {
+                // border: 1px solid yellow;
+                z-index: 10;
+                position: absolute;
+                right: 0;
+            }
         }
     }
 }
