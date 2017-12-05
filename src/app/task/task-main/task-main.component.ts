@@ -25,7 +25,7 @@ export class TaskMainComponent implements OnInit {
   public config: SwiperConfigInterface = {
     scrollbar: null,
     direction: 'horizontal',
-    slidesPerView: 12  ,
+    slidesPerView: 4  ,
     scrollbarHide: false,
     keyboardControl: true,
     mousewheelControl: true,
