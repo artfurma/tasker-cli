@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { MilestoneModel } from '../shared/milestone-model';
 
 @Component({
   selector: 'tskr-milestone-thumbnail',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MilestoneThumbnailComponent implements OnInit {
 
+  @Input() milestone: MilestoneModel;
+  
   constructor() { }
 
   ngOnInit() {

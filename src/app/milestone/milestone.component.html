@@ -1,10 +1,19 @@
+<div class="divek">
+        <p>Dodawanie</p>
+          <input type="text" [(ngModel)]="milestoneToAdd.Name" placeholder="name"/>
+          <mat-form-field>
+              <input matInput [(ngModel)]="milestoneToAdd.EndDate" [matDatepicker]="picker" placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <button (click)="addMilestone(milestoneToAdd)">Add milestone</button>  
+      </div>
 <div class="milestone-timeline-container">
     <div class="marker top">
         <p>Dzisiaj</p>
     </div>
     <div class="timeline">
-        <div class="milestone-row">
-            <!-- <div class="milestone-marker"></div> -->
+        <div class="milestone-row" *ngFor="let milestone of milestones | evenodd: 'even'">
             <svg>
                 <g>
                     <line class="right" x1="50%" y1="50%" x2="65%" y2="50%"></line>
@@ -12,11 +21,10 @@
                 </g>
             </svg>
             <div class="milestone-right">
-                <tskr-milestone-thumbnail></tskr-milestone-thumbnail>
+                <tskr-milestone-thumbnail [milestone]="milestone"></tskr-milestone-thumbnail>
             </div>
-
         </div>
-        <div class="milestone-row">
+        <div class="milestone-row" *ngFor="let milestone of milestones | evenodd: 'odd'">
             <svg>
                 <g>
                     <line class="left" x1="35%" y1="50%" x2="50%" y2="50%"></line>
@@ -24,9 +32,10 @@
                 </g>
             </svg>
             <div class="milestone-left">
-                <tskr-milestone-thumbnail></tskr-milestone-thumbnail>
+                <tskr-milestone-thumbnail [milestone]="milestone"></tskr-milestone-thumbnail>
             </div>
         </div>
+
     </div>
 </div>
 
