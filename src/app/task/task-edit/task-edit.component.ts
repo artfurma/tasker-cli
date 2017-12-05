@@ -4,6 +4,7 @@ import { User } from '../../users/user/user';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { TaskService } from '../shared/task.service';
 import { UserService } from '../../users/user/user.service';
+import { UsersFiltersService } from '../shared/users-filters.service';
 
 @Component({
   selector: 'tskr-task-edit',
@@ -33,7 +34,7 @@ export class TaskEditComponent implements OnInit {
 
 
 
-  constructor(private _route: ActivatedRoute, private _navRoute: Router, private _taskService: TaskService, private _userService: UserService) {
+  constructor(private _route: ActivatedRoute, private usermilestoneService: UsersFiltersService, private _navRoute: Router, private _taskService: TaskService, private _userService: UserService) {
     this.UserNames = new Array();
     this.DaysRemaining = new Array();
     this.AllUsers = new Array();
@@ -67,15 +68,18 @@ export class TaskEditComponent implements OnInit {
       this._route.params.subscribe(params => this.TaskID = params['id']);
       let task: Task;
       task = this._taskService.getChosenTask(this.TaskID);
-      this.ParentTaskID = task.parentTaskId;
-      this.Task = task;
-      this.Title = task.title;
-      this.Description = task.description;
-      this.ChosedMilestones = task.controlPointIds;
-      this.taskPerformers = task.taskPerformers;
-      this.TaskStatus = TaskStatus[task.statusId];
-      this.loadAllUsers(task.mainPerformer);
-      this.loadAllMilestones();
+      if(task!=null){
+        this.ParentTaskID = task.parentTaskId;
+        this.Task = task;
+        this.Title = task.title;
+        this.Description = task.description;
+        this.ChosedMilestones = task.controlPointIds;
+        this.taskPerformers = task.taskPerformers;
+        this.TaskStatus = TaskStatus[task.statusId];
+        this.loadAllUsers(task.mainPerformer);
+        this.loadAllMilestones();
+        this.usermilestoneService.getList();
+      }
     });
   }
 
@@ -83,18 +87,22 @@ export class TaskEditComponent implements OnInit {
 
 
   private loadAllUsers(mainPerformerID: number) {
-    this._userService.getAll().subscribe(users => {
-      this.AllUsers = users;
-      this.AllUsers.forEach(element => {
+    this.usermilestoneService.UsersList$.subscribe(users => {
+      this.AllUsers = users.slice();
+      this.AllUsers.forEach((element, index) => {
         if (element.id === mainPerformerID) {
           this.mainPerformer = element;
+          this.AllUsers.splice(index, 1);
+          return;
         }
       });
     });
   }
-
   private loadAllMilestones() {
-    this._taskService.getAllMilestones().subscribe(milestones => { this.AllMilestones = milestones; });
+    this.usermilestoneService.MilestonesList$.subscribe(lst => {
+      this.AllMilestones = lst.slice();
+      console.log(this.AllMilestones);
+    });
   }
 
   userDropped(e: any) {

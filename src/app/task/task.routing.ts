@@ -39,8 +39,9 @@ export const taskRoutes: Routes = [
   //       }
   //     ]
   //   },
+
   {
-    path: ':id', component: TaskMainComponent,
+    path: 'new', component: TaskMainComponent,
     children: [
       {
         path: '',
@@ -49,9 +50,8 @@ export const taskRoutes: Routes = [
       },
       {
         path: '',
-        component: TaskDetailsComponent,
-        outlet: 'details',
-        
+        component: TaskNewComponent,
+        outlet: 'new',
         //resolve: { details: TaskResolverService }
         // canDeactivate: [ CanDeactivateFormGuardService ]
       }
@@ -90,7 +90,26 @@ export const taskRoutes: Routes = [
         // canDeactivate: [ CanDeactivateFormGuardService ]
       }
     ]
-  }
+  },  
+  {
+    path: ':id', component: TaskMainComponent,
+    children: [
+      {
+        path: '',
+        component: TaskTreeComponent,
+        //resolve: { tasks: TaskTreeResolverService }
+      },
+      {
+        path: '',
+        component: TaskDetailsComponent,
+        outlet: 'details',
+        
+        //resolve: { details: TaskResolverService }
+        // canDeactivate: [ CanDeactivateFormGuardService ]
+      }
+    ]
+  },
+
 ];
 
 export const taskRouting = RouterModule.forChild(taskRoutes);
