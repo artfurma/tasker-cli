@@ -5,6 +5,7 @@ import { User } from '../../users/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../shared/task.service';
 import { UserService } from '../../users/user/user.service';
+import { UsersFiltersService } from '../shared/users-filters.service';
 
 @Component({
   selector: 'tskr-task-new',
@@ -34,6 +35,7 @@ export class TaskNewComponent implements OnInit {
   constructor(private _route: ActivatedRoute,
               private _navRoute: Router,
               private _taskService: TaskService,
+              private usermilestoneService: UsersFiltersService,
               private _userService: UserService) {
     this.UserNames = new Array();
     this.DaysRemaining = new Array();
@@ -60,17 +62,16 @@ export class TaskNewComponent implements OnInit {
     this.loadAllMilestones();
   }
 
-
-
-
   private loadAllUsers() {
-    this._userService.getAll().subscribe(users => {
-      this.AllUsers = users;
+    this.usermilestoneService.UsersList$.subscribe(lst => {
+      this.AllUsers = lst.slice();
     });
   }
-
   private loadAllMilestones() {
-    this._taskService.getAllMilestones().subscribe(milestones => { this.AllMilestones = milestones; });
+    this.usermilestoneService.MilestonesList$.subscribe(lst => {
+      this.AllMilestones = lst.slice();
+    });
+    this.usermilestoneService.getList();
   }
 
   userDropped(e: any){
@@ -169,7 +170,8 @@ export class TaskNewComponent implements OnInit {
       newTask = res;
       this._taskService.addTask(newTask);
     });
-
+    this._navRoute.navigate(['/tasks/']);
+    
   }
   cancel() {
     this._navRoute.navigate(['/tasks/']);

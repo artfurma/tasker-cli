@@ -3,12 +3,10 @@
 
     .users-filters-container {
         mat-card.users-filters {
-            padding-left: 50px; // TODO: USUNĄĆ
 
             .user-container {
                 min-width: 32px;
                 display: inline-block;
-                margin-right: 30px;
                 text-align: center;
                 button {
                     margin-bottom: 5px;
@@ -21,7 +19,6 @@
         margin-top: 16px;
 
         mat-card.milestones-filters {
-            padding-left: 50px; // TODO: USUNĄĆ
 
             .milestone-container {
                 min-width: 32px;
