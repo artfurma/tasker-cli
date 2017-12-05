@@ -21,11 +21,46 @@
         margin: 0 auto;
         min-height: 500px;
         background: url('/assets/images/timeline_thin.png') repeat-y center;
-        border: 1px solid red;
         .milestone-row {
-            border: 1px solid blue;
+            // border: 1px solid blue;
             height: 100px;
             margin: 0 auto;
+            overflow: hidden;
+            svg {
+                width: 100%;
+                float: left;
+                g {
+                    line.left {
+                        stroke: #FF9700;
+                        stroke-width: 0.5px;
+                    }
+                    line.right {
+                        stroke: #FF9700;
+                        stroke-width: 0.5px;
+                    }
+                    circle {
+                        stroke: gray;
+                        stroke-width: 0.5px;
+                        fill: #FF9700;
+                    }
+                }
+            }
+            // .milestone-marker {
+            //     width: 10px;
+            //     height: 10px;
+            //     border-radius: 50%;
+            //     border: 1px solid white;
+            //     background: #FF9700;
+            //     margin: 0 auto;
+            //     margin-top: 40px;
+            // }
+            // .milestone-line-right {
+            //     height: 1px;
+            //     width: 50px;
+            //     background: black;
+            //     margin: 0 auto;
+            //     overflow: hidden;
+            // }
         }
     }
 }
