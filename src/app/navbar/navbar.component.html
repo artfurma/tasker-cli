@@ -4,16 +4,16 @@
   </span>
 
   <span class="toolbar-buttons">
-    <a mat-icon-button class="medium">
+    <a mat-icon-button class="medium" [routerLink]="['/']">
       <mat-icon color="primary">home</mat-icon>
     </a>
-    <a mat-icon-button class="medium">
+    <a mat-icon-button class="medium" [routerLink]="['/tasks']">
       <mat-icon color="primary">list</mat-icon>
     </a>
-    <a mat-icon-button class="medium">
+    <!-- <a mat-icon-button class="medium">
       <mat-icon color="primary">timeline</mat-icon>
-    </a>
-    <a mat-icon-button class="medium">
+    </a> -->
+    <a mat-icon-button [routerLink]="['/tasks']" class="medium">
       <mat-icon color="primary">playlist_add</mat-icon>
     </a>
   </span>

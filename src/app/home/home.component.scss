@@ -1,5 +1,55 @@
-.addProject{
-    color:orange;
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    background-image: url("/assets/images/bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;    
+    min-height: 100% !important;
+    min-width: 100% !important;
+    z-index: -1;
+}
+
+.greeter {
+    display: block;
+    p {
+        font-size: 2em;
+        font-weight: 200 !important;
+        color: rgb(78, 78, 78);
+    }
+    .avatar-container {
+        margin-top: -20px;
+        img {
+            width: 20%;
+            height: 20%;
+        }
+    }
+}
+
+mat-card {
+    margin: 2em auto;
+    text-align: center;
+    background-color: rgba(255, 255, 255, .9) !important;
+    
+    mat-card-actions {
+        button {
+            float: right;
+            margin-right: 20px;
+            color: white;
+        }
+    }
+}
+
+.addProject {
+    color: orange;
     font-weight: bold;
     margin: 15px;
+}
+
+hr {
+    display: block;
+    margin: 10px 0 10px 0;
+    border-top: 1px solid rgba(0, 0, 0, .12);
+    width: 100%
 }

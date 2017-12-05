@@ -34,7 +34,7 @@ export class TaskThumbnailComponent implements OnInit {
     dialogRef.afterClosed().subscribe();
   }
 
-  deleteTask(): void {
+  deleteTask(ID:number): void {
     const dialogRef = this.deleteDialog.open(YesNoModalComponent, {
       width: '480px',
       data: { message: 'Czy aby na pewno chcesz usunać tego taska ?'}
@@ -42,7 +42,9 @@ export class TaskThumbnailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.taskService.deleteTask(this.task.id).subscribe();
+        this.taskService.deleteTask(this.task.id).subscribe(res=>{
+          this.taskService.deleteLocalTask(this.task);
+        });
       }
     });
   }
