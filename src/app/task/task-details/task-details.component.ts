@@ -77,28 +77,9 @@ export class TaskDetailsComponent implements OnInit {
                 this.TaskStatus = TaskStatus[task.statusId];
                 this.loadAllUsers(task.mainPerformer);
             }
-
-
-            //     this._taskService.getAllMilestones().subscribe(milestones => { 
-            //         this.AllControlPoints = milestones;
-            //   });        
-            //console.log("dupa")
-
-            //console.log(this.Title)
-            //   this.Description=details.description;
-            //   this.Comments=details.comments;
-            //   let users=details.users;
-            //   this.TaskStatus=details.status;
-            //   this.printStatus=TaskStatus[details.status].toString();
-            //   console.log(this.TaskStatus);
-            //   let ControlPoints=details.controlPoints;
-            //   users.forEach(element => {this.UserNames.push(element.name)}); 
-            //   ControlPoints.forEach(element => {this.ControlPoints.push(element.endDate)}); 
-            //   this.ControlPoints.forEach(element => {
-            //       let minus= new Date().getDate() -  +element.getDate();
-            //       this.DaysRemaining.push(minus);
-            //   });
-
+            else{
+                this._navRoute.navigate(['/tasks']);
+            }
         });
     }
 

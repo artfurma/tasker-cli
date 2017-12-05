@@ -80,6 +80,9 @@ export class TaskEditComponent implements OnInit {
         this.loadAllMilestones();
         this.usermilestoneService.getList();
       }
+      else{
+        this._navRoute.navigate(['/tasks']);
+      }
     });
   }
 

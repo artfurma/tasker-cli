@@ -55,28 +55,8 @@ export class TaskTreeComponent implements OnInit {
     // this.list = this._route.snapshot.data['tasks']; 
     this._taskService.SharedTasksList$.subscribe(lst => {
       this.list = lst;
-      //if (lst === undefined) this._taskService.updateList();
       this.buildVisibilityTree();
     });
-    //this.list= this._taskService.getList();
-    // this._taskService.getTasksDb().subscribe(res => {
-    //   this.list = res;
-
-    //   this.list = this._taskService.getList();
-    //   if (this.list.length === 0) {
-    //     console.log("update");
-    //     this._taskService.updateList();
-    //     //this.list = this._taskService.getList();
-    //   }
-    //   this.buildVisibilityTree();
-    //   console.log(this.list);
-    // });
-
-
-    // this._taskService.getTasksDb().subscribe(res => {
-    //   this.list = res;
-    //   this.buildVisibilityTree();
-    // });
     this._taskFiltersService.SharedList$.subscribe(lst => {
       this.UsersFilters = lst;
 
@@ -89,11 +69,10 @@ export class TaskTreeComponent implements OnInit {
       if (this.list !== undefined) {
         this.buildVisibilityTree();
       }
-
     });
     this._taskFiltersService.getList();
-
   }
+
 
   buildVisibilityTree() {
     this.filters = new Array<TreeVisible>(this.list.length);
