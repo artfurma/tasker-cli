@@ -2,7 +2,7 @@ import { MilestoneAdd } from './shared/milestone-add';
 import { MilestoneService } from './shared/milestone.service';
 import { MilestoneModel } from './shared/milestone-model';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { MilestoneAddComponent } from './milestone-add/milestone-add.component';
 
 @Component({
@@ -15,7 +15,7 @@ export class MilestoneComponent implements OnInit {
     milestones: MilestoneModel[] = [];
     milestoneToEdit: MilestoneModel;
     editMode = false;
-    constructor(private milestoneService: MilestoneService, public dialog: MatDialog) { }
+    constructor(private milestoneService: MilestoneService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.milestoneService.getAllMilestones().subscribe(res => {
@@ -49,6 +49,7 @@ export class MilestoneComponent implements OnInit {
                 this.milestones.sort((a, b) => {
                     return new Date(a.endDate).getTime() - new Date(b.endDate).getTime();
                 });
+                this.snackBar.open('Nowy punkt kontrolny został dodany', '', { duration: 2000 });
             }
         });
     }
