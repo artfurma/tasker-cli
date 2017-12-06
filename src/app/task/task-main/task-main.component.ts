@@ -7,6 +7,7 @@ import { IControlPoint } from '../shared/task.model';
 import { TaskFiltersService } from "../shared/task-filters.service";
 import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
 import { UsersFiltersService } from '../shared/users-filters.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'tskr-task-main',
@@ -41,10 +42,13 @@ export class TaskMainComponent implements OnInit {
 
   constructor(private userService: UserService,
               private _taskService: TaskService,
+              private _navRoute: Router,
               private usermilestoneService: UsersFiltersService,
               private _taskFilterService: TaskFiltersService) { }
 
   ngOnInit() {
+    if(localStorage.getItem('currentProject')===null)this._navRoute.navigate(['/']);
+    
     this.loadAllUsers();
     this.loadAllMilestones();
     this._taskFilterService.SharedList$.subscribe(lst => this.filteredUsers = lst);

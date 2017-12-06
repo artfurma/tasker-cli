@@ -2,7 +2,7 @@ import { User } from "../../users/user/user";
 
 export interface Task {
     id: number;
-    parentTaskId:number;
+    parentTaskId: number;
     name: string;
     description: string;
     children?: Task[];
@@ -16,20 +16,20 @@ export interface Task {
 
 export declare var TaskObj: Task;
 
-export interface FilteredTask extends Task{
+export interface FilteredTask extends Task {
     shouldBeVisible: boolean;
 }
 
-export interface IControlPoint{
+export interface IControlPoint {
     id: number;
     EndDate: Date;
-    Name : string;
+    Name: string;
 }
 
-export enum TaskStatus{
-    "Not started"= 1,
-    "In progress"= 2,
-    "Done"=3
+export enum TaskStatus {
+    "Not started" = 1,
+    "In progress" = 2,
+    "Done" = 3
 }
 
 export interface SavingTask {
@@ -39,7 +39,8 @@ export interface SavingTask {
     MainPerformer: number;
     TaskStatusId: number;
     TaskPerformers: User[];
-    ParentTaskId:number;
+    ParentTaskId: number;
+    ProjectId: number;
 }
 
 export interface EditingTask {
@@ -50,5 +51,5 @@ export interface EditingTask {
     MainPerformer: number;
     TaskStatusId: number;
     TaskPerformers: User[];
-    ParentTaskId:number;
+    ParentTaskId: number;
 }

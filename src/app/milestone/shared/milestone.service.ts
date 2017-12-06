@@ -8,7 +8,7 @@ export class MilestoneService {
 
     private addMilestoneURL = '/api/Milestones';
     private deleteMilestoneURL = '/api/Milestones/';
-    private getAllMilestonesUrl = '/api/milestones/getall';
+    private getAllMilestonesUrl = '/api/milestones/getall/';
     constructor(private http: HttpClient) { }
 
     public addMilestone(milestoneAdd: MilestoneAdd) {
@@ -18,7 +18,7 @@ export class MilestoneService {
     }
 
     getAllMilestones() {
-        return this.http.get<MilestoneModel[]>(this.getAllMilestonesUrl);
+        return this.http.get<MilestoneModel[]>(this.getAllMilestonesUrl + localStorage.getItem('currentProject'));
     }
 
     public deleteMilestone(milestoneId: number) {

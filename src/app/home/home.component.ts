@@ -6,6 +6,8 @@ import { ProjectModel } from './../project/shared/project.model';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../users/user/user.service';
 import { User } from '../users/user/user';
+import { UsersFiltersService } from '../task/shared/users-filters.service';
+import { TaskService } from '../task/shared/task.service';
 
 @Component({
     selector: 'tskr-home',
@@ -19,6 +21,8 @@ export class HomeComponent implements OnInit {
 
     constructor(private userService: UserService,
         private projectService: ProjectService,
+        private filtersService :UsersFiltersService,
+        private taskService: TaskService,
         private router: Router,
         public dialog: MatDialog) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -39,10 +43,32 @@ export class HomeComponent implements OnInit {
     }
 
     goToTasks(projectId: number) {
+        if(localStorage.getItem('currentProject')!==undefined){
+            localStorage.removeItem('currentProject');   
+            localStorage.setItem('currentProject', projectId.toString());
+            this.filtersService.updateData();
+            this.taskService.updateList();
+        }
+        else{
+            localStorage.setItem('currentProject', projectId.toString());
+            this.filtersService.updateData();
+            this.taskService.updateList();            
+        }
         this.router.navigate(['/tasks']);
     }
 
     goToSettings(projectId) {
+        if(localStorage.getItem('currentProject')!==undefined){
+            localStorage.removeItem('currentProject');
+            localStorage.setItem('currentProject', projectId.toString());
+            this.filtersService.updateData();
+            this.taskService.updateList();
+        }
+        else{
+            localStorage.setItem('currentProject', projectId.toString());
+            this.filtersService.updateData();
+            this.taskService.updateList();
+        }
         this.router.navigate(['/project', projectId]);
     }
 

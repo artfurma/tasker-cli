@@ -24,17 +24,23 @@ export class UsersFiltersService {
 
 
     private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.Users = users; this.listUsersObserver.next(this.Users);});
+        this.userService.getAll().subscribe(users => { this.Users = users; if(this.listUsersObserver!==undefined)this.listUsersObserver.next(this.Users);});
     }
     private loadAllMilestones() {
-        this.taskService.getAllMilestones().subscribe(milestones => { this.Milestones = milestones; this.listMilestonesObserver.next(this.Milestones);});
+        this.taskService.getAllMilestones().subscribe(milestones => { this.Milestones = milestones; if(this.listMilestonesObserver!==undefined)this.listMilestonesObserver.next(this.Milestones);});
+    }
+
+    updateData(){
+        this.loadAllUsers();
+        this.loadAllMilestones();
+        this.getList();
     }
 
     getList() {
         // Get the data from somewhere, i.e. http call
         //console.log(this.filteredTasks)
-        this.listUsersObserver.next(this.Users);
-        this.listMilestonesObserver.next(this.Milestones);
+        if(this.listUsersObserver!==undefined)this.listUsersObserver.next(this.Users);
+        if(this.listMilestonesObserver!==undefined)this.listMilestonesObserver.next(this.Milestones);
         // the important part is after getting the data you want, observer.next it
     }
 

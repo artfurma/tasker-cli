@@ -19,23 +19,24 @@ export class TaskService {
         this.SharedTasksList$ = new Observable<Task[]>(x => this.listObserver = x).share();                
         this.getTasksDb().subscribe(res => {
             this.list = res;
-            this.listObserver.next(this.list);
+            if(this.listObserver!==undefined)this.listObserver.next(this.list);
         });
     }
     isGut():boolean{
         return this.list.length>0;
     }
 
-    getList():Task[]{
-        return this.list;
+    getList(){
+        if(this.listObserver!==undefined)this.listObserver.next(this.list);
     }
 
     updateList(){
         this.getTasksDb().subscribe(res => {
             this.list = res;
-            this.listObserver.next(this.list);
-            
+            if(this.listObserver!==undefined)this.listObserver.next(this.list);
+            console.log(this.list);
         });
+
     }
 
     deleteLocalTask(task: Task){
@@ -153,13 +154,14 @@ export class TaskService {
     }
 
     getTasksDb(): Observable<Task[]> {
-        return this._http.get<Task[]>(`http://localhost:4200/api/task/gettasks`).catch(this.handleError);
+        let currentProject= localStorage.getItem('currentProject');
+        return this._http.get<Task[]>(`http://localhost:4200/api/task/gettasks/${currentProject}`).catch(this.handleError);
     }
     getTask(id: number): Observable<Task> {
         return this._http.get<Task>(`http://localhost:4200/api/task/${id}`).catch(this.handleError);
     }
     getAllMilestones(): Observable<IControlPoint[]> {
-        return this._http.get<IControlPoint[]>(`http://localhost:4200/api/milestones/getall`).catch(this.handleError);
+        return this._http.get<IControlPoint[]>(`http://localhost:4200/api/milestones/getall/${localStorage.getItem('currentProject')}`).catch(this.handleError);
     }
 
     saveNewTask(task: SavingTask): Observable<Task> {

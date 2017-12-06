@@ -1,11 +1,12 @@
 import { Task } from './../shared/task.model';
 import { Component, OnInit, Input } from '@angular/core';
-import { SavingTask, IControlPoint,TaskStatus } from '../shared/task.model';
+import { SavingTask, IControlPoint, TaskStatus } from '../shared/task.model';
 import { User } from '../../users/user/user';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from '../shared/task.service';
 import { UserService } from '../../users/user/user.service';
 import { UsersFiltersService } from '../shared/users-filters.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'tskr-task-new',
@@ -33,10 +34,11 @@ export class TaskNewComponent implements OnInit {
   private keys: any;
 
   constructor(private _route: ActivatedRoute,
-              private _navRoute: Router,
-              private _taskService: TaskService,
-              private usermilestoneService: UsersFiltersService,
-              private _userService: UserService) {
+    private _navRoute: Router,
+    public snackBar: MatSnackBar,
+    private _taskService: TaskService,
+    private usermilestoneService: UsersFiltersService,
+    private _userService: UserService) {
     this.UserNames = new Array();
     this.DaysRemaining = new Array();
     this.ControlPointsInUse = new Array();
@@ -44,11 +46,11 @@ export class TaskNewComponent implements OnInit {
     this.taskPerformers = new Array();
     this.AllMilestones = new Array();
     this.ChosedMilestones = new Array();
-    this.enableDrop=true;
+    this.enableDrop = true;
     this.enumStatus = TaskStatus;
     this.taskStatus = 1;
-    
-    this.keys=Object.keys(this.enumStatus).filter(Number);
+
+    this.keys = Object.keys(this.enumStatus).filter(Number);
   }
 
   ngOnInit() {
@@ -74,10 +76,10 @@ export class TaskNewComponent implements OnInit {
     this.usermilestoneService.getList();
   }
 
-  userDropped(e: any){
-    this.mainPerformer=e.dragData;
+  userDropped(e: any) {
+    this.mainPerformer = e.dragData;
     this.deleteUserFromPerformers(this.mainPerformer);
-    this.enableDrop=false;
+    this.enableDrop = false;
     if (this.taskPerformers.includes(this.mainPerformer)) {
       let i: number = 0;
       for (let usr of this.taskPerformers) {
@@ -120,7 +122,7 @@ export class TaskNewComponent implements OnInit {
     }
   }
 
-  deleteUserFromPerformers(user:User){
+  deleteUserFromPerformers(user: User) {
     if (this.AllUsers.includes(user)) {
       let i: number = 0;
       for (let usr of this.AllUsers) {
@@ -147,10 +149,10 @@ export class TaskNewComponent implements OnInit {
     }
   }
 
-  deleteMainPerformer(){
-    this.AllUsers.push(this.mainPerformer);    
-    this.mainPerformer=undefined;
-    this.enableDrop=true;
+  deleteMainPerformer() {
+    this.AllUsers.push(this.mainPerformer);
+    this.mainPerformer = undefined;
+    this.enableDrop = true;
   }
 
   saveTask() {
@@ -162,7 +164,8 @@ export class TaskNewComponent implements OnInit {
       MainPerformer: this.mainPerformer ? +this.mainPerformer.id : null,
       TaskStatusId: +this.taskStatus,
       TaskPerformers: this.taskPerformers,
-      ParentTaskId: +this.ParentTaskID
+      ParentTaskId: +this.ParentTaskID,
+      ProjectId: + localStorage.getItem('currentProject')
     }
 
     this._taskService.saveNewTask(savingTask).subscribe(res => {
@@ -170,9 +173,10 @@ export class TaskNewComponent implements OnInit {
       newTask = res;
       console.log(newTask);
       this._taskService.addTask(newTask);
+      this.snackBar.open('Nowe zadanie zostalo zapisane!', '', { duration: 2000 });
     });
     this._navRoute.navigate(['/tasks/']);
-    
+
   }
   cancel() {
     this._navRoute.navigate(['/tasks/']);
