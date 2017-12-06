@@ -38,7 +38,7 @@ import {
         MatGridListModule,
         MatDialogModule,
         MatDatepickerModule,
-        MatSnackBarModule
+        MatSnackBarModule,
         MatTooltipModule
     ],
     exports: [
@@ -59,7 +59,7 @@ import {
         MatDialogModule,
         MatNativeDateModule,
         MatDatepickerModule,
-        MatSnackBarModule
+        MatSnackBarModule,
         MatTooltipModule
     ]
 })
