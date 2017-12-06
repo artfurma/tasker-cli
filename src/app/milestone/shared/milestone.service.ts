@@ -12,9 +12,9 @@ export class MilestoneService {
     constructor(private http: HttpClient) { }
 
     public addMilestone(milestoneAdd: MilestoneAdd) {
-        var headers = new HttpHeaders();
+        const headers = new HttpHeaders();
         headers.append('Content-Type', 'application/json');
-        return this.http.post<number>(this.addMilestoneURL, milestoneAdd, {headers: headers});
+        return this.http.post<number>(this.addMilestoneURL, milestoneAdd, { headers: headers });
     }
 
     getAllMilestones() {

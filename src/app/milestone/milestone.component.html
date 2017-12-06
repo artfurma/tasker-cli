@@ -8,6 +8,7 @@
     </mat-form-field>
     <button (click)="addMilestone(milestoneToAdd)">Add milestone</button>
 </div> -->
+
 <mat-card class="milestones-header">
     <mat-card-header>
         <div mat-card-avatar>
@@ -22,6 +23,7 @@
         </div>
     </mat-card-header>
 </mat-card>
+
 <div class="milestone-timeline-container">
     <div class="marker">
         <p>START</p>
@@ -51,22 +53,7 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="milestone-row" *ngFor="let milestone of milestones | evenodd: 'odd'">
-            <svg>
-                <g>
-                    <line class="left" x1="0%" y1="50%" x2="50%" y2="50%"></line>
-                    <circle cx="50%" cy="50%" r="0.3em"></circle>
-                </g>
-            </svg>
-            <div class="milestone-left">
-                <tskr-milestone-thumbnail [milestone]="milestone"></tskr-milestone-thumbnail>
-            </div>
-        </div> -->
-
     </div>
-    <!-- <div class="marker">
-        <p>KONIEC</p>
-    </div> -->
 </div>
 
 

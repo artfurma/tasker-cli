@@ -15,6 +15,9 @@ import { MilestoneAddComponent } from './milestone-add/milestone-add.component';
   ],
   providers: [MilestoneService],
   declarations: [MilestoneComponent, MilestoneThumbnailComponent, MilestoneAddComponent],
-  exports: [MilestoneComponent, MilestoneThumbnailComponent, MilestoneAddComponent]
+  exports: [MilestoneComponent, MilestoneThumbnailComponent, MilestoneAddComponent],
+  entryComponents: [
+    MilestoneAddComponent
+  ]
 })
 export class MilestoneModule { }

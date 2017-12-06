@@ -13,7 +13,6 @@ import { MilestoneAddComponent } from './milestone-add/milestone-add.component';
 export class MilestoneComponent implements OnInit {
 
     milestones: MilestoneModel[] = [];
-    milestoneToAdd: MilestoneAdd;
     milestoneToEdit: MilestoneModel;
     editMode = false;
     constructor(private milestoneService: MilestoneService, public dialog: MatDialog) { }
@@ -21,13 +20,11 @@ export class MilestoneComponent implements OnInit {
     ngOnInit() {
         this.milestoneService.getAllMilestones().subscribe(res => {
             res.sort((a, b) => {
-                // console.log(this.getTime(a.endDate));
-                return new Date(a.endDate).getDate() - new Date(b.endDate).getDate();
+                return new Date(a.endDate).getTime() - new Date(b.endDate).getTime();
             });
 
             this.milestones = res;
         });
-        this.milestoneToAdd = new MilestoneAdd();
         this.milestoneToEdit = new MilestoneModel();
     }
 
@@ -37,25 +34,21 @@ export class MilestoneComponent implements OnInit {
         this.milestones.splice(index, 1);
     }
 
-    // addMilestone(milestoneAdd: MilestoneAdd) {
-    //   this.milestoneService.addMilestone(milestoneAdd).subscribe(res => {
-    //     const newMilestone = new MilestoneModel();
-    //     newMilestone.id = res;
-    //     newMilestone.endDate = milestoneAdd.EndDate;
-    //     newMilestone.name = milestoneAdd.Name;
-    //     this.milestones.push(newMilestone);
-    //   });
-
-    // }
     addMilestone() {
         const dialogRef = this.dialog.open(MilestoneAddComponent, {
-            width: '480px',
-            // data: { projectId: this.}
+            width: '450px',
+            data: { milestone: new MilestoneModel() }
         });
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
+                this.milestoneService.addMilestone(result).subscribe(newId => {
+                    result.id = newId;
+                });
                 this.milestones.push(result);
+                this.milestones.sort((a, b) => {
+                    return new Date(a.endDate).getTime() - new Date(b.endDate).getTime();
+                });
             }
         });
     }
@@ -72,8 +65,4 @@ export class MilestoneComponent implements OnInit {
         this.milestoneService.editMilestone(this.milestoneToEdit).subscribe();
         this.editMode = false;
     }
-
-//     private getTime(date: Date) {
-//         return date != null ? date.getTime() : 0;
-//     }
-// }
+}
