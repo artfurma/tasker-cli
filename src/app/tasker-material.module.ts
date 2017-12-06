@@ -16,6 +16,7 @@ import {
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSnackBarModule,
     MatTooltipModule
 } from '@angular/material';
 
@@ -37,6 +38,7 @@ import {
         MatGridListModule,
         MatDialogModule,
         MatDatepickerModule,
+        MatSnackBarModule
         MatTooltipModule
     ],
     exports: [
@@ -57,6 +59,7 @@ import {
         MatDialogModule,
         MatNativeDateModule,
         MatDatepickerModule,
+        MatSnackBarModule
         MatTooltipModule
     ]
 })
