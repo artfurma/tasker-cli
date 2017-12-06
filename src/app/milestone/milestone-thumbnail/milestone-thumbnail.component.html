@@ -1,6 +1,10 @@
 <mat-card>
-    <mat-card-title>{{milestone.name}}</mat-card-title>
+    <mat-card-header>
+        <div mat-card-avatar class="day"><p>{{day}}</p></div>
+        <mat-card-title>{{dayOfWeek}}</mat-card-title>
+        <mat-card-subtitle>{{monthAndYear}}</mat-card-subtitle>
+    </mat-card-header>
     <mat-card-content>
-        {{milestone.endDate}}
+        <p>{{milestone.name}}</p>
     </mat-card-content>
 </mat-card>

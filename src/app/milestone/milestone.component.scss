@@ -3,6 +3,9 @@
     // align-items: center;
     // justify-content: center;
     // background: gray;
+    ::-webkit-scrollbar { 
+        display: none; 
+    }
     div.marker {
         margin: 0 auto;
         border-radius: 50%;
@@ -10,17 +13,20 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 24px;
-        width: 24px;
-        p {
-            margin: 0;
+        height: 32px;
+        width: 32px;
+        mat-icon {
             color: white;
         }
     }
     div.timeline {
         margin: 0 auto;
         min-height: 500px;
+        max-height: 650px;
         background: url('/assets/images/timeline_thin.png') repeat-y center;
+        overflow-x: hidden;
+        overflow-y: scroll;
+
         .milestone-row {
             // border: 1px solid blue;
             height: 100px;

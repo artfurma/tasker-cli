@@ -52,4 +52,14 @@ export class MilestoneComponent implements OnInit {
     this.editMode = false;
   }
 
+  sortMilestonesByDate() {
+    this.milestones.sort((a, b) => {
+      // console.log(this.getDate(a.endDate));
+      return this.getDate(a.endDate) - this.getDate(b.endDate);
+    });
+  }
+
+  private getDate(date?: Date) {
+    return date != null ? date.getDate() : 0;
+  }
 }

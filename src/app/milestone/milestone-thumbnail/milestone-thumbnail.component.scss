@@ -1,4 +1,13 @@
 mat-card {
-    height: 50px;
-    width: 300px;
+    min-height: 50px;
+    min-width: 200px;
+
+    mat-card-header {
+        .day{
+            margin-top: -40px;
+            p {
+                font-size: 2.5em;
+            }
+        }
+    }
 }
