@@ -1,47 +1,70 @@
-.member{
+.project-view-container {
+    margin: 16px;
+    .project-details-container {
+        mat-card {
+            min-height: 500px;
+            mat-card-title {
+                margin-top: 50px;
+                .project-title {
+                    display: inline-block;
+                    font-size: 1.5em;
+                    font-weight: 200;
+                }
+                .edit-button {
+                    float: right;
+                    button {
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+    .timeline-container {
+        margin-left: 16px;
+    }
+}
+
+.member {
     background: white;
     border-radius: 8px;
     width: fit-content;
     margin-top: 5px;
 }
+
 .example-form {
     min-width: 150px;
     max-width: 500px;
     width: 100%;
-  }
-  
-  .example-full-width {
-    width: 100%;
-  }
+}
 
-.addMember{
+.example-full-width {
+    width: 100%;
+}
+
+.addMember {
     margin-left: 10%;
     margin-top: 30px;
     width: 30%;
 }
 
-.white-icon
-{
+.white-icon {
     color: white !important;
 }
 
-.project-name
-{
+.project-name {
     align-items: left;
     text-align: left;
 }
 
-.margin-top
-{
+.margin-top {
     margin-top: 20px;
 }
 
-.user-box
-{
+.user-box {
     border: solid 1px #dddddd;
 }
 
-.main-container
-{
-    max-width: 600px; margin: auto;
+.main-container {
+    max-width: 600px;
+    margin: auto;
 }

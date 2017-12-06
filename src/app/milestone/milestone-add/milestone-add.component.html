@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Dodaj punkt kontrolny</h1>
+<div mat-dialog-content>
+    <p>Wypenij poniższe dane</p>
+    <mat-form-field>
+        <input matInput tabindex="1" [(ngModel)]="data.milestone.name" placeholder="Nazwa punktu kontrolnego" required>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput [(ngModel)]="data.milestone.endDate" [matDatepicker]="picker" placeholder="Termin">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="data.milestone" tabindex="2">Dodaj</button>
+    <button mat-button (click)="onCancelClick()" tabindex="-1">Anuluj</button>
+</div>

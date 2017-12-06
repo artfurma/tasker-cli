@@ -5,7 +5,8 @@
                 <p>Dzień dobry, {{currentUser.firstName}}!</p>
             </div>
             <div class="avatar-container">
-                <img mat-card-avatar src="assets/images/avatar_tmp.png" />
+                <img mat-card-avatar src="assets/images/avatar_tmp.png" (click)="changeAvatar()"/>
+                <input type="file" #fileInput hidden/>                
             </div>
             <hr/>
         </mat-card-header>

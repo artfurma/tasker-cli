@@ -1,4 +1,63 @@
-<div class="center">
+<!-- <div class="divek">
+    <p>Dodawanie</p>
+    <input type="text" [(ngModel)]="milestoneToAdd.Name" placeholder="name" />
+    <mat-form-field>
+        <input matInput [(ngModel)]="milestoneToAdd.EndDate" [matDatepicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <button (click)="addMilestone(milestoneToAdd)">Add milestone</button>
+</div> -->
+
+<mat-card class="milestones-header">
+    <mat-card-header>
+        <div mat-card-avatar>
+            <mat-icon>timeline</mat-icon>
+        </div>
+        <mat-card-title>Oś czasu</mat-card-title>
+        <mat-card-subtitle>Dodaj, edytuj lub usuń punkty kontrolne z projektu</mat-card-subtitle>
+        <div class="add-milestone-button">
+            <button title="Edytuj" mat-mini-fab color="primary" mat-button (click)="addMilestone()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </mat-card-header>
+</mat-card>
+
+<div class="milestone-timeline-container">
+    <div class="marker">
+        <p>START</p>
+    </div>
+    <div class="timeline">
+        <div class="milestone-row" *ngFor="let milestone of milestones; let i = index">
+            <div *ngIf="i % 2 === 0">
+                <svg>
+                    <g>
+                        <line class="right" x1="50%" y1="50%" x2="95%" y2="50%"></line>
+                        <circle cx="50%" cy="50%" r="0.3em"></circle>
+                    </g>
+                </svg>
+                <div class="milestone-right">
+                    <tskr-milestone-thumbnail [milestone]="milestone" (milestoneDeleted)="onMilestoneDeleted(milestone)"></tskr-milestone-thumbnail>
+                </div>
+            </div>
+            <div *ngIf="i % 2 === 1">
+                <svg>
+                    <g>
+                        <line class="left" x1="5%" y1="50%" x2="50%" y2="50%"></line>
+                        <circle cx="50%" cy="50%" r="0.3em"></circle>
+                    </g>
+                </svg>
+                <div class="milestone-left">
+                    <tskr-milestone-thumbnail [milestone]="milestone" (milestoneDeleted)="onMilestoneDeleted(milestone)"></tskr-milestone-thumbnail>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="center">
   <div class="divek">
     <p>Dodawanie</p>
       <input type="text" [(ngModel)]="milestoneToAdd.Name" placeholder="name"/>
@@ -28,4 +87,4 @@
           <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <button (click)="editMilestone()">Save</button>  
-</div>
+</div> -->

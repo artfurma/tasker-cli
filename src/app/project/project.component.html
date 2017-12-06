@@ -1,4 +1,33 @@
-<div flex>
+<div class="project-view-container">
+    <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
+        <div fxFlex="50%" class="project-details-container">
+            <mat-card class="">
+                <mat-card-title>
+                    <div class="project-title">
+                        <p>{{project.name}}</p>
+                    </div>
+                    <div class="edit-button">
+                        <button title="Edytuj" mat-fab color="primary" mat-button (click)="editProject()">
+                            <mat-icon>mode_edit</mat-icon>
+                        </button>
+                    </div>
+                </mat-card-title>
+                <mat-card-content>
+                    <!-- TODO -->
+                    <p>Opis projektu</p>
+                    <br/> {{project.description}}
+                    <br/>
+                    <br/>
+                    <p>Czlonkowie zespolu</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div fxFlex="50%" class="timeline-container">
+            <tskr-milestone></tskr-milestone>
+        </div>
+    </div>
+</div>
+<!-- <div flex>
   <mat-card class="main-container">
 
     <mat-card-title>
@@ -48,6 +77,6 @@
 
   </mat-grid-list>
   </mat-card>
-</div>
+</div> -->
 
-<tskr-milestone></tskr-milestone>
+<!-- <tskr-milestone></tskr-milestone> -->
