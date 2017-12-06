@@ -5,13 +5,13 @@
     // background: gray;
     div.marker {
         margin: 0 auto;
-        border-radius: 5px;
-        background: rgb(65, 56, 75);
+        border-radius: 50%;
+        background: gray;
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 40px;
-        width: 125px;
+        height: 24px;
+        width: 24px;
         p {
             margin: 0;
             color: white;
