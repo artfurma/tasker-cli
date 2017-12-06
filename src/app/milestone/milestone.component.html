@@ -1,4 +1,4 @@
-<div class="divek">
+<!-- <div class="divek">
     <p>Dodawanie</p>
     <input type="text" [(ngModel)]="milestoneToAdd.Name" placeholder="name" />
     <mat-form-field>
@@ -7,11 +7,24 @@
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <button (click)="addMilestone(milestoneToAdd)">Add milestone</button>
-</div>
+</div> -->
+<mat-card class="milestones-header">
+    <mat-card-header>
+        <div mat-card-avatar>
+            <mat-icon>timeline</mat-icon>
+        </div>
+        <mat-card-title>Oś czasu</mat-card-title>
+        <mat-card-subtitle>Dodaj, edytuj lub usuń punkty kontrolne z projektu</mat-card-subtitle>
+        <div class="add-milestone-button">
+            <button title="Edytuj" mat-mini-fab color="primary" mat-button (click)="addMilestone()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </mat-card-header>
+</mat-card>
 <div class="milestone-timeline-container">
-    <div class="marker top">
-        <!-- <p>Dzisiaj</p> -->
-        <mat-icon>room</mat-icon>
+    <div class="marker">
+        <p>START</p>
     </div>
     <div class="timeline">
         <div class="milestone-row" *ngFor="let milestone of milestones; let i = index">
@@ -51,6 +64,9 @@
         </div> -->
 
     </div>
+    <!-- <div class="marker">
+        <p>KONIEC</p>
+    </div> -->
 </div>
 
 

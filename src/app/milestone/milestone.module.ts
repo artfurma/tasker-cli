@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MilestoneComponent } from './milestone.component';
 import { MilestoneThumbnailComponent } from './milestone-thumbnail/milestone-thumbnail.component';
-import { EvenOddPipe } from './shared/evenodd.pipe';
+import { MilestoneAddComponent } from './milestone-add/milestone-add.component';
 
 @NgModule({
   imports: [
@@ -14,7 +14,7 @@ import { EvenOddPipe } from './shared/evenodd.pipe';
     TaskerMaterialModule
   ],
   providers: [MilestoneService],
-  declarations: [MilestoneComponent, MilestoneThumbnailComponent, EvenOddPipe],
-  exports: [MilestoneComponent, MilestoneThumbnailComponent, EvenOddPipe]
+  declarations: [MilestoneComponent, MilestoneThumbnailComponent, MilestoneAddComponent],
+  exports: [MilestoneComponent, MilestoneThumbnailComponent, MilestoneAddComponent]
 })
 export class MilestoneModule { }
