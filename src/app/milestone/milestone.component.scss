@@ -4,6 +4,9 @@
 
 mat-card.milestones-header {
     mat-card-header {
+        mat-icon {
+            color: gray;
+        }
         .add-milestone-button {
             position: absolute;
             right: 16px;;

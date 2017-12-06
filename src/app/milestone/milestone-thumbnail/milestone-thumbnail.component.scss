@@ -14,15 +14,9 @@ mat-card {
             display: inline-block;
             color: rgba(0, 0, 0, 0.13);
         }
-    }
-    mat-card-actions:hover {
-        button {
-            display: inline-block;
+        button:hover {
+            transition: color 0.5s ease;
             color: #FF9700;
         }
     }
 }
-
-// mat-card:hover {
-    
-// }
