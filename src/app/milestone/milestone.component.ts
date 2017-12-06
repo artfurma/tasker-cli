@@ -13,7 +13,6 @@ import { MilestoneAddComponent } from './milestone-add/milestone-add.component';
 export class MilestoneComponent implements OnInit {
 
     milestones: MilestoneModel[] = [];
-    milestoneToEdit: MilestoneModel;
     editMode = false;
     constructor(private milestoneService: MilestoneService, public dialog: MatDialog, public snackBar: MatSnackBar) { }
 
@@ -25,7 +24,6 @@ export class MilestoneComponent implements OnInit {
 
             this.milestones = res;
         });
-        this.milestoneToEdit = new MilestoneModel();
     }
 
     deleteMilestone(milestone: MilestoneModel) {
@@ -55,15 +53,11 @@ export class MilestoneComponent implements OnInit {
     }
 
     turnEditMode(milestone: MilestoneModel) {
-        this.milestoneToEdit.id = milestone.id;
+        // this.milestoneToEdit.id = milestone.id;
         this.editMode = true;
     }
 
-    editMilestone() {
-        const toChange = this.milestones.filter(x => x.id === this.milestoneToEdit.id)[0];
-        toChange.endDate = this.milestoneToEdit.endDate;
-        toChange.name = this.milestoneToEdit.name;
-        this.milestoneService.editMilestone(this.milestoneToEdit).subscribe();
-        this.editMode = false;
+    onMilestoneDeleted(milestone: MilestoneModel) {
+        this.milestones = this.milestones.filter(item => item.id !== milestone.id);
     }
 }

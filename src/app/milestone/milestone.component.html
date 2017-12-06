@@ -38,7 +38,7 @@
                     </g>
                 </svg>
                 <div class="milestone-right">
-                    <tskr-milestone-thumbnail [milestone]="milestone"></tskr-milestone-thumbnail>
+                    <tskr-milestone-thumbnail [milestone]="milestone" (milestoneDeleted)="onMilestoneDeleted(milestone)"></tskr-milestone-thumbnail>
                 </div>
             </div>
             <div *ngIf="i % 2 === 1">
@@ -49,7 +49,7 @@
                     </g>
                 </svg>
                 <div class="milestone-left">
-                    <tskr-milestone-thumbnail [milestone]="milestone"></tskr-milestone-thumbnail>
+                    <tskr-milestone-thumbnail [milestone]="milestone" (milestoneDeleted)="onMilestoneDeleted(milestone)"></tskr-milestone-thumbnail>
                 </div>
             </div>
         </div>

@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { MilestoneModel } from '../shared/milestone-model';
 import * as moment from 'moment';
 import { MilestoneEditComponent } from '../milestone-edit/milestone-edit.component';
 import { MilestoneService } from '../shared/milestone.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
+import { YesNoModalComponent } from '../../modals/yes-no-modal/yes-no-modal.component';
 
 @Component({
     selector: 'tskr-milestone-thumbnail',
@@ -13,6 +14,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 export class MilestoneThumbnailComponent implements OnInit, OnChanges {
 
     @Input() milestone: MilestoneModel;
+    @Output() milestoneDeleted: EventEmitter<MilestoneModel> = new EventEmitter();
 
     dayOfWeek: string;
     day: string;
@@ -50,7 +52,19 @@ export class MilestoneThumbnailComponent implements OnInit, OnChanges {
     }
 
     deleteMilestone() {
-        
+        const dialogRef = this.dialog.open(YesNoModalComponent, {
+            width: '250px',
+            data: { message: 'Czy na pewno chcesz usunąć ten punkt kontrolny?' }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.milestoneService.deleteMilestone(this.milestone.id).subscribe(() => {
+                    this.snackBar.open('Pomyślnie usunięto punkt kontrolny', '', { duration: 2000 });
+                    this.milestoneDeleted.emit();
+                });
+            }
+        });
     }
 
 }
