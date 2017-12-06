@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material';
 import { AddCommentComponent } from './../../comment/add-comment/add-comment.component';
 import { CommentModel } from './../../comment/shared/comment-model';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Router } from "@angular/router";
 import { UserService } from "../../users/user/user.service";
 import { TaskService } from "../shared/task.service";
@@ -44,8 +44,20 @@ export class TaskDetailsComponent implements OnInit {
         this.ControlPointsInUse = new Array();
         this.AllUsers = new Array();
         this.taskPerformers = new Array();
-    }
 
+        this._navRoute.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        }
+
+        this._navRoute.events.subscribe((evt) => {
+            if (evt instanceof NavigationEnd) {
+                // trick the Router into believing it's last link wasn't previously loaded
+                this._navRoute.navigated = false;
+                // if you need to scroll back to top, here is the right place
+                window.scrollTo(0, 0);
+            }
+        });
+    }
     ngOnInit() {
         this.taskPerformers.length = 0;
         this.ControlPointsInUse.length = 0;
@@ -54,38 +66,20 @@ export class TaskDetailsComponent implements OnInit {
             this.commentService.getTaskComments(this.TaskID).subscribe(res => this.commentComponent.commentList = res);
             let task: Task;
             task = this._taskService.getChosenTask(this.TaskID);
-
-            this.Task = task;
-            this.Title = task.title;
-            this.Description = task.description;
-            this.ControlPointsInUse.length = 0;
-            this.ControlPointsInUse = task.controlPointIds;
-            this.taskPerformers.length = 0;
-            this.taskPerformers = task.taskPerformers;
-            this.TaskStatus = TaskStatus[task.statusId];
-            console.log(task);
-            this.loadAllUsers(task.mainPerformer);
-
-            //     this._taskService.getAllMilestones().subscribe(milestones => { 
-            //         this.AllControlPoints = milestones;
-            //   });        
-            //console.log("dupa")
-
-            //console.log(this.Title)
-            //   this.Description=details.description;
-            //   this.Comments=details.comments;
-            //   let users=details.users;
-            //   this.TaskStatus=details.status;
-            //   this.printStatus=TaskStatus[details.status].toString();
-            //   console.log(this.TaskStatus);
-            //   let ControlPoints=details.controlPoints;
-            //   users.forEach(element => {this.UserNames.push(element.name)}); 
-            //   ControlPoints.forEach(element => {this.ControlPoints.push(element.endDate)}); 
-            //   this.ControlPoints.forEach(element => {
-            //       let minus= new Date().getDate() -  +element.getDate();
-            //       this.DaysRemaining.push(minus);
-            //   });
-
+            if(task!==undefined){
+                this.Task = task;
+                this.Title = task.title;
+                this.Description = task.description;
+                this.ControlPointsInUse.length = 0;
+                this.ControlPointsInUse = task.controlPointIds;
+                this.taskPerformers.length = 0;
+                this.taskPerformers = task.taskPerformers;
+                this.TaskStatus = TaskStatus[task.statusId];
+                this.loadAllUsers(task.mainPerformer);
+            }
+            else{
+                this._navRoute.navigate(['/tasks']);
+            }
         });
     }
 

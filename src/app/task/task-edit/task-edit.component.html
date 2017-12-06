@@ -2,8 +2,8 @@
     <mat-card-header class="details-header">
       <mat-card-title class="details-content">
         <mat-form-field class="details-content">
-          <input class="details-content" id="taskName" [(ngModel)]="Title" value={{Title}} [ngModelOptions]="{standalone: true}" matInput
-            placeholder="Task title">
+          <textarea class="details-content" id="taskName" [(ngModel)]="Title" value={{Title}} [ngModelOptions]="{standalone: true}" matInput
+            placeholder="Task title">{{Title}}</textarea>
           <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
             <mat-icon>close</mat-icon>
           </button>
@@ -45,7 +45,7 @@
     <mat-card-header>
   
         <mat-form-field>
-            <mat-select [(ngModel)]="taskStatus"  [ngModelOptions]="{standalone: true}" placeholder="Please chose status">
+            <mat-select [(ngModel)]="taskStatus"  [ngModelOptions]="{standalone: true}" [placeholder]="TaskStatus">
               <mat-option  *ngFor="let key of keys "  [value]="key">
                 {{ enumStatus[key]}}
               </mat-option>

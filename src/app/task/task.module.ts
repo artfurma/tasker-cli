@@ -25,6 +25,7 @@ import { StatusChooserComponent } from './status-chooser/status-chooser.componen
 
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { UsersFiltersService } from './shared/users-filters.service';
 
 const SWIPER_CONFIG: SwiperConfigInterface = {
     direction: 'horizontal',
@@ -56,7 +57,8 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
         TaskTreeResolverService,
         TaskResolverService,
         TaskService,
-        TaskFiltersService
+        TaskFiltersService,
+        UsersFiltersService
     ],
     entryComponents: [
         StatusChooserComponent,

@@ -1,10 +1,11 @@
 import { TaskService } from './../shared/task.service';
 import { Task, IControlPoint, FilteredTask } from '../shared/task.model';
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AuthGuard } from "../../auth/guard/auth.guard";
 import { TaskFiltersService } from "../shared/task-filters.service";
 import { User } from '../../users/user/user';
+import { UsersFiltersService } from '../shared/users-filters.service';
 
 @Component({
   selector: 'tskr-task-tree',
@@ -16,7 +17,7 @@ import { User } from '../../users/user/user';
 export class TaskTreeComponent implements OnInit {
 
 
-
+  allUsers: User[];
   filters: TreeVisible[];
   list: Task[];
   filterdList: FilteredTask[];
@@ -26,46 +27,52 @@ export class TaskTreeComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute,
     private _taskService: TaskService,
+    private _navRoute: Router,
+    private usermilestoneService: UsersFiltersService,
     private _taskFiltersService: TaskFiltersService) {
     this.UsersFilters = new Array();
     this.MilestonesFilters = new Array();
-      
+
+    // this._navRoute.routeReuseStrategy.shouldReuseRoute = function () {
+    //   return false;
+    // }
+    // this._navRoute.events.subscribe((evt) => {
+    //   if (evt instanceof NavigationEnd) {
+    //     // trick the Router into believing it's last link wasn't previously loaded
+    //     this._navRoute.navigated = false;
+    //     // if you need to scroll back to top, here is the right place
+    //     window.scrollTo(0, 0);
+    //   }
+    // });
   }
 
   ngOnInit() {
-    // this.list = this._route.snapshot.data['tasks']; 
-    this.list = this._taskService.getList();
-    if(this.list===undefined){
-      this._taskService.updateList();
+    if (this._taskService.isGut()) {
       this.list = this._taskService.getList();
+      this.buildVisibilityTree();
     }
-    this.buildVisibilityTree();
-    console.log(this.list)
+    this.loadAllUsers();
+    // this.list = this._route.snapshot.data['tasks']; 
     this._taskService.SharedTasksList$.subscribe(lst => {
-      if(lst===undefined)this._taskService.updateList();
-      if (this.list != undefined) {
-        this.buildVisibilityTree();
-      }
+      this.list = lst;
+      this.buildVisibilityTree();
     });
-    // this._taskService.getTasksDb().subscribe(res => {
-    //   this.list = res;
-    //   this.buildVisibilityTree();
-    // });
     this._taskFiltersService.SharedList$.subscribe(lst => {
       this.UsersFilters = lst;
 
-      if (this.list != undefined) {
+      if (this.list !== undefined) {
         this.buildVisibilityTree();
       }
     });
     this._taskFiltersService.SharedList2$.subscribe(lst => {
       this.MilestonesFilters = lst;
-      if (this.list != undefined) {
+      if (this.list !== undefined) {
         this.buildVisibilityTree();
       }
-
     });
+    this._taskFiltersService.getList();
   }
+
 
   buildVisibilityTree() {
     this.filters = new Array<TreeVisible>(this.list.length);
@@ -109,20 +116,26 @@ export class TaskTreeComponent implements OnInit {
 
 
   checkUsersFilters(task: Task): boolean {
-    if (this.UsersFilters.length === 0 && task.taskPerformers.length > 0) {
+    let allPerformers: User[] = [];
+    allPerformers = task.taskPerformers.slice();
+    if (this.allUsers)
+      this.allUsers.forEach(element => {
+        if (element.id === task.mainPerformer) allPerformers.push(element);
+      });
+    if (this.UsersFilters.length === 0 && allPerformers.length > 0) {
       return true;
     }
-    if (this.UsersFilters.length > 0 && task.taskPerformers.length === 0) {
+    if (this.UsersFilters.length > 0 && allPerformers.length === 0) {
       return false;
     }
-    if (this.UsersFilters.length === 0 && task.taskPerformers.length === 0) {
+    if (this.UsersFilters.length === 0 && allPerformers.length === 0) {
       return true;
     }
     let flag: boolean = true;
     this.UsersFilters.forEach(user => {
       //  if(!task.taskPerformers.some((el)=>{ return el.id ===user.id}))return false;
-      for (let i = 0; i < task.taskPerformers.length; i++) {
-        if (task.taskPerformers[i].id === user.id) return;
+      for (let i = 0; i < allPerformers.length; i++) {
+        if (allPerformers[i].id === user.id) return;
       }
       flag = false;
     });
@@ -151,6 +164,13 @@ export class TaskTreeComponent implements OnInit {
       // }
     });
     return flag;
+  }
+
+  loadAllUsers() {
+    this.usermilestoneService.UsersList$.subscribe(lst => {
+      this.allUsers = lst;
+    });
+    this.usermilestoneService.getList();
   }
 }
 

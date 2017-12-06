@@ -4,6 +4,7 @@ import { StatusChooserComponent } from './../status-chooser/status-chooser.compo
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Task } from '../shared/task.model';
 import { MatDialog } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'tskr-task-thumbnail',
@@ -16,6 +17,7 @@ export class TaskThumbnailComponent implements OnInit {
   @Input() task: Task;
 
   constructor(public dialog: MatDialog,
+              private _navRoute: Router,
               public deleteDialog: MatDialog,
               private taskService: TaskService) { }
 
@@ -34,7 +36,7 @@ export class TaskThumbnailComponent implements OnInit {
     dialogRef.afterClosed().subscribe();
   }
 
-  deleteTask(): void {
+  deleteTask(ID:number): void {
     const dialogRef = this.deleteDialog.open(YesNoModalComponent, {
       width: '480px',
       data: { message: 'Czy aby na pewno chcesz usunać tego taska ?'}
@@ -42,7 +44,10 @@ export class TaskThumbnailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.taskService.deleteTask(this.task.id).subscribe();
+        this.taskService.deleteTask(this.task.id).subscribe(res=>{
+          this.taskService.deleteLocalTask(this.task);
+        });
+        this._navRoute.navigate(['/tasks/']);            
       }
     });
   }

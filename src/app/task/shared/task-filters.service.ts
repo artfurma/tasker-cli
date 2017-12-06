@@ -29,11 +29,9 @@ export class TaskFiltersService {
     updateUsers(item: User[]): void {
         this.filteredTasks = item;
         this.listObserver.next(this.filteredTasks);
-        console.log(this.filteredTasks)
     }
     updateMilestones(item: IControlPoint[]): void {
         this.filteredMilestones = item;
         this.listObserver2.next(this.filteredMilestones);
-        console.log(this.filteredMilestones)
     }
 }
