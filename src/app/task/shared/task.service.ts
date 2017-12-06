@@ -41,21 +41,52 @@ export class TaskService {
     deleteLocalTask(task: Task){
         this.chosenTask=task;
         let parent : Task;
-        console.log(this.chosenTask);
-        if(this.chosenTask.children.length>0){
-            this.chosenTask.children.forEach(element => {
-                element.parentTaskId=this.chosenTask.parentTaskId;
+
+        if(task.parentTaskId!==null){
+            if(this.chosenTask.children.length>0){
+                this.chosenTask.children.forEach(element => {
+                    element.parentTaskId=this.chosenTask.parentTaskId;
+                });
+            }    
+            parent = this.takeTaskByID(this.list,task.parentTaskId);
+            parent.children=this.chosenTask.children.slice();
+        }
+        else{
+            if(this.chosenTask.children.length>0){
+                this.chosenTask.children.forEach(element => {
+                    element.parentTaskId=this.chosenTask.parentTaskId;
+                    this.list.push(element);
+                });
+            }    
+            this.list.forEach((element,index) => {
+                if (element.id === this.chosenTask.id) {
+                    this.list.splice(index, 1);
+                    return;
+                  }
             });
         }
-        parent = this.takeTaskByID(this.list,task.parentTaskId);
-        parent.children=this.chosenTask.children.slice();
+
+
+
+        this.listObserver.next(this.list);
+        
+        console.log(this.list);
         //this.editTTask(parent);
     }
 
     addTask(task: Task) {
-        this.chosenTask.children.push(task);
-        this.editTaskRecursive(this.list);
-        this.listObserver.next(this.list);
+        if(task.parentTaskId===null){
+            this.list.push(task);
+            console.log(this.list);
+            this.listObserver.next(this.list);
+        }
+        else{
+            task.showChildren=true;
+            this.chosenTask.children.push(task);
+            this.editTaskRecursive(this.list);
+            this.listObserver.next(this.list);
+        }
+
     }
     editTTask(task: Task) {
         this.chosenTask.controlPointIds=task.controlPointIds;

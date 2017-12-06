@@ -168,6 +168,7 @@ export class TaskNewComponent implements OnInit {
     this._taskService.saveNewTask(savingTask).subscribe(res => {
       let newTask: Task;
       newTask = res;
+      console.log(newTask);
       this._taskService.addTask(newTask);
     });
     this._navRoute.navigate(['/tasks/']);
