@@ -23,11 +23,18 @@ div {
         padding: 0 0;
         margin-top: 20px;
         margin-right: -10px;
+        // background-color: lightgray;    
         mat-icon {
             color: white;
             line-height: 8px;
         }
     }
+
+    a.add-button:hover {
+        transition: color 0.5s ease;
+        background-color: #FF9700;
+    }
+
     .status-icon {
         margin-right: 20px;
         cursor: pointer;
