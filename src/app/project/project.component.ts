@@ -39,8 +39,8 @@ export class ProjectComponent implements OnInit {
         });
     }
 
-    removeMember(member: ProjectMember) {
-        this.projectService.removeMember(member.Id, this.project.id).subscribe();
+    removeMember(member: any) {
+        this.projectService.removeMember(member.id, this.project.id).subscribe();
         const index = this.members.indexOf(member, 0);
         this.members.splice(index, 1);
         this.taskService.setProjectChanged();
