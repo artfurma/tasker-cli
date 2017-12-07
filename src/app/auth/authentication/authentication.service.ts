@@ -32,7 +32,7 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.clear();
-        this.userName = '';
+        this.userName = null;
         this.listObserver.next(this.userName);
         // ustaw usera jako wylogowanego
         this.changeLoggedIn(false);
