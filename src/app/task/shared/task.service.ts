@@ -19,7 +19,6 @@ export class TaskService {
     static milestoneUpdate: boolean = false;
 
     constructor(private _http: HttpClient) {
-        console.log("konstruktor");
         this.SharedTasksList$ = new Observable<Task[]>(x => this.listObserver = x).share();
         this.getTasksDb().subscribe(res => {
             this.list = res;
@@ -88,14 +87,12 @@ export class TaskService {
 
         this.listObserver.next(this.list);
 
-        console.log(this.list);
         //this.editTTask(parent);
     }
 
     addTask(task: Task) {
         if (task.parentTaskId === null) {
             this.list.push(task);
-            console.log(this.list);
             this.listObserver.next(this.list);
         }
         else {
@@ -172,26 +169,26 @@ export class TaskService {
 
     getTasksDb(): Observable<Task[]> {
         let currentProject = localStorage.getItem('currentProject');
-        return this._http.get<Task[]>(`http://localhost:4200/api/task/gettasks/${currentProject}`).catch(this.handleError);
+        return this._http.get<Task[]>(`/api/task/gettasks/${currentProject}`).catch(this.handleError);
     }
     getTask(id: number): Observable<Task> {
-        return this._http.get<Task>(`http://localhost:4200/api/task/${id}`).catch(this.handleError);
+        return this._http.get<Task>(`/api/task/${id}`).catch(this.handleError);
     }
     getAllMilestones(): Observable<IControlPoint[]> {
-        return this._http.get<IControlPoint[]>(`http://localhost:4200/api/milestones/getall/${localStorage.getItem('currentProject')}`).catch(this.handleError);
+        return this._http.get<IControlPoint[]>(`/api/milestones/getall/${localStorage.getItem('currentProject')}`).catch(this.handleError);
     }
 
     saveNewTask(task: SavingTask): Observable<Task> {
-        return this._http.post('http://localhost:4200/api/task', task).catch(this.handleError);
+        return this._http.post('/api/task', task).catch(this.handleError);
     }
 
     saveTask(task: EditingTask) {
-        return this._http.put('http://localhost:4200/api/task', task).catch(this.handleError);
+        return this._http.put('/api/task', task).catch(this.handleError);
     }
 
 
     changeTaskStatus(statusModel: ChangeStatusModel) {
-        return this._http.post('http://localhost:4200/api/task/status', statusModel).catch(this.handleError);
+        return this._http.post('/api/task/status', statusModel).catch(this.handleError);
     }
 
     private handleError(error: Response) {

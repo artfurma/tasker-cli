@@ -11,14 +11,19 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   isLoggedIn: Observable<boolean>;
-  loggedUser = '';
+  loggedUser:String;
   constructor(private authService: AuthenticationService, private _navRoute: Router) { }
 
   ngOnInit() {
     this.isLoggedIn = this.authService.loggedIn;
-    if (localStorage.getItem('currentUser') !== null) {
-      this.loggedUser = JSON.parse(localStorage.getItem('currentUser')).firstName + ' ' + JSON.parse(localStorage.getItem('currentUser')).lastName;
-    }
+
+    this.authService.userNameList.subscribe(uName => {
+      this.loggedUser=uName;
+    });
+
+    // if (localStorage.getItem('currentUser') !== null) {
+    //   this.loggedUser = JSON.parse(localStorage.getItem('currentUser')).firstName + ' ' + JSON.parse(localStorage.getItem('currentUser')).lastName;
+    // }
 
   }
 

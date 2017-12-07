@@ -18,7 +18,7 @@
       <mat-icon color="primary">playlist_add</mat-icon>
     </a>
   </span>
-  <div *ngIf="isLoggedIn" fxLayout="row">
+  <div *ngIf="loggedUser===''" fxLayout="row">
     <p class="full-name">
       {{loggedUser}}
     </p>

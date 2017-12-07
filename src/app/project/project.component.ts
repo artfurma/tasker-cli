@@ -7,6 +7,8 @@ import { ProjectService } from './shared/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ErrorStateMatcher, MatDialog, MatSnackBar } from '@angular/material';
+import { UsersFiltersService } from '../task/shared/users-filters.service';
+import { TaskService } from '../task/shared/task.service';
 
 @Component({
     selector: 'tskr-project',
@@ -26,6 +28,7 @@ export class ProjectComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
         public dialog: MatDialog,
+        private taskService: TaskService,
         private projectService: ProjectService,
         public snackBar: MatSnackBar) { }
 
@@ -40,6 +43,7 @@ export class ProjectComponent implements OnInit {
         this.projectService.removeMember(member.Id, this.project.id).subscribe();
         const index = this.members.indexOf(member, 0);
         this.members.splice(index, 1);
+        this.taskService.setProjectChanged();
     }
 
     addMember() {
@@ -48,6 +52,7 @@ export class ProjectComponent implements OnInit {
             newMembers = res;
             this.members.push(newMembers);
             this.newUserEmail = '';
+            this.taskService.setProjectChanged();
         });
     }
 

@@ -25,7 +25,7 @@ export class UsersFiltersService {
 
     private loadAllUsers() {
         this.userService.getAll().subscribe(users => {
-            this.Users = users; console.log("updejted" + this.listUsersObserver);
+            this.Users = users;
             if (this.listUsersObserver !== undefined) {
                 this.listUsersObserver.next(this.Users);
                 TaskService.usersUpdate = false;
@@ -34,7 +34,7 @@ export class UsersFiltersService {
     }
     private loadAllMilestones() {
         this.taskService.getAllMilestones().subscribe(milestones => {
-            this.Milestones = milestones; console.log("updejted" + this.listMilestonesObserver);
+            this.Milestones = milestones;
             if (this.listMilestonesObserver !== undefined) {
                 this.listMilestonesObserver.next(this.Milestones);
                 TaskService.milestoneUpdate = false;

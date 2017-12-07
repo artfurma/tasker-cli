@@ -54,7 +54,6 @@ export class TaskNewComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.keys)
     this.taskPerformers.length = 0;
     this.ControlPointsInUse.length = 0;
     this._route.data.forEach((data) => {
@@ -133,7 +132,6 @@ export class TaskNewComponent implements OnInit {
         i++;
       }
     }
-    console.log(this.AllUsers);
   }
 
 
@@ -171,7 +169,6 @@ export class TaskNewComponent implements OnInit {
     this._taskService.saveNewTask(savingTask).subscribe(res => {
       let newTask: Task;
       newTask = res;
-      console.log(newTask);
       this._taskService.addTask(newTask);
       this.snackBar.open('Nowe zadanie zostalo zapisane!', '', { duration: 2000 });
     });

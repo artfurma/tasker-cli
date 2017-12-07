@@ -61,8 +61,6 @@ export class TaskMainComponent implements OnInit {
     this._taskFilterService.SharedList2$.subscribe(lst => this.filteredMilestones = lst);
     this._taskFilterService.getList();
     if (TaskService.milestoneUpdate||TaskService.usersUpdate) {
-      console.log("wolam update");
-
       this.usermilestoneService.updateData();
     }
   }
@@ -115,7 +113,6 @@ export class TaskMainComponent implements OnInit {
   private loadAllUsers() {
     this.usermilestoneService.UsersList$.subscribe(lst => {
       if (!TaskService.usersUpdate) {
-        console.log(this.users);
         this.users = lst;
       }
       else {

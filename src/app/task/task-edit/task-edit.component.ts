@@ -105,7 +105,6 @@ export class TaskEditComponent implements OnInit {
   private loadAllMilestones() {
     this.usermilestoneService.MilestonesList$.subscribe(lst => {
       this.AllMilestones = lst.slice();
-      console.log(this.AllMilestones);
     });
   }
 
@@ -166,7 +165,6 @@ export class TaskEditComponent implements OnInit {
         i++;
       }
     }
-    console.log(this.AllUsers);
   }
 
 
@@ -209,13 +207,10 @@ export class TaskEditComponent implements OnInit {
       TaskStatusId: this.enumStatus[this.TaskStatus],
       TaskPerformers: this.taskPerformers
     }
-    console.log(savingTask);
     this._taskService.saveTask(savingTask).subscribe(res => {
-      console.log(res);
       let newTask: Task;
       newTask = res;
       this._taskService.editTask(savingTask);
-      console.log(newTask)
       this.snackBar.open('Zadanie zostalo zaktualizowane!', '', { duration: 2000 });
     });
 

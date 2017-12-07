@@ -19,11 +19,8 @@ export class TaskFiltersService {
 
 
     getList() {
-        // Get the data from somewhere, i.e. http call
-        //console.log(this.filteredTasks)
         this.listObserver.next(this.filteredTasks);
         this.listObserver2.next(this.filteredMilestones);
-        // the important part is after getting the data you want, observer.next it
     }
 
     updateUsers(item: User[]): void {
