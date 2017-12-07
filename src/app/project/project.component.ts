@@ -6,7 +6,7 @@ import { ProjectModel } from './shared/project.model';
 import { ProjectService } from './shared/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ErrorStateMatcher, MatDialog } from '@angular/material';
+import { ErrorStateMatcher, MatDialog, MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'tskr-project',
@@ -18,13 +18,16 @@ export class ProjectComponent implements OnInit {
     project: ProjectModel = new ProjectModel();
     members: ProjectMember[] = [];
     newUserEmail = '';
+
     emailFormControl = new FormControl('', [
         Validators.required,
         Validators.email,
     ]);
+
     constructor(private route: ActivatedRoute,
         public dialog: MatDialog,
-        private projectService: ProjectService) { }
+        private projectService: ProjectService,
+        public snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.route.params.subscribe(params => {
@@ -58,6 +61,8 @@ export class ProjectComponent implements OnInit {
             if (result) {
                 this.project.name = result.name;
                 this.project.description = result.description;
+                this.snackBar.open('Projekt został zapisany', '', { duration: 2000 });
+
             }
         });
     }

@@ -1,24 +1,57 @@
 <div class="project-view-container">
     <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" fxFlex>
         <div fxFlex="50%" class="project-details-container">
-            <mat-card class="">
-                <mat-card-title>
-                    <div class="project-title">
-                        <p>{{project.name}}</p>
-                    </div>
-                    <div class="edit-button">
-                        <button title="Edytuj" mat-fab color="primary" mat-button (click)="editProject()">
-                            <mat-icon>mode_edit</mat-icon>
-                        </button>
-                    </div>
-                </mat-card-title>
+            <mat-card>
+                <mat-card-header fxLayout="row">
+                    <mat-card-title>
+                        <div class="project-title">
+                            <h1>{{project.name}}</h1>
+                        </div>
+                    </mat-card-title>
+                    <div fxFlex></div>
+                    <button title="Edytuj" class="white-icon" mat-fab color="primary" mat-button (click)="editProject()">
+                        <mat-icon>mode_edit</mat-icon>
+                    </button>
+                </mat-card-header>
+                <hr/>
                 <mat-card-content>
-                    <!-- TODO -->
-                    <p>Opis projektu</p>
-                    <br/> {{project.description}}
-                    <br/>
-                    <br/>
-                    <p>Czlonkowie zespolu</p>
+                    {{project.description}}
+                    <hr/>
+                    <h3>Członkowie zespolu</h3>
+                    <p *ngIf="members.length===0">Zespół projektu jest pusty.</p>
+                    <mat-grid-list *ngFor="let member of members" cols="8" rowHeight="60px" class="margin-top">
+                        <mat-grid-tile colspan="1">
+                            <mat-icon color="primary">account_circle</mat-icon>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="5" class="user-box">
+                            {{member.firstName}} {{member.lastName}}
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            <button mat-mini-fab color="primary" class="white-icon" (click)="removeMember(member)">
+                                <mat-icon>clear</mat-icon>
+                            </button>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                    <h3>Wysyłanie zaproszenia</h3>
+                    <mat-grid-list cols="8" rowHeight="80px" class="margin-top">
+                        <mat-grid-tile colspan="1">
+                            <mat-icon color="primary">mail</mat-icon>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="5">
+                            <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Adres email" [formControl]="emailFormControl" [(ngModel)]="newUserEmail">
+                                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">Please enter a valid email address</mat-error>
+                                <mat-error *ngIf="emailFormControl.hasError('required')">Email is
+                                    <strong>required</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <mat-grid-tile colspan="2">
+                            <button mat-mini-fab color="primary" class="white-icon" (click)="addMember()">
+                                <mat-icon>send</mat-icon>
+                            </button>
+                        </mat-grid-tile>
+                    </mat-grid-list>
                 </mat-card-content>
             </mat-card>
         </div>

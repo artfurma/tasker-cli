@@ -3,19 +3,18 @@
     .project-details-container {
         mat-card {
             min-height: 500px;
-            mat-card-title {
-                margin-top: 50px;
-                .project-title {
-                    display: inline-block;
-                    font-size: 1.5em;
-                    font-weight: 200;
-                }
-                .edit-button {
-                    float: right;
-                    button {
-                        color: white;
+            mat-card-header {
+                mat-card-title {
+                    .project-title {
+                        font-weight: 200;
                     }
                 }
+            }
+            hr {
+                display: block;
+                margin: 10px 0 10px 0;
+                border-top: 1px solid rgba(0, 0, 0, .12);
+                width: 100%
             }
         }
     }
@@ -48,7 +47,7 @@
 }
 
 .white-icon {
-    color: white !important;
+    color: white;
 }
 
 .project-name {
@@ -61,7 +60,9 @@
 }
 
 .user-box {
+    margin-top: 10px;
     border: solid 1px #dddddd;
+    height: 40px !important;
 }
 
 .main-container {
