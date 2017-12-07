@@ -39,6 +39,7 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 import { MomentModule } from 'angular2-moment';
+import { ProfileModule } from './profile/profile.module';
 
 const SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -64,6 +65,7 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
     TaskerMaterialModule,
     MilestoneModule,
     ProjectModule,
+    ProfileModule,
     MomentModule,
     routing,
     SwiperModule.forRoot(SWIPER_CONFIG)

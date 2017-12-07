@@ -6,6 +6,7 @@ import { ProjectModel } from './../project/shared/project.model';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../users/user/user.service';
 import { User } from '../users/user/user';
+import { EditProfileComponent } from '../profile/edit-profile/edit-profile.component';
 
 @Component({
     selector: 'tskr-home',
@@ -65,7 +66,23 @@ export class HomeComponent implements OnInit {
         this.projectService.deleteProject(project.id).subscribe();
     }
 
-    changeAvatar() {
-        console.log('test');
+    showEditProfile() {
+        const dialogRef = this.dialog.open(EditProfileComponent, {
+            width: '600px',
+            data: { user: this.currentUser }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            // if (result) {
+            //     this.milestoneService.addMilestone(result).subscribe(newId => {
+            //         result.id = newId;
+            //     });
+            //     this.milestones.push(result);
+            //     this.milestones.sort((a, b) => {
+            //         return new Date(a.endDate).getTime() - new Date(b.endDate).getTime();
+            //     });
+            //     this.snackBar.open('Nowy punkt kontrolny został dodany', '', { duration: 2000 });
+            // }
+        });
     }
 }

@@ -5,4 +5,5 @@ export class User {
     firstName: string;
     email: string;
     lastName: string;
+    avatar: string | any;
 }
