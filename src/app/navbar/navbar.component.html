@@ -17,7 +17,15 @@
       <mat-icon color="primary">playlist_add</mat-icon>
     </a>
   </span>
+  <div *ngIf="isLoggedIn">
+       <span >
+          {{loggedUser}}
+        </span>
+        <a mat-icon-button (click)="onLogout()" class="medium">
+          <mat-icon color="primary">exit_to_app</mat-icon>
+        </a>
+  </div>
 
-  <span *ngIf="isLoggedIn">{{loggedUser}}</span>
+
 
 </mat-toolbar>
