@@ -47,31 +47,38 @@ export class TaskTreeComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-    // if (this._taskService.isGut()) {
-    //   this.list = this._taskService.getList();
-    //   this.buildVisibilityTree();
-    // }
-    this._taskService.getList();    
+    if (this._taskService.isGut()) {
+      if (!TaskService.projectChanged) { this.list = this._taskService.test(); this.buildVisibilityTree(); }
+    }
+    // this.UsersFilters = this.usermilestoneService.getUsers();
+    // console.log(this.UsersFilters);
+    // this.MilestonesFilters = this.usermilestoneService.getMilestones();
+    this._taskService.getList();
     this.loadAllUsers();
     // this.list = this._route.snapshot.data['tasks']; 
     this._taskService.SharedTasksList$.subscribe(lst => {
-      this.list = lst;
+      if (!TaskService.projectChanged) this.list = lst;
+      else this.list = [];
       this.buildVisibilityTree();
     });
-    // this._taskFiltersService.SharedList$.subscribe(lst => {
-    //   this.UsersFilters = lst;
+    this._taskFiltersService.SharedList$.subscribe(lst => {
+      this.UsersFilters = lst;
 
-    //   if (this.list !== undefined) {
-    //     this.buildVisibilityTree();
-    //   }
-    // });
+      if (this.list !== undefined) {
+        this.buildVisibilityTree();
+      }
+    });
     this._taskFiltersService.SharedList2$.subscribe(lst => {
       this.MilestonesFilters = lst;
       if (this.list !== undefined) {
         this.buildVisibilityTree();
       }
     });
+
+    if (TaskService.projectChanged) {
+      this._taskService.updateList();
+      this.usermilestoneService.updateData();
+    }
     this._taskService.getList();
     this._taskFiltersService.getList();
   }
@@ -171,9 +178,10 @@ export class TaskTreeComponent implements OnInit {
 
   loadAllUsers() {
     this.usermilestoneService.UsersList$.subscribe(lst => {
-      this.allUsers = lst;
+      if (!TaskService.projectChanged) this.allUsers = lst;
+      else this.allUsers = [];
     });
-    this.usermilestoneService.getList();
+    //this.usermilestoneService.getList();
   }
 }
 

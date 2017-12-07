@@ -14,75 +14,92 @@ export class TaskService {
     private deleteTaskURL = '/api/Task/';
     SharedTasksList$: Observable<Task[]>;
     private listObserver: Observer<Task[]>;
+    static projectChanged: boolean = false;
+    static usersUpdate: boolean = false;
+    static milestoneUpdate: boolean = false;
 
     constructor(private _http: HttpClient) {
-        this.SharedTasksList$ = new Observable<Task[]>(x => this.listObserver = x).share();                
+        console.log("konstruktor");
+        this.SharedTasksList$ = new Observable<Task[]>(x => this.listObserver = x).share();
         this.getTasksDb().subscribe(res => {
             this.list = res;
-            if(this.listObserver!==undefined)this.listObserver.next(this.list);
+
+            if (this.listObserver !== undefined) this.listObserver.next(this.list);
         });
     }
-    isGut():boolean{
-        return this.list.length>0;
+    isGut(): boolean {
+        return this.list.length > 0;
     }
 
-    getList(){
-        if(this.listObserver!==undefined)this.listObserver.next(this.list);
+    test() {
+        return this.list;
     }
 
-    updateList(){
+    setProjectChanged() {
+        TaskService.projectChanged = true;
+        TaskService.usersUpdate = true;
+        TaskService.milestoneUpdate = true;
+        this.list.length = 0;
+        if (this.listObserver !== undefined) this.listObserver.next(this.list);
+    }
+
+    getList() {
+        if (this.listObserver !== undefined) this.listObserver.next(this.list);
+    }
+
+    updateList() {
         this.getTasksDb().subscribe(res => {
             this.list = res;
-            if(this.listObserver!==undefined)this.listObserver.next(this.list);
-            console.log(this.list);
+            TaskService.projectChanged = false;
+            if (this.listObserver !== undefined) this.listObserver.next(this.list);
         });
 
     }
 
-    deleteLocalTask(task: Task){
-        this.chosenTask=task;
-        let parent : Task;
+    deleteLocalTask(task: Task) {
+        this.chosenTask = task;
+        let parent: Task;
 
-        if(task.parentTaskId!==null){
-            if(this.chosenTask.children.length>0){
+        if (task.parentTaskId !== null) {
+            if (this.chosenTask.children.length > 0) {
                 this.chosenTask.children.forEach(element => {
-                    element.parentTaskId=this.chosenTask.parentTaskId;
+                    element.parentTaskId = this.chosenTask.parentTaskId;
                 });
-            }    
-            parent = this.takeTaskByID(this.list,task.parentTaskId);
-            parent.children=this.chosenTask.children.slice();
+            }
+            parent = this.takeTaskByID(this.list, task.parentTaskId);
+            parent.children = this.chosenTask.children.slice();
         }
-        else{
-            if(this.chosenTask.children.length>0){
+        else {
+            if (this.chosenTask.children.length > 0) {
                 this.chosenTask.children.forEach(element => {
-                    element.parentTaskId=this.chosenTask.parentTaskId;
+                    element.parentTaskId = this.chosenTask.parentTaskId;
                     this.list.push(element);
                 });
-            }    
-            this.list.forEach((element,index) => {
+            }
+            this.list.forEach((element, index) => {
                 if (element.id === this.chosenTask.id) {
                     this.list.splice(index, 1);
                     return;
-                  }
+                }
             });
         }
 
 
 
         this.listObserver.next(this.list);
-        
+
         console.log(this.list);
         //this.editTTask(parent);
     }
 
     addTask(task: Task) {
-        if(task.parentTaskId===null){
+        if (task.parentTaskId === null) {
             this.list.push(task);
             console.log(this.list);
             this.listObserver.next(this.list);
         }
-        else{
-            task.showChildren=true;
+        else {
+            task.showChildren = true;
             this.chosenTask.children.push(task);
             this.editTaskRecursive(this.list);
             this.listObserver.next(this.list);
@@ -90,27 +107,27 @@ export class TaskService {
 
     }
     editTTask(task: Task) {
-        this.chosenTask.controlPointIds=task.controlPointIds;
-        this.chosenTask.description=task.description;
-        this.chosenTask.mainPerformer=task.mainPerformer;
-        this.chosenTask.taskPerformers=task.taskPerformers;
-        this.chosenTask.statusId=task.statusId;
-        this.chosenTask.children=task.children;
-        this.chosenTask.id=task.id;
-        this.chosenTask.parentTaskId=task.parentTaskId;
-        this.chosenTask.showChildren=task.showChildren;
-        this.chosenTask.title=task.title;
+        this.chosenTask.controlPointIds = task.controlPointIds;
+        this.chosenTask.description = task.description;
+        this.chosenTask.mainPerformer = task.mainPerformer;
+        this.chosenTask.taskPerformers = task.taskPerformers;
+        this.chosenTask.statusId = task.statusId;
+        this.chosenTask.children = task.children;
+        this.chosenTask.id = task.id;
+        this.chosenTask.parentTaskId = task.parentTaskId;
+        this.chosenTask.showChildren = task.showChildren;
+        this.chosenTask.title = task.title;
         this.editTaskRecursive(this.list);
         this.listObserver.next(this.list);
     }
 
     editTask(task: EditingTask) {
-        this.chosenTask.controlPointIds=task.ControlPointIds;
-        this.chosenTask.description=task.Description;
-        this.chosenTask.mainPerformer=task.MainPerformer;
-        this.chosenTask.taskPerformers=task.TaskPerformers;
-        this.chosenTask.statusId=task.TaskStatusId;
-        this.chosenTask.title=task.Title;
+        this.chosenTask.controlPointIds = task.ControlPointIds;
+        this.chosenTask.description = task.Description;
+        this.chosenTask.mainPerformer = task.MainPerformer;
+        this.chosenTask.taskPerformers = task.TaskPerformers;
+        this.chosenTask.statusId = task.TaskStatusId;
+        this.chosenTask.title = task.Title;
         this.editTaskRecursive(this.list);
         this.listObserver.next(this.list);
     }
@@ -154,7 +171,7 @@ export class TaskService {
     }
 
     getTasksDb(): Observable<Task[]> {
-        let currentProject= localStorage.getItem('currentProject');
+        let currentProject = localStorage.getItem('currentProject');
         return this._http.get<Task[]>(`http://localhost:4200/api/task/gettasks/${currentProject}`).catch(this.handleError);
     }
     getTask(id: number): Observable<Task> {

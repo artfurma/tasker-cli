@@ -18,6 +18,6 @@
     </a>
   </span>
 
-  <span>{{loggedUser}}</span>
+  <span *ngIf="isLoggedIn">{{loggedUser}}</span>
 
 </mat-toolbar>

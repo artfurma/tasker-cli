@@ -47,12 +47,13 @@ export class HomeComponent implements OnInit {
             localStorage.removeItem('currentProject');   
             localStorage.setItem('currentProject', projectId.toString());
             this.filtersService.updateData();
-            this.taskService.updateList();
+            this.taskService.setProjectChanged();
+            //this.taskService.updateList();
         }
         else{
             localStorage.setItem('currentProject', projectId.toString());
             this.filtersService.updateData();
-            this.taskService.updateList();            
+            //this.taskService.updateList();            
         }
         this.router.navigate(['/tasks']);
     }
@@ -62,12 +63,12 @@ export class HomeComponent implements OnInit {
             localStorage.removeItem('currentProject');
             localStorage.setItem('currentProject', projectId.toString());
             this.filtersService.updateData();
-            this.taskService.updateList();
+            //this.taskService.updateList();
         }
         else{
             localStorage.setItem('currentProject', projectId.toString());
             this.filtersService.updateData();
-            this.taskService.updateList();
+            //this.taskService.updateList();
         }
         this.router.navigate(['/project', projectId]);
     }

@@ -5,9 +5,10 @@ import { User } from "../../users/user/user";
 import { TaskService } from "../shared/task.service";
 import { IControlPoint } from '../shared/task.model';
 import { TaskFiltersService } from "../shared/task-filters.service";
-import {SwiperConfigInterface} from 'ngx-swiper-wrapper';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { UsersFiltersService } from '../shared/users-filters.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'tskr-task-main',
@@ -28,7 +29,7 @@ export class TaskMainComponent implements OnInit {
   public config: SwiperConfigInterface = {
     scrollbar: null,
     direction: 'horizontal',
-    slidesPerView: 4  ,
+    slidesPerView: 4,
     scrollbarHide: false,
     keyboardControl: true,
     mousewheelControl: true,
@@ -41,19 +42,29 @@ export class TaskMainComponent implements OnInit {
   };
 
   constructor(private userService: UserService,
-              private _taskService: TaskService,
-              private _navRoute: Router,
-              private usermilestoneService: UsersFiltersService,
-              private _taskFilterService: TaskFiltersService) { }
+    private _taskService: TaskService,
+    private _navRoute: Router,
+    public snackBar: MatSnackBar,
+    private usermilestoneService: UsersFiltersService,
+    private _taskFilterService: TaskFiltersService) { }
 
   ngOnInit() {
-    if(localStorage.getItem('currentProject')===null)this._navRoute.navigate(['/']);
-    
+    if (localStorage.getItem('currentProject') === null) {
+      //this.snackBar.open('Proszę wybrać projekt!', '', { duration: 2000 });
+      this._navRoute.navigate(['/']);
+    }
+    this.users = this.usermilestoneService.getUsers();
+    this.allMilestones = this.usermilestoneService.getMilestones();
     this.loadAllUsers();
     this.loadAllMilestones();
     this._taskFilterService.SharedList$.subscribe(lst => this.filteredUsers = lst);
     this._taskFilterService.SharedList2$.subscribe(lst => this.filteredMilestones = lst);
     this._taskFilterService.getList();
+    if (TaskService.milestoneUpdate||TaskService.usersUpdate) {
+      console.log("wolam update");
+
+      this.usermilestoneService.updateData();
+    }
   }
 
   changeUserFilter(_user: User) {
@@ -86,7 +97,7 @@ export class TaskMainComponent implements OnInit {
       this.filteredMilestones.push(_milestone);
     }
     this._taskFilterService.updateMilestones(this.filteredMilestones);
-    
+
   }
 
   isUserInFilters(_user: User) {
@@ -96,36 +107,48 @@ export class TaskMainComponent implements OnInit {
   }
 
   isMilestoneInFilters(_milestone: IControlPoint) {
-    if (this.filteredMilestones.includes(_milestone))
-    {
+    if (this.filteredMilestones.includes(_milestone)) {
       return "primary";
     }
   }
 
   private loadAllUsers() {
     this.usermilestoneService.UsersList$.subscribe(lst => {
-      this.users = lst;
+      if (!TaskService.usersUpdate) {
+        console.log(this.users);
+        this.users = lst;
+      }
+      else {
+        this.users = [];
+      }
     });
+    //this.usermilestoneService.getList();
   }
   private loadAllMilestones() {
     this.usermilestoneService.MilestonesList$.subscribe(lst => {
-      this.allMilestones = lst;
-      this.allMilestones = this.allMilestones.sort((n1, n2) => {
-        const n1Any = n1 as any;
-        const n1Date = new Date(n1Any.endDate);
-        const n2Any = n2 as any;
-        const n2Date = new Date(n2Any.endDate);
-        if (n1Date > n2Date) {
+      if(!TaskService.milestoneUpdate){
+        this.allMilestones = lst;
+        this.allMilestones = this.allMilestones.sort((n1, n2) => {
+          const n1Any = n1 as any;
+          const n1Date = new Date(n1Any.endDate);
+          const n2Any = n2 as any;
+          const n2Date = new Date(n2Any.endDate);
+          if (n1Date > n2Date) {
             return 1;
-        }
-        if (n1Date < n2Date) {
+          }
+          if (n1Date < n2Date) {
             return -1;
-        }
-        return 0;
-      });
-      this.setClosestMilestone();
+          }
+          return 0;
+        });
+        this.setClosestMilestone();
+      }
+      else{
+        this.allMilestones=[];
+      }
+
     });
-    this.usermilestoneService.getList();
+    //this.usermilestoneService.getList();
   }
 
   private setClosestMilestone() {
@@ -135,11 +158,10 @@ export class TaskMainComponent implements OnInit {
       const items = item as any;
       const date = new Date(items.endDate);
       if (date < thisDate) {
-        console.log('przeszly');
-      }else if (lastItem === undefined) {
+      } else if (lastItem === undefined) {
         lastItem = date;
         this.closestMilestone = +items.id;
-      }else if (date < lastItem) {
+      } else if (date < lastItem) {
         lastItem = date;
         this.closestMilestone = +items.id;
       }
