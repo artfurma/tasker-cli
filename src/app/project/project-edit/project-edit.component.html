@@ -1,16 +1,14 @@
 <h1 mat-dialog-title>Edytuj projekt</h1>
-<div mat-dialog-content>
-    <div>
-        <mat-form-field>
-            <textarea matInput [(ngModel)]="projectToEdit.Name" placeholder="Nazwa projektu"></textarea>
-        </mat-form-field>
-        <mat-form-field>
-            <textarea matInput [(ngModel)]="projectToEdit.Description" placeholder="Opis projektu"></textarea>
-        </mat-form-field>
-    </div>
+<div mat-dialog-content class="project-edit-form">
+    <mat-form-field class="full-width">
+        <textarea matInput [(ngModel)]="projectToEdit.Name" placeholder="Nazwa projektu" tabindex="1"></textarea>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <textarea style="min-height: 100px;" matInput [(ngModel)]="projectToEdit.Description" placeholder="Opis projektu"></textarea>
+    </mat-form-field>
 
-    <div>
-        <button mat-button (click)="editProject()" >Edytuj</button>
-        <button mat-button (click)="no()">Anuluj</button>
+    <div mat-dialog-actions>
+        <button mat-button (click)="editProject()" tabindex="2">Zapisz</button>
+        <button mat-button (click)="no()" tabindex="-1">Anuluj</button>
     </div>
 </div>
