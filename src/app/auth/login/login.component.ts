@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.authenticationService.changeLoggedIn(true);
                 }
-                this.router.navigate([this.returnUrl]);
+                this.router.navigate(['/']);
             },
             error => {
                 this.alertService.error(error._body);

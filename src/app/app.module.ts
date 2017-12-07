@@ -39,6 +39,8 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 import { MomentModule } from 'angular2-moment';
+import { UsersFiltersService } from './task/shared/users-filters.service';
+import { TaskService } from './task/shared/task.service';
 
 const SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
@@ -82,6 +84,8 @@ const SWIPER_CONFIG: SwiperConfigInterface = {
     TokenService,
     AuthenticationService,
     UserService,
+    UsersFiltersService,
+    TaskService,
     AlertService,
     AuthGuard
   ],

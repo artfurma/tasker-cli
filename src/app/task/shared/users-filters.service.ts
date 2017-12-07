@@ -14,8 +14,8 @@ export class UsersFiltersService {
     MilestonesList$: Observable<IControlPoint[]>;
     private listUsersObserver: Observer<User[]>;
     private listMilestonesObserver: Observer<IControlPoint[]>;
-    
-    constructor(private userService:UserService, private taskService:TaskService) {
+
+    constructor(private userService: UserService, private taskService: TaskService) {
         this.loadAllUsers();
         this.loadAllMilestones();
         this.UsersList$ = new Observable<User[]>(x => this.listUsersObserver = x).share();
@@ -24,17 +24,53 @@ export class UsersFiltersService {
 
 
     private loadAllUsers() {
-        this.userService.getAll().subscribe(users => { this.Users = users; this.listUsersObserver.next(this.Users);});
+        this.userService.getAll().subscribe(users => {
+            this.Users = users; console.log("updejted" + this.listUsersObserver);
+            if (this.listUsersObserver !== undefined) {
+                this.listUsersObserver.next(this.Users);
+                TaskService.usersUpdate = false;
+            }
+        });
     }
     private loadAllMilestones() {
-        this.taskService.getAllMilestones().subscribe(milestones => { this.Milestones = milestones; this.listMilestonesObserver.next(this.Milestones);});
+        this.taskService.getAllMilestones().subscribe(milestones => {
+            this.Milestones = milestones; console.log("updejted" + this.listMilestonesObserver);
+            if (this.listMilestonesObserver !== undefined) {
+                this.listMilestonesObserver.next(this.Milestones);
+                TaskService.milestoneUpdate = false;
+            }
+        });
+    }
+
+    updateData() {
+        this.loadAllUsers();
+        this.loadAllMilestones();
+        this.getList();
+    }
+
+    getUsers(): User[] {
+        if (this.Users.length > 0 && TaskService.projectChanged === false) {
+            return this.Users;
+        }
+        else {
+            return [];
+        }
+    }
+
+    getMilestones(): IControlPoint[] {
+        if (this.Milestones.length > 0 && TaskService.projectChanged === false) {
+            return this.Milestones;
+        }
+        else {
+            return [];
+        }
     }
 
     getList() {
         // Get the data from somewhere, i.e. http call
         //console.log(this.filteredTasks)
-        this.listUsersObserver.next(this.Users);
-        this.listMilestonesObserver.next(this.Milestones);
+        if (this.listUsersObserver !== undefined) this.listUsersObserver.next(this.Users);
+        if (this.listMilestonesObserver !== undefined) this.listMilestonesObserver.next(this.Milestones);
         // the important part is after getting the data you want, observer.next it
     }
 

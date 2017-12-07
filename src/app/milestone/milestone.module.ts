@@ -8,6 +8,9 @@ import { MilestoneThumbnailComponent } from './milestone-thumbnail/milestone-thu
 import { MilestoneAddComponent } from './milestone-add/milestone-add.component';
 import { MilestoneEditComponent } from './milestone-edit/milestone-edit.component';
 
+//import { MilestoneDeleteComponent } from './milestone-delete/milestone-delete.component';
+
+
 @NgModule({
   imports: [
     CommonModule,

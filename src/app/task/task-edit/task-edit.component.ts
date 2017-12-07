@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { TaskService } from '../shared/task.service';
 import { UserService } from '../../users/user/user.service';
 import { UsersFiltersService } from '../shared/users-filters.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'tskr-task-edit',
@@ -34,7 +35,7 @@ export class TaskEditComponent implements OnInit {
 
 
 
-  constructor(private _route: ActivatedRoute, private usermilestoneService: UsersFiltersService, private _navRoute: Router, private _taskService: TaskService, private _userService: UserService) {
+  constructor(private _route: ActivatedRoute, public snackBar: MatSnackBar, private usermilestoneService: UsersFiltersService, private _navRoute: Router, private _taskService: TaskService, private _userService: UserService) {
     this.UserNames = new Array();
     this.DaysRemaining = new Array();
     this.AllUsers = new Array();
@@ -68,7 +69,7 @@ export class TaskEditComponent implements OnInit {
       this._route.params.subscribe(params => this.TaskID = params['id']);
       let task: Task;
       task = this._taskService.getChosenTask(this.TaskID);
-      if(task!=null){
+      if (task != null) {
         this.ParentTaskID = task.parentTaskId;
         this.Task = task;
         this.Title = task.title;
@@ -80,7 +81,7 @@ export class TaskEditComponent implements OnInit {
         this.loadAllMilestones();
         this.usermilestoneService.getList();
       }
-      else{
+      else {
         this._navRoute.navigate(['/tasks']);
       }
     });
@@ -214,6 +215,8 @@ export class TaskEditComponent implements OnInit {
       let newTask: Task;
       newTask = res;
       this._taskService.editTask(savingTask);
+      console.log(newTask)
+      this.snackBar.open('Zadanie zostalo zaktualizowane!', '', { duration: 2000 });
     });
 
     this._navRoute.navigate(['/tasks/']);

@@ -11,7 +11,7 @@ export class UserService {
         this.apiUrl = 'http://localhost:4200/api';
     }
     getAll() {
-        return this.http.get<User[]>(this.apiUrl + '/user/getall');
+        return this.http.get<User[]>(this.apiUrl + '/user/getall/' + localStorage.getItem('currentProject'));
     }
 
     getById(_id: string) {

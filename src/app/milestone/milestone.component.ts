@@ -40,7 +40,9 @@ export class MilestoneComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.milestoneService.addMilestone(result).subscribe(newId => {
+                let newMilestone:MilestoneAdd = result;
+                newMilestone.ProjectId = +localStorage.getItem('currentProject');
+                this.milestoneService.addMilestone(newMilestone).subscribe(newId => {
                     result.id = newId;
                 });
                 this.milestones.push(result);
