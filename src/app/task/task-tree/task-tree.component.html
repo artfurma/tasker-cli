@@ -1,7 +1,14 @@
 <mat-card class="task-tree-container">
-  <mat-card-title>
-    Drzewo zadań
-  </mat-card-title>
+  <mat-card-header fxLayout="row">
+    <mat-card-title>
+      <h1>Drzewo zadań</h1>
+    </mat-card-title>
+    <div fxFlex></div>
+    <button title="Dodaj" class="white-icon" mat-mini-fab color="primary" mat-button [routerLink]="['/tasks/new']">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-card-header>
+
   <!-- <mat-card-subtitle>
     Zaaplikowane filtry (Użytkownicy):
     <div style="display: inline-block">

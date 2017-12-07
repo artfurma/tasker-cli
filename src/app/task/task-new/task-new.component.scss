@@ -1,40 +1,16 @@
-.Aligner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
+.full-width {
+    width: 100%;
+}
 
-  .details-header{
-      background-color:#ff9800;
-      width:100%;
-      
-  }
+.descriptions {
+    textarea {
+        min-height: 100px;
+    }
+}
 
-  .details-content{
-      width:100%;
-  }
-
-  p{
-      width: 100%;
-  }
-
-  mat-card-header{
-      margin-top:10px;
-      margin-bottom:10px;
-  }
-  mat-chip{
-      margin-right: 5px;
-  }
-  mat-form-field{
-      width:100%;
-  }
-  mat-card-title{
-      width:100%;
-  }
-  .mat-card-header-text{
-      display: flex;
-  }
-button{
-    margin:5px;
+hr {
+    display: block;
+    margin: 10px 0 10px 0;
+    border-top: 1px solid rgba(0, 0, 0, .12);
+    width: 100%
 }
