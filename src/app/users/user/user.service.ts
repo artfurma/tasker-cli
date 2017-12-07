@@ -8,7 +8,7 @@ export class UserService {
 
     apiUrl: string;
     constructor(private http: HttpClient) {
-        this.apiUrl = 'http://localhost:4200/api';
+        this.apiUrl = '/api';
     }
     getAll() {
         return this.http.get<User[]>(this.apiUrl + '/user/getall/' + localStorage.getItem('currentProject'));
