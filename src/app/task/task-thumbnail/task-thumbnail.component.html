@@ -1,4 +1,4 @@
-<div class="thumbnail" draggable droppable [dropEnabled]="true" [dragData]="task" (onDrop)="taskDropped($event,task)" (click)="setChosenTask(task)">
+<div class="thumbnail" draggable droppable [dropEnabled]="true" [dragData]="task" [dragClass]="'drag-over'" [dragOverClass]="'drag-target-border'" (onDrop)="taskDropped($event,task)" (click)="setChosenTask(task)">
     <div fxLayout="row">
         <div fxFlex="10%">
             <mat-icon tskrClickStopPropagation (click)="showChildernChange(task)" *ngIf="task.showChildren === false && task.children.length !== 0"
