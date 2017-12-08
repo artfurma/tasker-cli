@@ -1,6 +1,6 @@
 import { CommentService } from './../../comment/shared/comment.service';
 import { CommentComponent } from './../../comment/comment.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { AddCommentComponent } from './../../comment/add-comment/add-comment.component';
 import { CommentModel } from './../../comment/shared/comment-model';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -10,6 +10,7 @@ import { UserService } from "../../users/user/user.service";
 import { TaskService } from "../shared/task.service";
 import { TaskStatus, Task, IControlPoint } from '../shared/task.model';
 import { User } from '../../users/user/user';
+import { YesNoModalComponent } from '../../modals/yes-no-modal/yes-no-modal.component';
 @Component({
     selector: 'tskr-task-details',
     templateUrl: './task-details.component.html',
@@ -37,7 +38,8 @@ export class TaskDetailsComponent implements OnInit {
         private _navRoute: Router,
         private _taskService: TaskService,
         private _userService: UserService,
-        public dialog: MatDialog) {
+        public dialog: MatDialog,
+        public snackBar: MatSnackBar) {
 
         this.UserNames = new Array();
         this.DaysRemaining = new Array();
@@ -103,9 +105,22 @@ export class TaskDetailsComponent implements OnInit {
     }
 
     deleteTask() {
-        this._taskService.deleteTask(this.TaskID);
+        const dialogRef = this.dialog.open(YesNoModalComponent, {
+            width: '480px',
+            data: { message: 'Czy na pewno chcesz usunać to zadanie?' }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this._taskService.deleteTask(this.TaskID).subscribe(res => {
+                    this._taskService.deleteLocalTask(this.Task);
+                });
+                this._navRoute.navigate(['/tasks/']);
+                this.snackBar.open('Zadanie zostało usunięte', '', { duration: 2000 });
+            }
+        });
     }
-    
+
     editTask() {
         this._navRoute.navigate(['/tasks/edit/' + this.TaskID]);
     }
