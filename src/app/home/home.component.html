@@ -15,9 +15,9 @@
             <mat-nav-list>
                 <mat-list-item *ngFor="let project of userProjects">
                     <a matLine (click)="goToTasks(project.id)">{{ project.name }}</a>
-                    <button mat-icon-button (click)="showInfo(link)">
+                    <!-- <button mat-icon-button (click)="showInfo(link)">
                         <mat-icon>info</mat-icon>
-                    </button>
+                    </button> -->
                     <button mat-icon-button (click)="goToSettings(project.id)">
                         <i class="material-icons">settings</i>
                     </button>
