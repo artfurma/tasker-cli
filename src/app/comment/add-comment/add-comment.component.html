@@ -3,7 +3,14 @@
     <mat-form-field class="full-width">
         <textarea matInput [(ngModel)]="commentToAdd.Content" placeholder="Komentarz..." tabindex="1"></textarea>
     </mat-form-field>
-
+    <mat-form-field>
+        <mat-select [(ngModel)]="chosedMilestone" [ngModelOptions]="{standalone: true}" placeholder="You can choose milestone">
+          <mat-option>---</mat-option>
+          <mat-option *ngFor="let milsetone of allMilestones" [value]="milsetone">
+            {{ milsetone.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     <div mat-dialog-actions>
         <button mat-button (click)="addComment()" tabindex="2">Dodaj</button>
         <button mat-button (click)="no()" tabindex="-1">Anuluj</button>
