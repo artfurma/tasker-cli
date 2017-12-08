@@ -5,13 +5,11 @@
                 </mat-card-title>
                 <div fxFlex></div>
                 <mat-icon style="cursor: pointer; margin-top: 10px;" (click)="cancel()">close</mat-icon>
-                <!-- <button mat-mini-fab (click)="cancel()"></button> -->
-
         </mat-card-header>
 
         <hr/>
         <mat-chip-list>
-                <p>Punkty kontrolne zadania: </p>
+                <p>Punkty kontrolne: </p>
                 <mat-chip class="milestone-chip" *ngFor="let mil of ControlPointsInUse">{{mil.name}}</mat-chip>
         </mat-chip-list>
 
@@ -21,7 +19,7 @@
         </mat-chip-list>
 
         <mat-chip-list>
-                <p>Wykonawcy zadania: </p>
+                <p>Wykonawcy: </p>
                 <mat-chip class="task-performer-chip" *ngFor="let usr of taskPerformers">{{usr.username}}</mat-chip>
         </mat-chip-list>
         <hr>
@@ -30,6 +28,8 @@
         <p class="details-content">
                 {{Description}}
         </p>
+        <hr>
+        <p>Status: </p>
         {{TaskStatus}}
         <hr>
         <mat-card-actions class="task-details-actions" fxLayout="row">

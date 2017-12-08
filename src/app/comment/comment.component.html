@@ -12,7 +12,7 @@
                     <div fxLayout="column" fxFlexFill>
                         <p>{{comment.user}}</p>
                         <p>{{comment.content}}</p>
-                        <p>{{comment.date | amTimeAgo}}</p>
+                        <p>{{comment.date | amLocal | amTimeAgo}}</p>
                     </div>
                 </div>
             </div>
