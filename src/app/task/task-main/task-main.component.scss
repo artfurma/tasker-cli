@@ -1,3 +1,7 @@
+::-webkit-scrollbar {
+    display: none;
+}
+
 .task-main-container {
     margin: 16px;
 
@@ -23,7 +27,7 @@
             .milestone-container {
                 min-width: 32px;
                 display: inline-block;
-                margin-right: 30px;                
+                //margin-right: 30px;                
                 text-align: center;
                 
                 button {
@@ -41,6 +45,8 @@
         }
     }
 }
+
+
 
 .tooltipClass{
     background-color: orange !important;

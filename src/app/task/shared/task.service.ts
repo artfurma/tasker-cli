@@ -55,10 +55,57 @@ export class TaskService {
 
     }
 
+    dragAndDrop(task: Task, draggedTask: Task) {
+        if (!this.isChildren(draggedTask, task)) {
+            this.saveAfterDragAndDrop(draggedTask.id, task.id).subscribe(res => {
+                console.log(res);
+                if (draggedTask.parentTaskId !== null) {
+                    let childrens: Task[] = this.takeTaskByID(this.list, draggedTask.parentTaskId).children;
+                    childrens.forEach((element, index) => {
+                        if (element.id === draggedTask.id) {
+                            childrens.splice(index, 1);
+                            return;
+                        }
+                    });
+                    draggedTask.parentTaskId = task.id;
+                }
+                else {
+                    this.list.forEach((element, index) => {
+                        if (element.id === draggedTask.id) {
+                            this.list.splice(index, 1);
+                            return;
+                        }
+                    });
+                    draggedTask.parentTaskId = task.id;
+                }
+                if (!task.children.includes(draggedTask)) {
+                    task.children.push(draggedTask);
+
+                }
+                if (this.listObserver !== undefined) this.listObserver.next(this.list);
+            });
+        }
+    }
+
+    isChildren(parent: Task, children: Task): boolean {
+        let ret: boolean = false;
+        parent.children.forEach((task, index) => {
+            if (task.id === children.id && ret === false) {
+                ret = true;
+                return;
+            } else if (ret === false) {
+                if (task.children.length > 0) {
+                    ret = this.isChildren(task, children);
+                }
+            }
+        });
+        return ret;
+    }
+
+
     deleteLocalTask(task: Task) {
         this.chosenTask = task;
         let parent: Task;
-
         if (task.parentTaskId !== null) {
             if (this.chosenTask.children.length > 0) {
                 this.chosenTask.children.forEach(element => {
@@ -148,6 +195,8 @@ export class TaskService {
         return returnedTask;
     }
 
+
+
     editTaskRecursive(list: Task[]) {
         list.forEach(task => {
             if (task.id === this.chosenTask.id) {
@@ -186,6 +235,9 @@ export class TaskService {
         return this._http.put('/api/task', task).catch(this.handleError);
     }
 
+    saveAfterDragAndDrop(TaskId: number, NewParentId: number) {
+        return this._http.put('/api/task/changeparent', { "taskId": TaskId, "newParentId": NewParentId }).catch(this.handleError);
+    }
 
     changeTaskStatus(statusModel: ChangeStatusModel) {
         return this._http.post('/api/task/status', statusModel).catch(this.handleError);
