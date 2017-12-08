@@ -3,4 +3,5 @@ export class CommentModel {
     date: Date;
     content: string;
     user: string;
+    milestoneId: number;
 }
