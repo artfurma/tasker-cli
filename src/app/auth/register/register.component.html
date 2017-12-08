@@ -13,10 +13,10 @@
 					</mat-grid-tile>
 					<mat-grid-tile colspan="7">
 						<mat-input-container class="justifier">
-							<input matInput required placeholder="First name" type="text" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel">
+							<input matInput required placeholder="Imię" type="text" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel">
 							<mat-error *ngIf="formControl.hasError('required')">
-								First name is
-								<strong>required</strong>
+								Imię jest
+								<strong>wymagane</strong>
 							</mat-error>
 						</mat-input-container>
 					</mat-grid-tile>
@@ -29,10 +29,10 @@
 					</mat-grid-tile>
 					<mat-grid-tile colspan="7">
 						<mat-input-container class="justifier">
-							<input matInput required placeholder="Last name" type="text" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel">
+							<input matInput required placeholder="Nazwisko" type="text" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel">
 							<mat-error *ngIf="formControl.hasError('required')">
-								Last name is
-								<strong>required</strong>
+								Nazwisko jest
+								<strong>wymagane</strong>
 							</mat-error>
 						</mat-input-container>
 					</mat-grid-tile>
@@ -45,10 +45,10 @@
 					</mat-grid-tile>
 					<mat-grid-tile colspan="7">
 						<mat-input-container class="justifier">
-							<input matInput required placeholder="Username" type="text" name="username" [(ngModel)]="model.username" #username="ngModel">
+							<input matInput required placeholder="Nazwa użytkownika" type="text" name="username" [(ngModel)]="model.username" #username="ngModel">
 							<mat-error *ngIf="formControl.hasError('required')">
-								Username is
-								<strong>required</strong>
+								Nazwa użytkownika jest
+								<strong>wymagana</strong>
 							</mat-error>
 						</mat-input-container>
 					</mat-grid-tile>
@@ -61,10 +61,10 @@
 					</mat-grid-tile>
 					<mat-grid-tile colspan="7">
 						<mat-input-container class="justifier">
-							<input matInput required placeholder="E-mail address" type="text" name="email" [(ngModel)]="model.email" #email="ngModel">
+							<input matInput required placeholder="Adres email" type="text" name="email" [(ngModel)]="model.email" #email="ngModel">
 							<mat-error *ngIf="formControl.hasError('required')">
-								E-mail address is
-								<strong>required</strong>
+								Adres email jest
+								<strong>wymagany</strong>
 							</mat-error>
 						</mat-input-container>
 					</mat-grid-tile>
@@ -77,20 +77,20 @@
 					</mat-grid-tile>
 					<mat-grid-tile colspan="7">
 						<mat-input-container class="justifier">
-							<input matInput required placeholder="Password" type="password" name="password" [(ngModel)]="model.password" #password="ngModel">
+							<input matInput required placeholder="Hasło" type="password" name="password" [(ngModel)]="model.password" #password="ngModel">
 							<mat-error *ngIf="formControl.hasError('required')">
-								Password is
-								<strong>required</strong>
+								Hasło jest
+								<strong>wymagane</strong>
 							</mat-error>
 						</mat-input-container>
 					</mat-grid-tile>
 				</mat-grid-list>
 				<button mat-raised-button color="primary" type="submit" name="action" class="register-button" [disabled]="loading">
-					Register
+					Zarejetruj się
 				</button>
 			</form>
-			<p mat-accent>Already have an account?
-				<a routerLink="/login">Log in</a>
+			<p mat-accent>Posiadasz już konto?
+				<a routerLink="/login">Zaloguj się</a>
 			</p>
 		</mat-card-content>
 	</mat-card>
