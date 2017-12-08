@@ -22,6 +22,14 @@ export class UsersFiltersService {
         this.MilestonesList$ = new Observable<IControlPoint[]>(x => this.listMilestonesObserver = x).share();
     }
 
+    getUserById(id:number):User{
+        let user:User=null;
+        this.Users.forEach(element => {
+            if(element.id===id)user=element;
+        });
+        return user;
+    }
+
 
     private loadAllUsers() {
         this.userService.getAll().subscribe(users => {

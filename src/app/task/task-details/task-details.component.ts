@@ -1,6 +1,6 @@
 import { CommentService } from './../../comment/shared/comment.service';
 import { CommentComponent } from './../../comment/comment.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { AddCommentComponent } from './../../comment/add-comment/add-comment.component';
 import { CommentModel } from './../../comment/shared/comment-model';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -10,6 +10,8 @@ import { UserService } from "../../users/user/user.service";
 import { TaskService } from "../shared/task.service";
 import { TaskStatus, Task, IControlPoint } from '../shared/task.model';
 import { User } from '../../users/user/user';
+import { UsersFiltersService } from '../shared/users-filters.service';
+import { YesNoModalComponent } from '../../modals/yes-no-modal/yes-no-modal.component';
 @Component({
     selector: 'tskr-task-details',
     templateUrl: './task-details.component.html',
@@ -35,14 +37,14 @@ export class TaskDetailsComponent implements OnInit {
     constructor(private _route: ActivatedRoute,
         private commentService: CommentService,
         private _navRoute: Router,
+        public snackBar: MatSnackBar,
         private _taskService: TaskService,
-        private _userService: UserService,
+        private _usersMilestoneService: UsersFiltersService,
         public dialog: MatDialog) {
 
         this.UserNames = new Array();
         this.DaysRemaining = new Array();
         this.ControlPointsInUse = new Array();
-        this.AllUsers = new Array();
         this.taskPerformers = new Array();
 
         this._navRoute.routeReuseStrategy.shouldReuseRoute = function () {
@@ -75,7 +77,7 @@ export class TaskDetailsComponent implements OnInit {
                 this.taskPerformers.length = 0;
                 this.taskPerformers = task.taskPerformers;
                 this.TaskStatus = TaskStatus[task.statusId];
-                this.loadAllUsers(task.mainPerformer);
+                this.getMainPerformer(task.mainPerformer);
             }
             else {
                 this._navRoute.navigate(['/tasks']);
@@ -83,15 +85,10 @@ export class TaskDetailsComponent implements OnInit {
         });
     }
 
-
-    private loadAllUsers(mainPerformerID: number) {
-        this._userService.getAll().subscribe(users => {
-            this.AllUsers = users;
-            this.AllUsers.forEach(element => {
-                if (element.id === mainPerformerID) this.mainPerformer = element;
-            });
-        });
+    getMainPerformer(id: number) {
+        this.mainPerformer = this._usersMilestoneService.getUserById(id);
     }
+
     isMilestoneInUse(selecded: IControlPoint) {
         this.ControlPointsInUse.forEach(element => {
             if (selecded.id === element.id) return "primary";
@@ -102,9 +99,23 @@ export class TaskDetailsComponent implements OnInit {
         this._navRoute.navigate(['/tasks']);
     }
 
-    deleteTask() {
-        this._taskService.deleteTask(this.TaskID);
+    deleteTask(ID: number): void {
+        const dialogRef = this.dialog.open(YesNoModalComponent, {
+            width: '480px',
+            data: { message: 'Czy na pewno chcesz usunać to zadanie?' }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this._taskService.deleteTask(this.Task.id).subscribe(res => {
+                    this._taskService.deleteLocalTask(this.Task);
+                });
+                this._navRoute.navigate(['/tasks/']);
+                this.snackBar.open('Zadanie zostało usunięte', '', { duration: 2000 });
+            }
+        });
     }
+
     
     editTask() {
         this._navRoute.navigate(['/tasks/edit/' + this.TaskID]);

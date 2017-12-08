@@ -129,12 +129,7 @@ export class TaskService {
                 }
             });
         }
-
-
-
         this.listObserver.next(this.list);
-
-        //this.editTTask(parent);
     }
 
     addTask(task: Task) {
