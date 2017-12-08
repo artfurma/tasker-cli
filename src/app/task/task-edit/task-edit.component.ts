@@ -211,7 +211,7 @@ export class TaskEditComponent implements OnInit {
       let newTask: Task;
       newTask = res;
       this._taskService.editTask(savingTask);
-      this.snackBar.open('Zadanie zostalo zaktualizowane!', '', { duration: 2000 });
+      this.snackBar.open('Zadanie zostało zaktualizowane!', '', { duration: 2000 });
     });
 
     this._navRoute.navigate(['/tasks/']);

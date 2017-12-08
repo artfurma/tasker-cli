@@ -9,19 +9,8 @@
     </button>
   </mat-card-header>
 
-  <!-- <mat-card-subtitle>
-    Zaaplikowane filtry (Użytkownicy):
-    <div style="display: inline-block">
-      <p *ngFor="let user of UsersFilters">{{user.username}}</p>
-    </div>
 
-    <br> Zaaplikowane filtry (Punkty kontrolne):
-    <div style="display: inline-block">
-      <p *ngFor="let milestone of MilestonesFilters">{{milestone.name}}</p>
-    </div>
-
-  </mat-card-subtitle> -->
-  <mat-card-content >
+  <mat-card-content>
     <mat-nav-list>
       <ng-template  #recursiveList let-test="test" let-list>
         <div  class="indented" *ngFor="let item of list; let i = index">
