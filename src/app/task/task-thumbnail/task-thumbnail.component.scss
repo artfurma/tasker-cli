@@ -2,6 +2,18 @@
     display: none;
 }
 
+.drag-over {
+    border: #ff525b inset 1.5px;
+  }
+
+  .drag-target-border{
+    border: #1ae024 inset 1.5px;
+  }
+
+  .drag-transit{
+    opacity : 1!important;
+  }
+
 .thumbnail {
     height: 65px;
     padding-top: 5px;

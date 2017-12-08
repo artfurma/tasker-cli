@@ -4,19 +4,23 @@
     </mat-card-title>
     <mat-card-content>
         <div style="margin-top: 4px;" *ngFor="let comment of commentList">
-            <div fxLayout="row">
-                <div fxFlex="10%">
-                    <img style="margin-top: 8px;" mat-card-avatar src="assets/images/avatar_tmp.png" />
-                </div>
-                <div fxFlex="90%">
-                    <div fxLayout="column" fxFlexFill>
-                        <p>{{comment.user}}</p>
-                        <p>{{comment.content}}</p>
-                        <p>{{comment.date | amTimeAgo}}</p>
-                    </div>
-                </div>
+            <div *ngIf="isCommentInFilters(comment)">
+                    <div fxLayout="row">
+                            <div fxFlex="10%">
+                                <img style="margin-top: 8px;" mat-card-avatar src="assets/images/avatar_tmp.png" />
+                            </div>
+                            <div fxFlex="90%">
+                                <div fxLayout="column" fxFlexFill>
+                                    <p *ngIf="comment.milestone!==null">{{comment.milestone.name}}</p>
+                                    <p>{{comment.user}}</p>
+                                    <p>{{comment.content}}</p>
+                                    <p>{{comment.date | amLocal | amTimeAgo}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
             </div>
-            <hr/>
+
         </div>
     </mat-card-content>
 

@@ -63,7 +63,6 @@ export class TaskTreeComponent implements OnInit {
     });
     this._taskFiltersService.SharedList$.subscribe(lst => {
       this.UsersFilters = lst;
-
       if (this.list !== undefined) {
         this.buildVisibilityTree();
       }
