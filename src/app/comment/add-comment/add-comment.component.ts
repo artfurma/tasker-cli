@@ -13,6 +13,7 @@ export class AddCommentComponent {
 
   commentToAdd: CommentAdd;
   comment: CommentModel;
+  
   constructor(private commentService: CommentService,
     public dialogRef: MatDialogRef<AddCommentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {

@@ -55,10 +55,41 @@ export class TaskService {
 
     }
 
+    dragAndDrop(task: Task, draggedTask: Task) {
+        console.log(this.isChildren(draggedTask,task))
+        
+        if (draggedTask.parentTaskId !== null) {
+            let childrens: Task[] = this.takeTaskByID(this.list, draggedTask.parentTaskId).children;
+            childrens.forEach((element, index) => {
+                if (element.id === draggedTask.id) {
+                    childrens.splice(index, 1);
+                    return;
+                }
+            });
+            draggedTask.parentTaskId = task.id;
+        }
+        else {
+            this.list.forEach((element, index) => {
+                if (element.id === draggedTask.id) {
+                    this.list.splice(index, 1);
+                    return;
+                }
+            });
+            draggedTask.parentTaskId = task.id;
+        }
+        if (!task.children.includes(draggedTask)) {
+            console.log(task.children);
+            task.children.push(draggedTask);
+
+        }
+        if (this.listObserver !== undefined) this.listObserver.next(this.list);
+
+    }
+
+
     deleteLocalTask(task: Task) {
         this.chosenTask = task;
         let parent: Task;
-
         if (task.parentTaskId !== null) {
             if (this.chosenTask.children.length > 0) {
                 this.chosenTask.children.forEach(element => {
@@ -146,6 +177,23 @@ export class TaskService {
             if (returnedTask === undefined && task.children.length > 0) returnedTask = this.takeTaskByID(task.children, Id);
         });
         return returnedTask;
+    }
+
+    isChildren(parent: Task, children: Task): boolean {
+        let ret: boolean = false;
+        
+        parent.children.forEach( (task,index) => {
+            if (task.id === children.id && ret===false) {
+                console.log(true);
+                ret=true;
+                return;
+            } else if(ret===false) {
+                if (task.children.length > 0) {
+                    ret =this.isChildren(task.children[index],children);
+                }
+            }
+        });
+        return ret;
     }
 
     editTaskRecursive(list: Task[]) {

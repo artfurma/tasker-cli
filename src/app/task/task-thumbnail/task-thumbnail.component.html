@@ -1,8 +1,8 @@
-<div class="task">
+<div class="task" >
     <i (click)="showChildernChange(task)" *ngIf="task.showChildren === false && task.children.length !== 0" class="material-icons pointer">keyboard_arrow_down</i>
     <i (click)="showChildernChange(task)" *ngIf="task.showChildren === true && task.children.length !== 0" class="material-icons pointer">keyboard_arrow_up</i>
 
-    <a mat-button (click)="setChosenTask(task)" color="" [routerLink]="['/tasks', task.id]" *ngIf="task" class="list-group-item" draggable="true">
+    <a mat-button (click)="setChosenTask(task)" color="" [routerLink]="['/tasks', task.id]" *ngIf="task" class="list-group-item">
         {{task.title}}
     </a>
 

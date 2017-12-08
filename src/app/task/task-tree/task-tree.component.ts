@@ -83,6 +83,14 @@ export class TaskTreeComponent implements OnInit {
     this._taskFiltersService.getList();
   }
 
+  taskDropped(e: any, task: Task) {
+    console.log(task);
+    let draggedTask: Task;
+    draggedTask = e.dragData;
+    console.log(draggedTask);
+    if (task.id !== draggedTask.id)
+      this._taskService.dragAndDrop(task, draggedTask);
+  }
 
   buildVisibilityTree() {
     this.filters = new Array<TreeVisible>(this.list.length);
