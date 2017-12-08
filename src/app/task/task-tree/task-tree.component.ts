@@ -63,7 +63,6 @@ export class TaskTreeComponent implements OnInit {
     });
     this._taskFiltersService.SharedList$.subscribe(lst => {
       this.UsersFilters = lst;
-
       if (this.list !== undefined) {
         this.buildVisibilityTree();
       }
@@ -84,10 +83,8 @@ export class TaskTreeComponent implements OnInit {
   }
 
   taskDropped(e: any, task: Task) {
-    console.log(task);
     let draggedTask: Task;
     draggedTask = e.dragData;
-    console.log(draggedTask);
     if (task.id !== draggedTask.id)
       this._taskService.dragAndDrop(task, draggedTask);
   }
