@@ -44,6 +44,15 @@ export class TaskThumbnailComponent implements OnInit {
         dialogRef.afterClosed().subscribe();
     }
 
+
+  taskDropped(e: any, task: Task) {
+    console.log("dupa")
+    let draggedTask: Task;
+    draggedTask = e.dragData;
+    if (task.id !== draggedTask.id)
+      this.taskService.dragAndDrop(task, draggedTask);
+  }
+
     deleteTask(ID: number): void {
         const dialogRef = this.deleteDialog.open(YesNoModalComponent, {
             width: '480px',
