@@ -1,4 +1,4 @@
-import { User } from "../../users/user/user";
+import { User } from '../../users/user/user';
 
 export interface Task {
     id: number;
@@ -27,9 +27,9 @@ export interface IControlPoint {
 }
 
 export enum TaskStatus {
-    "Not started" = 1,
-    "In progress" = 2,
-    "Done" = 3
+    'Nierozpoczęty' = 1,
+    'W realizacji' = 2,
+    'Zakończony' = 3
 }
 
 export interface SavingTask {

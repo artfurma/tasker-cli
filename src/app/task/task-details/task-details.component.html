@@ -1,10 +1,15 @@
 <mat-card class="task-details-container">
-        <mat-card-title>
-                {{Title}}
-        </mat-card-title>
+        <mat-card-header fxLayout="row">
+                <mat-card-title>
+                        <h2>{{Title}}</h2>
+                </mat-card-title>
+                <div fxFlex></div>
+                <mat-icon style="cursor: pointer; margin-top: 10px;" (click)="cancel()">close</mat-icon>
+        </mat-card-header>
+
         <hr/>
         <mat-chip-list>
-                <p>Punkty kontrolne zadania: </p>
+                <p>Punkty kontrolne: </p>
                 <mat-chip class="milestone-chip" *ngFor="let mil of ControlPointsInUse">{{mil.name}}</mat-chip>
         </mat-chip-list>
 
@@ -14,27 +19,29 @@
         </mat-chip-list>
 
         <mat-chip-list>
-                <p>Wykonawcy zadania: </p>
+                <p>Wykonawcy: </p>
                 <mat-chip class="task-performer-chip" *ngFor="let usr of taskPerformers">{{usr.username}}</mat-chip>
         </mat-chip-list>
         <hr>
-        <!-- <mat-card-content class="details-content"> -->
         <p>Opis zadania: </p>
 
         <p class="details-content">
                 {{Description}}
         </p>
-        <!-- </mat-card-content> -->
-
-        <!-- <mat-card-header> -->
-        {{TaskStatus}}
-        <!-- </mat-card-header> -->
         <hr>
-        <mat-card-actions class="task-details-actions">
-                <button mat-raised-button color="primary" (click)="editTask()">Edytuj</button>
-                <button mat-raised-button color="warn" (click)="deleteTask()">Usuń</button>
-                <button mat-raised-button (click)="deleteTask()">Anuluj</button>
-                <button mat-raised-button (click)="addComment()">Dodaj komentarz</button>                
+        <p>Status: </p>
+        {{TaskStatus}}
+        <hr>
+        <mat-card-actions class="task-details-actions" fxLayout="row">
+                <div style="display: flex; justify-content: center;">
+                        <button mat-raised-button color="primary" style="color: white;" (click)="editTask()">Edytuj</button>
+                        <button mat-raised-button color="warn" (click)="deleteTask()">Usuń</button>
+                </div>
+
+                <div fxFlex></div>
+                <button mat-mini-fab color="primary" style="color: white;" (click)="addComment()">
+                        <mat-icon>comment</mat-icon>
+                </button>
         </mat-card-actions>
 </mat-card>
 <tskr-comment #Comments></tskr-comment>

@@ -1,18 +1,24 @@
-<h1 mat-dialog-title>Change task status</h1>
+<h1 mat-dialog-title>Zmień status zadania</h1>
 <div mat-dialog-content class="overflow">
   <div class="center-align">
     <div [ngClass]="{'standard-color': status!==1, 'red': status===1}" (click)="status=1">
-        <span class="new-status">Not started</span>        
+      <span class="status-label">
+        <i class="material-icons new-status red">stop</i>Nierozpoczęty
+      </span>
     </div>
     <div [ngClass]="{'standard-color': status!==2, 'blue': status===2}" (click)="status=2">
-        <i class="material-icons progress-status">cached</i>        
+      <span class="status-label">
+        <i class="material-icons progress-status blue">cached</i>W realizacji
+      </span>
     </div>
     <div [ngClass]="{'standard-color': status!==3, 'green': status===3}" (click)="status=3">
-        <i class="material-icons done-status">done</i>        
+      <span class="status-label">
+        <i class="material-icons done-status green">done</i>Zakończony
+      </span>
     </div>
   </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="saveStatus()">Ok</button>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="saveStatus()">Zapisz</button>
+  <button mat-button (click)="onNoClick()">Anuluj</button>
 </div>

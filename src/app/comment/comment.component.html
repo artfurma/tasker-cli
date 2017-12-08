@@ -1,6 +1,6 @@
 <mat-card class="comment-section" *ngIf="commentList.length !== 0">
     <mat-card-title>
-        <p>{{commentList.length}} comments</p>
+        <p>Komentarze</p>
     </mat-card-title>
     <mat-card-content>
         <div style="margin-top: 4px;" *ngFor="let comment of commentList">
@@ -12,7 +12,7 @@
                     <div fxLayout="column" fxFlexFill>
                         <p>{{comment.user}}</p>
                         <p>{{comment.content}}</p>
-                        <p>{{comment.date | amTimeAgo}}</p>
+                        <p>{{comment.date | amLocal | amTimeAgo}}</p>
                     </div>
                 </div>
             </div>

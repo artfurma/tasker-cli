@@ -8,9 +8,13 @@ import * as moment from 'moment';
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss']
 })
-export class CommentComponent {
+export class CommentComponent implements OnInit {
 
   commentList: CommentModel[] = [];
 
   constructor(private commentService: CommentService) { }
+
+  ngOnInit(): void {
+    moment.locale('pl');
+  }
 }

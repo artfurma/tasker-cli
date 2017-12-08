@@ -40,11 +40,13 @@ export class MilestoneComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                let newMilestone:MilestoneAdd = result;
+                result.endDate.setHours(15);
+                const newMilestone: MilestoneAdd = result;
                 newMilestone.ProjectId = +localStorage.getItem('currentProject');
                 this.milestoneService.addMilestone(newMilestone).subscribe(newId => {
                     result.id = newId;
                 });
+
                 this.milestones.push(result);
                 this.milestones.sort((a, b) => {
                     return new Date(a.endDate).getTime() - new Date(b.endDate).getTime();
