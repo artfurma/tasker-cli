@@ -6,6 +6,8 @@ import { Task } from '../shared/task.model';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { UserService } from '../../users/user/user.service';
+import { UsersFiltersService } from '../shared/users-filters.service';
+import { User } from '../../users/user/user';
 
 @Component({
     selector: 'tskr-task-thumbnail',
@@ -22,7 +24,7 @@ export class TaskThumbnailComponent implements OnInit {
         private _navRoute: Router,
         public deleteDialog: MatDialog,
         private taskService: TaskService,
-        private userService: UserService,
+        private userService: UsersFiltersService,
         public snackBar: MatSnackBar) { }
 
     ngOnInit() {
@@ -45,13 +47,12 @@ export class TaskThumbnailComponent implements OnInit {
     }
 
 
-  taskDropped(e: any, task: Task) {
-    console.log("dupa")
-    let draggedTask: Task;
-    draggedTask = e.dragData;
-    if (task.id !== draggedTask.id)
-      this.taskService.dragAndDrop(task, draggedTask);
-  }
+    taskDropped(e: any, task: Task) {
+        let draggedTask: Task;
+        draggedTask = e.dragData;
+        if (task.id !== draggedTask.id)
+            this.taskService.dragAndDrop(task, draggedTask);
+    }
 
     deleteTask(ID: number): void {
         const dialogRef = this.deleteDialog.open(YesNoModalComponent, {
@@ -89,8 +90,9 @@ export class TaskThumbnailComponent implements OnInit {
     }
 
     getMainPerformer(id: number) {
-        this.userService.getById(id.toString()).subscribe(result => {
-            this.mainPerformer = `${result.firstName} ${result.lastName}`;
-        });
+        let user: User = this.userService.getUserById(id);
+        if (user !== null)
+            this.mainPerformer = user.firstName + " " + user.lastName;
+        else this.mainPerformer = "";
     }
 }
