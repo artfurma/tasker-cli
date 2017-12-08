@@ -66,7 +66,7 @@ export class TaskDetailsComponent implements OnInit {
             this.commentService.getTaskComments(this.TaskID).subscribe(res => this.commentComponent.commentList = res);
             let task: Task;
             task = this._taskService.getChosenTask(this.TaskID);
-            if(task!==undefined){
+            if (task !== undefined) {
                 this.Task = task;
                 this.Title = task.title;
                 this.Description = task.description;
@@ -77,7 +77,7 @@ export class TaskDetailsComponent implements OnInit {
                 this.TaskStatus = TaskStatus[task.statusId];
                 this.loadAllUsers(task.mainPerformer);
             }
-            else{
+            else {
                 this._navRoute.navigate(['/tasks']);
             }
         });
@@ -98,10 +98,14 @@ export class TaskDetailsComponent implements OnInit {
         });
     }
 
-    deleteTask() {
-        //this._taskService.deleteTask(this.TaskID);
+    cancel() {
         this._navRoute.navigate(['/tasks']);
     }
+
+    deleteTask() {
+        this._taskService.deleteTask(this.TaskID);
+    }
+    
     editTask() {
         this._navRoute.navigate(['/tasks/edit/' + this.TaskID]);
     }
