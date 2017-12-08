@@ -1,21 +1,72 @@
-<div class="task">
+<div class="thumbnail" (click)="setChosenTask(task)">
+    <div fxLayout="row">
+        <div fxFlex="10%">
+            <mat-icon tskrClickStopPropagation (click)="showChildernChange(task)" *ngIf="task.showChildren === false && task.children.length !== 0"
+                class="pointer">keyboard_arrow_down</mat-icon>
+            <mat-icon tskrClickStopPropagation (click)="showChildernChange(task)" *ngIf="task.showChildren === true && task.children.length !== 0"
+                class="pointer">keyboard_arrow_up</mat-icon>
+        </div>
+        <div fxFlex="90%" class="thumbnail-content">
+            <div fxLayout="column" fxFlexFill>
+                <div fxLayout="row">
+                    <p class="task-title">{{task.title}}</p>
+                    <div fxFlex></div>
+                    <div class="navigation">
+                        <span class="status-icon" [ngSwitch]="task.statusId">
+                            <button mat-icon-button *ngSwitchCase="1" (click)="openDialog()" class="status-not-started">
+                                <i class="material-icons">stop</i>
+                            </button>
+                            <button mat-icon-button *ngSwitchCase="2" (click)="openDialog()" class="status-in-progress">
+                                <i class="material-icons">cached</i>
+                            </button>
+                            <button mat-icon-button *ngSwitchCase="3" (click)="openDialog()" class="status-done">
+                                <i class="material-icons">done</i>
+                            </button>
+                        </span>
+                        <button mat-icon-button (click)="deleteTask(task.id)">
+                            <i class="material-icons remove">delete</i>
+                        </button>
+                        <button mat-icon-button (click)="addSubtask(task)">
+                            <i class="material-icons add-button">add_circle</i>
+                        </button>
+                    </div>
+                </div>
+                <div fxLayout="row">
+                    <div class="controlpoints">
+                        <mat-icon *ngIf="task.controlPointIds.length" class="milestones-icon">timeline</mat-icon>
+                        <mat-chip-list>
+                            <mat-chip class="milestone-chip" *ngFor="let controlPoint of task.controlPointIds">{{controlPoint.name}}</mat-chip>
+                        </mat-chip-list>
+                    </div>
+                    <div fxFlex></div>
+                    <div class="user" *ngIf="task.mainPerformer">
+                        <mat-icon>face</mat-icon>
+                        <mat-chip-list style="display: inline-block">
+                            <mat-chip>{{mainPerformer}}</mat-chip>
+                        </mat-chip-list>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- <div class="task">
     <i (click)="showChildernChange(task)" *ngIf="task.showChildren === false && task.children.length !== 0" class="material-icons pointer">keyboard_arrow_down</i>
     <i (click)="showChildernChange(task)" *ngIf="task.showChildren === true && task.children.length !== 0" class="material-icons pointer">keyboard_arrow_up</i>
 
-    <a mat-button (click)="setChosenTask(task)" color="" [routerLink]="['/tasks', task.id]" *ngIf="task" class="list-group-item" draggable="true">
-        {{task.title}}
+    <a (click)="setChosenTask(task)" [routerLink]="['/tasks', task.id]" *ngIf="task" class="list-group-item" draggable="true">
+        <p>{{task.title}}</p>
     </a>
 
+    
 
-    <span class="status-icon" [ngSwitch]="task.statusId">
-        <mat-icon *ngSwitchCase="1" (click)="openDialog()" class="status-not-started">highlight_off</mat-icon>
-        <mat-icon *ngSwitchCase="2" (click)="openDialog()" class="status-in-progress">cached</mat-icon>
-        <mat-icon *ngSwitchCase="3" (click)="openDialog()" class="status-done">done</mat-icon>
-    </span>
-    <button mat-icon-button (click)="deleteTask(task.id)" class="remove">
-        <i class="material-icons remove">clear</i>
-    </button>
+
+
     <a mat-mini-fab (click)="setChosenTask(task)" [routerLink]="['/tasks/new/', task.id]" class="add-button">
         <mat-icon>add</mat-icon>
     </a>
-</div>
+</div> -->
