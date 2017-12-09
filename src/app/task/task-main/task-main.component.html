@@ -15,7 +15,7 @@
         <mat-card class="milestones-filters">
             <swiper [config]="config" class="milestones-filters">
                 <div class="milestone-container" *ngFor="let milestone of allMilestones">
-                    <i *ngIf="milestone.id === closestMilestone" class="material-icons closest">error_outline</i>    
+                    <i *ngIf="checkClosestMilestone(milestone.id)" class="material-icons closest">error_outline</i>    
                     <div>
                         <button     matTooltip="{{milestone?.endDate | date: 'dd/MM/yyyy'}}" 
                                 matTooltipPosition="above" 
