@@ -53,7 +53,7 @@ export class MilestoneThumbnailComponent implements OnInit, OnChanges {
 
     deleteMilestone() {
         const dialogRef = this.dialog.open(YesNoModalComponent, {
-            width: '250px',
+            width: '450px',
             data: { message: 'Czy na pewno chcesz usunąć ten punkt kontrolny?' }
         });
 
