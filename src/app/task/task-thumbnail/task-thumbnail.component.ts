@@ -91,8 +91,6 @@ export class TaskThumbnailComponent implements OnInit {
 
     getMainPerformer(id: number) {
         let user: User = this.userService.getUserById(id);
-        if (user !== null)
-            this.mainPerformer = user.firstName + " " + user.lastName;
-        else this.mainPerformer = "";
+        this.mainPerformer = user.firstName + " " + user.lastName;
     }
 }

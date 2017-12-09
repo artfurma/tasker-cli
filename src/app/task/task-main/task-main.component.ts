@@ -98,6 +98,10 @@ export class TaskMainComponent implements OnInit {
 
   }
 
+  checkClosestMilestone(milId:number):boolean{
+    return milId === this.closestMilestone;
+  }
+
   isUserInFilters(_user: User) {
     if (this.filteredUsers.includes(_user)) {
       return "primary";

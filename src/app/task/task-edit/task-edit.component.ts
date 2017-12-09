@@ -74,7 +74,7 @@ export class TaskEditComponent implements OnInit {
         this.Task = task;
         this.Title = task.title;
         this.Description = task.description;
-        this.ChosedMilestones = task.controlPointIds;
+        this.ChosedMilestones = task.controlPointIds.slice();
         this.taskPerformers = task.taskPerformers;
         this.TaskStatus = TaskStatus[task.statusId];
         this.loadAllUsers(task.mainPerformer);
@@ -125,7 +125,11 @@ export class TaskEditComponent implements OnInit {
   }
 
   toggleUser(selected: User) {
-    if (this.taskPerformers.includes(selected)) {
+    let isInChosedUsers:boolean = false;
+    this.taskPerformers.forEach(element => {
+      if(element.id===selected.id) isInChosedUsers = true;
+    });
+    if (isInChosedUsers) {
       let i: number = 0;
       for (let usr of this.taskPerformers) {
         if (usr.id === selected.id) {
@@ -140,7 +144,11 @@ export class TaskEditComponent implements OnInit {
   }
 
   toggleMilestone(selected: IControlPoint) {
-    if (this.ChosedMilestones.includes(selected)) {
+    let isInChosedMilestones:boolean = false;
+    this.ChosedMilestones.forEach(element => {
+      if(element.id===selected.id) isInChosedMilestones = true;
+    });
+    if (isInChosedMilestones) {
       let i: number = 0;
       for (let mil of this.ChosedMilestones) {
         if (mil.id === selected.id) {
@@ -196,7 +204,6 @@ export class TaskEditComponent implements OnInit {
 
 
   saveTask() {
-
     let savingTask: EditingTask = {
       Id: this.TaskID,
       Title: this.Title,
