@@ -116,7 +116,6 @@ export class TaskDetailsComponent implements OnInit {
         });
     }
 
-    
     editTask() {
         this._navRoute.navigate(['/tasks/edit/' + this.TaskID]);
     }
